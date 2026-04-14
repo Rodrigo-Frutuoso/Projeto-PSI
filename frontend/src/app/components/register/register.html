@@ -1,0 +1,153 @@
+<div class="register-page">
+  <div class="register-container">
+    <!-- Header -->
+    <div class="register-header">
+      <div class="logo">
+        <span class="logo-icon">♫</span>
+        <h1>Music Collection</h1>
+      </div>
+      <p class="subtitle">Cria a tua conta para começar a gerir a tua coleção</p>
+    </div>
+
+    <!-- Success Message -->
+    @if (successMessage) {
+    <div class="alert alert-success">
+      <span class="alert-icon">✓</span>
+      <div>
+        <strong>{{ successMessage }}</strong>
+        <p>Podes agora <a routerLink="/login" class="link">iniciar sessão</a>.</p>
+      </div>
+    </div>
+    }
+
+    <!-- Server Errors -->
+    @if (serverErrors.length > 0) {
+    <div class="alert alert-error">
+      <span class="alert-icon">✕</span>
+      <div>
+        <strong>Erro ao criar conta:</strong>
+        <ul>
+          @for (error of serverErrors; track error) {
+          <li>{{ error }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+    }
+
+    <!-- Registration Form -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form" novalidate>
+
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username" class="form-label">Nome de utilizador</label>
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input type="text" id="username" formControlName="username" class="form-input" placeholder="Ex: JoaoSilva123"
+            [class.input-error]="username?.invalid && username?.touched"
+            [class.input-success]="username?.valid && username?.touched" />
+        </div>
+        @if (username?.touched && username?.invalid) {
+        <div class="field-errors">
+          @if (username?.errors?.['required']) {
+          <span class="error-msg">O nome de utilizador é obrigatório.</span>
+          }
+          @if (username?.errors?.['invalidUsername']) {
+          <span class="error-msg">Só pode conter letras e dígitos (sem espaços ou caracteres especiais).</span>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email" class="form-label">E-mail</label>
+        <div class="input-wrapper">
+          <span class="input-icon">✉</span>
+          <input type="email" id="email" formControlName="email" class="form-input" placeholder="Ex: joao@email.com"
+            [class.input-error]="email?.invalid && email?.touched"
+            [class.input-success]="email?.valid && email?.touched" />
+        </div>
+        @if (email?.touched && email?.invalid) {
+        <div class="field-errors">
+          @if (email?.errors?.['required']) {
+          <span class="error-msg">O e-mail é obrigatório.</span>
+          }
+          @if (email?.errors?.['email']) {
+          <span class="error-msg">O formato do e-mail é inválido.</span>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password" class="form-label">Palavra-passe</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" class="form-input"
+            placeholder="Mínimo 8 caracteres" [class.input-error]="password?.invalid && password?.touched"
+            [class.input-success]="password?.valid && password?.touched" />
+          <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+            {{ showPassword ? '🙈' : '👁' }}
+          </button>
+        </div>
+        @if (password?.touched && password?.invalid) {
+        <div class="field-errors">
+          @if (password?.errors?.['required']) {
+          <span class="error-msg">A palavra-passe é obrigatória.</span>
+          }
+          @if (password?.errors?.['minlength']) {
+          <span class="error-msg">Deve ter pelo menos 8 caracteres.</span>
+          }
+          @if (password?.errors?.['noUppercase']) {
+          <span class="error-msg">Deve conter pelo menos uma letra maiúscula.</span>
+          }
+          @if (password?.errors?.['noLowercase']) {
+          <span class="error-msg">Deve conter pelo menos uma letra minúscula.</span>
+          }
+          @if (password?.errors?.['noDigit']) {
+          <span class="error-msg">Deve conter pelo menos um algarismo.</span>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Date of Birth -->
+      <div class="form-group">
+        <label for="dateOfBirth" class="form-label">Data de nascimento</label>
+        <div class="input-wrapper">
+          <span class="input-icon">📅</span>
+          <input type="date" id="dateOfBirth" formControlName="dateOfBirth" class="form-input"
+            [class.input-error]="dateOfBirth?.invalid && dateOfBirth?.touched"
+            [class.input-success]="dateOfBirth?.valid && dateOfBirth?.touched" />
+        </div>
+        @if (dateOfBirth?.touched && dateOfBirth?.invalid) {
+        <div class="field-errors">
+          @if (dateOfBirth?.errors?.['required']) {
+          <span class="error-msg">A data de nascimento é obrigatória.</span>
+          }
+          @if (dateOfBirth?.errors?.['tooYoung']) {
+          <span class="error-msg">Tens de ter pelo menos 13 anos de idade.</span>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn-submit" [disabled]="isLoading" id="register-submit-btn">
+        @if (isLoading) {
+        <span class="spinner"></span>
+        A criar conta...
+        } @else {
+        Criar Conta
+        }
+      </button>
+    </form>
+
+    <!-- Footer -->
+    <div class="register-footer">
+      <p>Já tens conta? <a routerLink="/login" class="link">Iniciar sessão</a></p>
+    </div>
+  </div>
+</div>
