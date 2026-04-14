@@ -1,0 +1,327 @@
+1
+Projeto de Sistemas de Informação
+Enunciado do Projeto de 2025/2026
+1 Objetivo
+Pretende-se desenvolver uma aplicação web para gestão de coleções de álbuns
+de música em formato físico, que permita aos colecionadores organizar as suas
+coleções e consultar dados relevantes sobre os álbuns. A aplicação web deve seguir
+a arquitetura cliente-servidor, sendo sugerido o uso da MEAN stack:
+1 base de dados
+MongoDB, as frameworks Express e Angular para o desenvolvimento, respetivamente, do backend e frontend da aplicação, e o Node.js como ambiente de execução de código JavaScript.
+O desenvolvimento da aplicação web é inspirado no modelo de processo de software Scrum, com três sprints de duas semanas cada.2 Em cada sprint pretende-se
+que seja implementada uma parte das user stories da aplicação web, havendo uma
+demonstração logo após o final de cada sprint.
+Neste documento é inicialmente apresentado o universo do discurso bem como as
+user stories a implementar. No final do documento, são descritos requisitos adicionais e recomendações, assim como detalhes relativos às entregas de relatórios e
+avaliações do projeto.
+2 Universo do discurso
+Após várias sessões de análise de requisitos, para compreender da melhor forma
+o problema, foram identificadas as seguintes necessidades de informação.
+Álbuns, artistas, canções, e faixas. Cada álbum de música tem um código MBID,3
+título, ano de lançamento, tipo (podendo ser single, EP, ou LP), e artista que o interpreta. Nos casos em que vários artistas participam no mesmo álbum (por exemplo,
+o álbum “Now 4” é uma compilação de canções de vários artistas), o artista não
+precisa de ficar registado no álbum.
+Um álbum tem uma sequência de faixas, tendo cada faixa uma canção e um número
+de faixa (1, 2, …), isto é, a ordem em que aparece no álbum. A mesma canção pode
+estar em faixas de diferentes álbuns (por exemplo, a canção “Last Resort” faz parte
+1
+ A MEAN stack é sugerida, significando que cada grupo pode escolher outra stack tecnológica, desde
+que siga a arquitetura cliente-servidor e tenha as camadas de frontend, backend, e base de dados,
+podendo esta última usar tecnologia relacional em vez de guardar documentos JSON.
+2 Um guia do Scrum está disponível em https://scrumguides.org/scrum-guide.html.
+3 Um MusicBrainz Identifier (MBID) é um código com 36 carateres usado pelo MusicBrainz, uma base
+de dados sobre música, para identificar entidades relacionadas com este tópico. Mais informações
+sobre o MBID podem ser consultadas em https://musicbrainz.org/doc/MusicBrainz_Identifier.
+2
+do álbum “Infest” dos Papa Roach, mas também faz parte do já referido álbum
+“Now 4”). Cada canção é identificada por um código ISRC,4
+tem título e duração (em
+segundos), e também se registam o(s) artista(s) que a interpreta(m).
+Cada artista tem um código ISNI,5 e tem nome e ano em que iniciou a atividade. Um
+artista pode ser um solista ou um grupo com vários membros, os quais também são
+artistas. Naturalmente, um grupo não pode ter como membros outros grupos (e
+ainda menos o próprio grupo).
+Suportes físicos e versões de álbuns. Cada álbum é lançado num ou mais suportes físicos (ver Figura 1a), devendo ser considerados o CD, o vinil, e a cassete. Por
+sua vez, podem existir diferentes versões do mesmo álbum no mesmo suporte físico, podendo cada versão ter uma designação própria. Geralmente, as designações das versões referem aspetos visuais como, por exemplo, a cor do vinil, a
+imagem de capa do CD, ou até o tipo de embalagem (como é o caso do exemplo na
+Figura 1b, em que uma das versões é inspirada num jogo de tabuleiro, e outra segue
+o formato de uma revista). Um álbum num determinado suporte físico e versão é
+identificado pelo seu código de barras, em formato EAN-13.6
+(a) (b)
+Figura 1 Exemplos de álbuns físicos: (a) o mesmo álbum disponível em diferentes suportes
+físicos (CD e vinil); (b) o mesmo álbum, no mesmo suporte físico (CD), disponível em diferentes versões (com designações “boardgame” e “magazine,” respetivamente).
+Utilizadores, coleções, e listas. Para os colecionadores poderem aceder à aplicação web, precisam de ter um endereço de e-mail e uma palavra-passe, sendo estes
+4 Um International Standard Recording Code (ISRC) é um código com 12 carateres que serve para
+identificar lançamentos de canções, tendo sido proposto em colaboração pela indústria musical e
+pela International Organization for Standardization (ISO). Mais informações sobre o ISRC podem
+ser consultadas em https://en.wikipedia.org/wiki/International_Standard_Recording_Code.
+5 Um International Standard Name Identifier (ISNI) é um código de 16 dígitos que serve para identificar entidades que contribuem para a criação de conteúdos, como livros, música, entre outros,
+tendo sido proposto em colaboração pela indústria musical e pela ISO. Mais informações sobre o
+ISNI podem ser consultadas em https://en.wikipedia.org/wiki/International_Standard_Name_Identifier.
+6 Um European Article Number (EAN-13) é um código com 13 dígitos que identifica produtos, podendo mais informações ser consultadas em https://en.wikipedia.org/wiki/International_Article_Number.
+3
+dados guardados em contas de utilizador. Cada conta é identificada por um nome
+de utilizador, que pode só ter letras e dígitos. Adicionalmente, importa registar a
+data de nascimento, e, se preenchido, o artista favorito. Por razões legais, os utilizadores têm de ter, pelo menos, 13 anos de idade.
+Cada utilizador pode adicionar à sua coleção os álbuns que possui, nos vários suportes físicos e versões que tiver. Por exemplo, se possuir o CD e o vinil do álbum
+“O Monstro Precisa de Amigos” dos Ornatos Violeta, deve poder adicionar cada um
+dos suportes à sua coleção. Cada adição feita à coleção tem uma data de registo.
+O utilizador pode ainda criar listas personalizadas de álbuns, independentemente
+das versões e suportes físicos, ou de fazerem ou não parte da coleção do utilizador.
+Cada lista tem um nome, como “álbuns favoritos,” sendo que o mesmo nome de
+lista personalizada pode ser usado por diferentes utilizadores.
+3 User stories
+A seguir são enumeradas e descritas as user stories que a aplicação web deve suportar, cuja implementação deverá decorrer ao longo de três sprints.
+3.1 Sprint 1
+User Story 1: Como utilizador da aplicação, quero poder criar uma conta de utilizador, para ter acesso à mesma. Os critérios de aceitação são os seguintes:
+a) Para criar uma conta de utilizador, o utilizador deve fornecer um nome de utilizador, o seu e-mail, palavra-passe, e data de nascimento.
+b) O nome de utilizador e o e-mail devem ser diferentes dos de quaisquer outros
+utilizadores.
+c) O nome de utilizador só pode ter letras e dígitos.
+d) A palavra-passe deve ter oito ou mais carateres, incluindo pelo menos uma
+letra maiúscula, uma letra minúscula, e um algarismo.
+e) O utilizador tem de ter pelo menos 13 anos de idade.
+f) Os requisitos de construção do nome de utilizador e palavra-passe devem ser
+apresentados no ecrã de criação de conta.
+g) Em caso de sucesso, uma mensagem adequada deve ser mostrada.
+h) Se o nome de utilizador, palavra-passe, e/ou idade não cumprirem os requisitos, uma mensagem de erro deve indicar qual ou quais os requisitos que não
+foram cumpridos.
+User Story 2: Como utilizador da aplicação, quero poder iniciar sessão na aplicação, para depois poder aceder às suas funcionalidades. Os critérios de aceitação
+são os seguintes:
+a) Para iniciar a sessão, o utilizador deve usar o nome de utilizador e a palavrapasse que definiu aquando da criação da sua conta.
+4
+b) Em caso de falha na autenticação, uma mensagem de erro deve ser mostrada
+(a qual não deve permitir saber se o nome de utilizador existe).
+c) Em caso de sucesso na autenticação, deve ser apresentada a dashboard7 ao
+utilizador.
+User Story 3: Como utilizador da aplicação, quero poder visualizar o meu perfil de
+utilizador, para consultar as minhas informações. Os critérios de aceitação são os
+seguintes:
+a) O perfil do utilizador deve mostrar o nome de utilizador, e-mail, data de nascimento, e nome do seu artista favorito, caso este tenha sido especificado (ver
+User Story 7).
+b) O nome do artista favorito deve permitir o acesso à página desse artista (ver
+User Story 6).
+User Story 4: Como utilizador da aplicação, quero poder gerir o meu perfil de utilizador na aplicação, para atualizar as minhas informações. Os critérios de aceitação são os seguintes:
+a) Deve ser possível editar o nome de utilizador, e-mail, palavra-passe, e data de
+nascimento do utilizador, devendo a palavra-passe atual ser pedida em caso
+de alteração de qualquer um destes campos.
+b) Aplicam-se ainda os critérios (b) a (h) da User Story 1, relativos à definição de
+nomes de utilizador e palavras-passe válidas.
+User Story 5: Como utilizador da aplicação, quero poder pesquisar artistas, para
+obter informação sobre os mesmos. Os critérios de aceitação são os seguintes:
+a) Quando o utilizador pesquisa um nome, devem ser sugeridos os artistas cujo
+nome corresponde parcialmente ao nome pesquisado.
+b) Caso a pesquisa não retorne resultados, uma mensagem apropriada deve ser
+mostrada.
+User Story 6: Como utilizador da aplicação, quero poder visualizar a página de um
+artista, para poder ver informação sobre o mesmo e quais os seus álbuns. Os critérios de aceitação são os seguintes:
+a) A página de um artista deve mostrar o ISNI, nome, e ano de início de atividade.
+8
+b) Deve ainda ser possível aceder à lista dos álbuns lançados por esse artista.
+Por razões de legibilidade, na página do artista basta mostrar uma fração dos
+7 Uma vez que a dashboard será apenas implementada na totalidade no Sprint 3, nesta fase do projeto basta que seja um componente que dê acesso às funcionalidades implementadas no Sprint 1
+(em particular, a pesquisa de artistas).
+8
+ Podendo este corresponder ao ano de nascimento do artista, se for um solista.
+5
+mesmos (por exemplo, os cinco mais recentes), a qual deve dar acesso a uma
+segunda página com a lista completa dos seus álbuns.
+c) A lista completa de álbuns do artista deve ter o título do álbum9 e o ano de
+lançamento, devendo estar ordenada por este último campo.
+User Story 7: Como utilizador da aplicação, quero poder adicionar um artista
+como favorito, para aceder mais facilmente a informação sobre o mesmo. Os critérios de aceitação são os seguintes:
+a) A partir da página de um dado artista, deve haver um botão que permita ao
+utilizador adicionar o artista em questão como favorito.
+b) Ao adicionar o artista como favorito com sucesso, deve ser mostrada uma
+mensagem adequada.
+c) Em caso de erro (por exemplo, porque o utilizador já tem outro artista adicionado como favorito), deve ser mostrada uma mensagem de erro adequada.
+d) Se o artista em questão já estiver adicionado como favorito do utilizador, deve
+ser possível deixar de o ter como favorito, devendo ser mostrada uma mensagem adequada em caso de remoção bem-sucedida.
+3.2 Sprint 2
+User Story 8: Como utilizador da aplicação, quero poder pesquisar álbuns, para
+encontrar informação sobre os mesmos. Os critérios de aceitação são os seguintes:
+a) Quando o utilizador pesquisa um título, devem ser sugeridos os álbuns cujo
+título corresponde parcialmente ao título pesquisado.
+b) Caso a pesquisa não retorne resultados, uma mensagem apropriada deve ser
+mostrada.
+c) Para maior flexibilidade, pode ser usada a mesma caixa de pesquisa para artistas e álbuns, podendo haver uma opção para escolher entre um e outro (por
+exemplo, usando um dropdown).
+User Story 9: Como utilizador da aplicação, quero poder visualizar a página de um
+álbum, para poder ver informação detalhada sobre o mesmo. Os critérios de aceitação são os seguintes:
+a) A página de um álbum deve mostrar a imagem de capa, MBID, título, ano de
+lançamento, tipo (single, EP, ou LP), e o nome do artista que o interpreta.
+10
+9
+ A partir do Sprint 2, o título do álbum deve permitir o acesso à página desse álbum.
+10 Assume-se que cada álbum tem, no máximo, um artista que o interpreta, podendo os álbuns de
+compilação (por exemplo, bandas sonoras) mostrar um texto por omissão (como “Vários artistas”),
+caso em que o álbum poderá não ter um artista registado na base de dados.
+6
+b) Deve ser possível aceder à sequência das faixas que compõem o álbum, devendo, sobre cada faixa, ser mostrado o número da faixa (1, 2, …), o título da
+canção, e a duração.11
+c) Deve ainda ser possível consultar a lista de versões do álbum. Os dados a mostrar sobre cada versão são: o EAN-13, o suporte físico (CD, vinil, ou cassete), e
+a designação (apenas caso exista mais do que uma por suporte físico).
+User Story 10: Como utilizador da aplicação, quero poder adicionar uma versão
+de um álbum à minha coleção, para manter o registo dos álbuns que tenho. Os
+critérios de aceitação são os seguintes:
+a) A partir da página de um álbum, deve ser possível adicionar qualquer das suas
+versões à coleção do utilizador.
+b) Ao adicionar uma versão de álbum com sucesso, deve ser mostrada uma mensagem adequada, e a versão do álbum deve constar na coleção do utilizador
+na próxima consulta à mesma (ver User Story 11).
+c) Apenas deve ser possível adicionar uma versão de um álbum à coleção se a
+versão ainda não constar na coleção.
+User Story 11: Como utilizador da aplicação, quero poder visualizar a minha coleção de álbuns, para saber que álbuns já registei e respetivas versões. Os critérios
+de aceitação são os seguintes:
+a) Cada item na coleção do utilizador deve ter como campos o título do álbum, o
+ano de lançamento, o nome do artista que o interpreta, o EAN-13 da versão, o
+suporte físico em que esta se encontra (CD, vinil, ou cassete), a designação da
+versão (caso exista), e a data de inserção na coleção.
+b) Deve ser possível ordenar a coleção de álbuns por qualquer dos campos mencionados no critério de aceitação anterior.
+c) O título do álbum deve dar acesso à página desse álbum na aplicação.
+d) Deve ser possível remover um item da coleção. Em caso de sucesso, deve ser
+mostrada a coleção atualizada, sem o item recém removido, e deve ser mostrada uma mensagem adequada.
+User Story 12: Como utilizador da aplicação, quero poder submeter um pedido de
+uma nova versão de um álbum existente, para contribuir para a atualização dos
+dados da aplicação. Os critérios de aceitação são os seguintes:
+11 A representação da faixa é aqui simplificada face ao universo de discurso apresentado na parte
+inicial do enunciado, pois inclui diretamente atributos da canção (título e duração). No entanto, a
+modelação apropriada das faixas e canções na base de dados teria a vantagem de suportar extensões a esta aplicação web que permitam a interação com as canções presentes em um ou vários
+álbuns (por exemplo, a pesquisa de álbuns com a mesma canção).
+7
+a) Para submeter um pedido, deve ser selecionado o álbum ao qual a nova versão
+se refere, após o que deve ser preenchido o EAN-13 da versão, o suporte físico
+em que esta se encontra (CD, vinil, ou cassete), e a designação (caso exista).
+b) O EAN-13 deve ter 13 dígitos.
+c) Caso o pedido seja submetido com sucesso, deve ser mostrada uma mensagem adequada, e o estado do pedido deve ter a designação “em análise.”
+User Story 13: Como utilizador da aplicação, quero poder ver o estado dos meus
+pedidos de novas versões de álbuns existentes, para saber se os pedidos já foram
+atendidos. Os critérios de aceitação são os seguintes:
+a) A partir da dashboard, deve ser possível aceder a uma lista dos pedidos efetuados pelo utilizador.
+b) Cada item na lista dos pedidos deve ter como campos o identificador do pedido, o título do álbum, a designação da versão, a data em que o pedido foi
+efetuado, e o estado atual.
+c) O identificador do pedido deve ser único.
+d) O estado de um pedido só pode ser “em análise,” “aceite,” ou “recusado.”
+e) Deve ser possível filtrar os pedidos por estado.
+User Story 14: Como utilizador da aplicação, quero poder ser notificado caso um
+pedido de nova versão seja aceite ou recusado,
+12 para saber se posso adicionar
+essa versão à minha coleção. Os critérios de aceitação são os seguintes:
+a) Quando o pedido tiver sido aceite, deverá ser recebida uma notificação, acessível a partir da dashboard.
+b) A notificação deve incluir a resposta ao pedido, que pode ser “aceite” ou “recusado.”
+c) Caso a resposta seja “aceite,” a versão que tinha sido pedida deve passar a
+constar na lista de versões mostradas na página do respetivo álbum.
+3.3 Sprint 3
+User Story 15: Como utilizador da aplicação, quero poder criar uma lista personalizada, para organizar álbuns de forma conveniente, independentemente das
+versões ou de os ter ou não na coleção. Os critérios de aceitação são os seguintes:
+a) Ao criar uma lista, o utilizador deve indicar o nome da mesma.
+b) O nome de uma lista personalizada deve ser único para cada utilizador e ter
+um limite de 100 carateres.
+12 Uma vez que a implementação do ponto de vista do administrador de sistema está fora do âmbito
+deste projeto, a simulação da aceitação/recusa de um pedido de nova versão deve ser feita através
+de uma rota para um pedido POST que despolete a resposta ao mesmo.
+8
+User Story 16: Como utilizador da aplicação, quero poder visualizar as minhas listas personalizadas, para geri-las. Os critérios de aceitação são os seguintes:
+a) Cada lista personalizada deve ter como campos o nome da lista, o número de
+álbuns que contém, e a data da última modificação.
+b) Deve ser possível ordenar o conjunto de listas personalizadas por qualquer
+um dos campos indicados no critério de aceitação anterior.
+c) Cada lista personalizada deve dar acesso à página da aplicação onde é mostrado o seu conteúdo (ver User Story 18).
+d) Caso o utilizador não tenha ainda criado uma lista personalizada, deve ser
+mostrada uma mensagem apropriada.
+e) Deve ser possível remover uma lista personalizada. Em caso de sucesso, devem ser mostradas as restantes listas personalizadas, sem a lista recém removida, e deve ser mostrada uma mensagem adequada.
+User Story 17: Como utilizador da aplicação, quero poder adicionar um álbum a
+uma lista personalizada, para mantê-la atualizada. Os critérios de aceitação são
+os seguintes:
+a) A partir da página de um álbum, deve ser possível adicioná-lo a uma lista personalizada do utilizador.
+b) Ao adicionar um álbum a uma lista com sucesso, deve ser mostrada uma mensagem adequada, e o álbum deve passar a constar na lista personalizada na
+próxima visualização do seu conteúdo (ver User Story 18).
+c) Apenas deve ser possível adicionar um álbum a uma lista personalizada se
+este ainda não constar na mesma.
+User Story 18: Como utilizador da aplicação, quero poder visualizar o conteúdo
+de uma lista personalizada, para saber que álbuns tem. Os critérios de aceitação
+são os seguintes:
+a) A página de uma lista personalizada deve mostrar o nome da lista e os títulos
+dos álbuns nela contidos, bem como a data de adição de cada álbum à lista.
+b) Deve ser possível ordenar a lista por qualquer um destes campos.
+c) O título do álbum deve dar acesso à página desse álbum na aplicação.
+d) Caso não existam álbuns na lista personalizada, deve ser mostrada uma mensagem apropriada.
+e) Deve ser possível remover um álbum da lista personalizada. Em caso de sucesso, deve ser mostrada a lista atualizada, sem conter o álbum recém removido, e deve ser mostrada uma mensagem adequada.
+9
+User Story 19: Como utilizador da aplicação, quero poder aceder à minha dashboard, para ter uma visão geral do que posso fazer na aplicação. Os critérios de
+aceitação são os seguintes:
+a) A dashboard deve permitir ao utilizador aceder à sua coleção de álbuns, às
+suas listas personalizadas, à pesquisa de álbuns e artistas na aplicação, e gerir os pedidos de novas versões de álbuns.
+4 Requisitos adicionais
+As tarefas de implementação das user stories da aplicação web devem ter em conta
+os requisitos não funcionais indicados nesta secção.
+Responsive web design. A aplicação deve adaptar a sua interface consoante o tipo
+de dispositivo do utilizador, nomeadamente ecrãs de diferentes tamanhos.
+Segurança. As palavras-passe dos utilizadores devem ser cifradas antes de serem
+guardadas na base de dados. Adicionalmente, deve ser iniciada uma sessão autenticada antes de serem realizados pedidos ao frontend e backend da aplicação que
+envolvam dados do utilizador, com exceção da criação da conta do utilizador.
+Dados de exemplo. A base de dados da aplicação deve ser inicializada com um
+número razoável de artistas, álbuns, e versões, que permita a demonstração expedita das funcionalidades implementadas em cada sprint. O script ou rota de inicialização deve ser providenciado juntamente com o código entregue, para facilitar a
+execução do projeto por parte dos docentes.
+Imagens. Por limitações nas atividades de submissão de trabalhos do Moodle (cujo
+limite é 100 MBytes), as imagens da aplicação web, incluindo as capas de álbuns,
+não devem exceder o limite de 200 KBytes cada. Alternativamente, as imagens podem ser alojadas externamente, desde que fique assegurado que as mesmas são
+apresentadas corretamente durante a execução do projeto pelos docentes.
+5 Recomendações
+Seguem-se algumas recomendações sobre o trabalho a realizar.
+Inicialização de dados. Recomenda-se a criação de uma rota no backend da aplicação que facilite a inicialização da base de dados (por exemplo, /api/init).
+Design system. Recomenda-se a reutilização de um design system existente, para
+desenvolver mais rapidamente uma interface apelativa, coerente, e familiar ao utilizador. Numa aula teórica, disponível no Moodle, o tema de design systems foi
+abordado, tendo sido mostrados vários exemplos, acompanhados de hiperligações
+para descarregar recursos e obter mais informações.
+Desenho da API. A Application Programming Interface do backend da aplicação
+deve ser desenhada considerando boas práticas da indústria,13 incluindo o formato
+13 https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design.
+10
+dos dados dos pedidos e respostas, os nomes das rotas, os códigos de estado HTTP,
+e outros aspetos.
+Controlo de versões. Recomenda-se vivamente a utilização de um repositório git
+para a gestão colaborativa de versões do projeto, evitando percalços como a perda
+acidental do código. Pode ser criado um repositório no git do DI/FCUL,14 ou, se preferível, no Github,15 Bitbucket,16 ou GitLab.17
+6 Entregas
+No final de cada sprint, cada grupo deve preparar um ficheiro ZIP com o seguinte
+conteúdo: a) o código das user stories implementadas durante o sprint, abrangendo
+o frontend e o backend; b) um diagrama da estrutura da base de dados, gerado por
+uma aplicação como o Compass18 ou o DBeaver;
+19 e c) um ficheiro com instruções,
+ou dockerfile, contendo os comandos necessários à execução da aplicação.
+O ficheiro ZIP deve ser entregue numa atividade do Moodle da unidade curricular,
+e deve ter o nome PSI_Sx_TPyy_Gzz.ZIP, onde x é o número do sprint, yy é o número da
+turma teórico-prática do grupo, e zz é o número do grupo (com dois dígitos, por
+exemplo, 01).
+Adicionalmente, cada aluno deve entregar um relatório individual, listando as tarefas que concluiu durante o sprint e as tarefas que ficaram por concluir. O relatório
+deve ter apenas uma página e ser entregue em formato PDF,20 através de outra atividade no Moodle, e o nome do ficheiro deve ser PSI_Sx_TPyy_Gzz_nnnnn.PDF, onde x
+é o número do sprint, yy é o número da turma teórico-prática do aluno, zz é o número do grupo (com dois dígitos, por exemplo, 01), e nnnnn é o número do aluno.
+O fim dos sprints é nos seguintes dias, sendo iguais para todos os grupos:
+• Sprint 1: 24 de abril (sexta-feira);
+• Sprint 2: 8 de maio (sexta-feira);
+• Sprint 3: 22 de maio (sexta-feira).
+7 Avaliações
+O projeto é avaliado com base no cumprimento dos critérios de aceitação das user
+stories dos sprints, tendo todos os sprints o mesmo peso, bem como na discussão
+final com o grupo. A nota no projeto é atribuída individualmente.
+14 https://git.alunos.di.fc.ul.pt (acessível apenas através da rede ou VPN da FCUL).
+15 https://github.com.
+16 https://bitbucket.org.
+17 https://gitlab.com.
+18 https://www.mongodb.com/docs/compass/data-modeling/generate-diagram.
+19 https://dbeaver.com/docs/dbeaver/ER-Diagrams/#open-a-schema-diagram.
+20 Existe um modelo de relatório individual no Moodle da unidade curricular.
+11
+Cada sprint é avaliado em laboratório na aula teórico-prática da turma em que o
+grupo está inscrito, nas seguintes semanas:
+• Sprint 1: de 27 a 30 de abril;
+21
+• Sprint 2: de 11 a 15 de maio;
+• Sprint 3: de 25 a 29 de maio e de 1 a 3 de junho.
+É obrigatória a presença de todas as pessoas do grupo durante as avaliações.
+A avaliação de cada sprint consiste na demonstração das funcionalidades implementadas, podendo ser realizada num computador portátil e devendo ser coerente
+com a versão do código entregue.
+No último sprint, para além da demonstração da aplicação web, tem lugar a discussão final com o grupo, razão pela qual as avaliações acontecem também nas aulas
+teóricas, estendendo-se por duas semanas.
+Bom trabalho no projeto!
+21 As avaliações do Sprint 1 da TP22 terão lugar nas aulas teóricas, em laboratório a anunciar.
