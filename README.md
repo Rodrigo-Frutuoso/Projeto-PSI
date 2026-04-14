@@ -40,15 +40,52 @@ O proxy está configurado para que o frontend reencaminhe pedidos `/api/*` para 
 ```
 Projeto-PSI/
 ├── backend/
-│   ├── middleware/   # Middleware (ex: autenticação JWT)
-│   ├── models/       # Mongoose schemas
-│   ├── routes/       # Express routes
-│   ├── server.js     # Entry point
-│   └── .env          # Variáveis de ambiente
-├── frontend/         # Angular app
-│   └── src/
-│       └── app/      # Componentes, serviços, etc.
-├── enunciado.txt
-├── slides.txt
+│   ├── middleware/
+│   ├── models/
+│   │   └── User.js                    # Modelo de utilizador (US1, US2)
+│   ├── routes/
+│   │   └── auth.js                    # Registo + login (US1, US2)
+│   ├── server.js                      # Registo de rotas /api/auth (US1, US2)
+│   └── package.json
+├── frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── app.routes.ts          # /register, /login, /dashboard (US1, US2)
+│   │   │   ├── services/
+│   │   │   │   └── auth.service.ts    # API auth + sessao localStorage (US1, US2)
+│   │   │   ├── guards/
+│   │   │   │   └── auth.guard.ts      # Protege dashboard (US2)
+│   │   │   └── components/
+│   │   │       ├── register/
+│   │   │       │   ├── register.ts
+│   │   │       │   ├── register.html
+│   │   │       │   └── register.css   # Criar conta (US1)
+│   │   │       ├── login/
+│   │   │       │   ├── login.ts
+│   │   │       │   ├── login.html
+│   │   │       │   └── login.css      # Iniciar sessao (US2)
+│   │   │       └── dashboard/
+│   │   │           ├── dashboard.ts
+│   │   │           ├── dashboard.html
+│   │   │           └── dashboard.css  # Dashboard apos login (US2)
+│   │   └── proxy.conf.json            # Proxy /api -> backend
+│   └── package.json
 └── README.md
 ```
+
+## Mapa de User Stories
+
+| User Story | Descricao curta | Estado |
+| --- | --- | --- |
+| US1 | Criar conta | Implementado |
+| US2 | Iniciar sessao | Implementado |
+| US3 | Visualizar perfil | Pendente |
+| US4 | Gerir perfil | Pendente |
+| US5 | Pesquisar artistas | Pendente |
+| US6 | Pagina de artista | Pendente |
+| US7 | Adicionar artista favorito | Pendente |
+
+## Endpoints de Autenticacao
+
+- `POST /api/auth/register`
+- `POST /api/auth/login`

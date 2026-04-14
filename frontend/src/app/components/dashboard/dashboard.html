@@ -1,0 +1,14 @@
+<div class="dashboard-page">
+  <div class="dashboard-card">
+    <div class="badge">Dashboard</div>
+    <h1>Bem-vindo, {{ username }}!</h1>
+    <p>
+      Sessao iniciada com sucesso. Aqui vais poder aceder as funcionalidades da aplicacao.
+    </p>
+
+    <div class="actions">
+      <a routerLink="/register" class="btn-secondary">Criar outra conta</a>
+      <button type="button" class="btn-primary" (click)="logout()">Terminar sessao</button>
+    </div>
+  </div>
+</div>

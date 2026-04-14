@@ -1,0 +1,84 @@
+<div class="login-page">
+  <div class="login-container">
+    <div class="login-header">
+      <div class="logo">
+        <span class="logo-icon">♫</span>
+        <h1>Music Collection</h1>
+      </div>
+      <p class="subtitle">Inicia sessao para acederes a dashboard</p>
+    </div>
+
+    @if (serverError) {
+    <div class="alert alert-error">
+      <span class="alert-icon">✕</span>
+      <div>
+        <strong>Falha na autenticacao</strong>
+        <p>{{ serverError }}</p>
+      </div>
+    </div>
+    }
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form" novalidate>
+      <div class="form-group">
+        <label for="username" class="form-label">Nome de utilizador</label>
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input
+            type="text"
+            id="username"
+            formControlName="username"
+            class="form-input"
+            placeholder="Ex: JoaoSilva123"
+            [class.input-error]="username?.invalid && username?.touched"
+          />
+        </div>
+        @if (username?.touched && username?.invalid) {
+        <div class="field-errors">
+          @if (username?.errors?.['required']) {
+          <span class="error-msg">O nome de utilizador e obrigatorio.</span>
+          }
+          @if (username?.errors?.['invalidUsername']) {
+          <span class="error-msg">So pode conter letras e digitos.</span>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Palavra-passe</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+            class="form-input"
+            placeholder="A tua palavra-passe"
+            [class.input-error]="password?.invalid && password?.touched"
+          />
+          <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+            {{ showPassword ? '🙈' : '👁' }}
+          </button>
+        </div>
+        @if (password?.touched && password?.invalid) {
+        <div class="field-errors">
+          <span class="error-msg">A palavra-passe e obrigatoria.</span>
+        </div>
+        }
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="isLoading" id="login-submit-btn">
+        @if (isLoading) {
+        <span class="spinner"></span>
+        A iniciar sessao...
+        } @else {
+        Iniciar sessao
+        }
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p>Ainda nao tens conta? <a routerLink="/register" class="link">Criar conta</a></p>
+    </div>
+  </div>
+</div>

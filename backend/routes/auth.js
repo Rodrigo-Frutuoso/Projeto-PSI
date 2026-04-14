@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 // POST /api/auth/register - Criar conta de utilizador
@@ -95,6 +96,59 @@ router.post('/register', async (req, res) => {
   } catch (err) {
     console.error('Erro no registo:', err);
     res.status(500).json({ message: 'Erro interno do servidor.' });
+  }
+});
+
+// POST /api/auth/login - Iniciar sessao de utilizador
+router.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+      return res.status(400).json({
+        message: 'O nome de utilizador e a palavra-passe sao obrigatorios.'
+      });
+    }
+
+    const normalizedUsername = String(username).trim();
+    const user = await User.findOne({ username: normalizedUsername });
+
+    // Mensagem unica para nao revelar se o utilizador existe.
+    const invalidCredentialsMessage = 'Nome de utilizador ou palavra-passe invalidos.';
+
+    if (!user) {
+      return res.status(401).json({ message: invalidCredentialsMessage });
+    }
+
+    const isValidPassword = await user.comparePassword(password);
+
+    if (!isValidPassword) {
+      return res.status(401).json({ message: invalidCredentialsMessage });
+    }
+
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        username: user.username
+      },
+      process.env.JWT_SECRET || 'jwt_secret_apenas_para_desenvolvimento',
+      {
+        expiresIn: process.env.JWT_EXPIRES_IN || '24h'
+      }
+    );
+
+    return res.status(200).json({
+      message: 'Sessao iniciada com sucesso.',
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email
+      }
+    });
+  } catch (err) {
+    console.error('Erro no login:', err);
+    return res.status(500).json({ message: 'Erro interno do servidor.' });
   }
 });
 
