@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface RegisterData {
@@ -35,11 +35,30 @@ export interface LoginResponse {
   };
 }
 
+export interface FavoriteArtist {
+  id: string;
+  name: string;
+  isni: string;
+}
+
+export interface UserProfile {
+  id: string;
+  username: string;
+  email: string;
+  dateOfBirth: string;
+  favoriteArtist: FavoriteArtist | null;
+}
+
+export interface ProfileResponse {
+  user: UserProfile;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly apiUrl = '/api/auth';
+  private readonly usersApiUrl = '/api/users';
   private readonly tokenKey = 'auth_token';
   private readonly userKey = 'auth_user';
 
@@ -53,6 +72,13 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, data);
   }
 
+  getProfile(): Observable<ProfileResponse> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.getToken()}`
+    });
+    return this.http.get<ProfileResponse>(`${this.usersApiUrl}/profile`, { headers });
+  }
+
   saveSession(response: LoginResponse): void {
     localStorage.setItem(this.tokenKey, response.token);
     localStorage.setItem(this.userKey, JSON.stringify(response.user));
@@ -61,6 +87,10 @@ export class AuthService {
   clearSession(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userKey);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
   }
 
   isAuthenticated(): boolean {

@@ -3,12 +3,13 @@
     <div class="badge">Dashboard</div>
     <h1>Bem-vindo, {{ username }}!</h1>
     <p>
-      Sessao iniciada com sucesso. Aqui vais poder aceder as funcionalidades da aplicacao.
+      Sessão iniciada com sucesso. Aqui vais poder aceder às funcionalidades da aplicação.
     </p>
 
     <div class="actions">
+      <a routerLink="/profile" class="btn-primary">O meu perfil</a>
       <a routerLink="/register" class="btn-secondary">Criar outra conta</a>
-      <button type="button" class="btn-primary" (click)="logout()">Terminar sessao</button>
+      <button type="button" class="btn-secondary" (click)="logout()">Terminar sessão</button>
     </div>
   </div>
 </div>

@@ -1,0 +1,91 @@
+<div class="profile-page">
+  <div class="profile-container">
+    <!-- Header -->
+    <div class="profile-header">
+      <button class="btn-back" (click)="goBack()" id="profile-back-btn">
+        <span class="back-arrow">←</span>
+        Dashboard
+      </button>
+      <button class="btn-logout" (click)="logout()" id="profile-logout-btn">
+        Terminar sessão
+      </button>
+    </div>
+
+    <!-- Loader -->
+    @if (isLoading) {
+    <div class="loading-state">
+      <div class="loader-ring"></div>
+      <p>A carregar perfil...</p>
+    </div>
+    }
+
+    <!-- Error -->
+    @if (errorMessage) {
+    <div class="alert alert-error">
+      <span class="alert-icon">✕</span>
+      <div>
+        <strong>Erro</strong>
+        <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+    <div class="retry-wrapper">
+      <button class="btn-retry" (click)="loadProfile()" id="profile-retry-btn">Tentar novamente</button>
+    </div>
+    }
+
+    <!-- Profile Card -->
+    @if (!isLoading && !errorMessage && profile) {
+    <div class="profile-card" id="profile-card">
+      <!-- Avatar -->
+      <div class="avatar-section">
+        <div class="avatar" id="profile-avatar">
+          <span class="avatar-letter">{{ profile.username.charAt(0).toUpperCase() }}</span>
+        </div>
+        <div class="badge">Perfil de utilizador</div>
+      </div>
+
+      <!-- Info fields -->
+      <div class="info-grid">
+        <div class="info-item" id="profile-username">
+          <div class="info-icon">👤</div>
+          <div class="info-content">
+            <span class="info-label">Nome de utilizador</span>
+            <span class="info-value">{{ profile.username }}</span>
+          </div>
+        </div>
+
+        <div class="info-item" id="profile-email">
+          <div class="info-icon">✉️</div>
+          <div class="info-content">
+            <span class="info-label">E-mail</span>
+            <span class="info-value">{{ profile.email }}</span>
+          </div>
+        </div>
+
+        <div class="info-item" id="profile-dateofbirth">
+          <div class="info-icon">🎂</div>
+          <div class="info-content">
+            <span class="info-label">Data de nascimento</span>
+            <span class="info-value">{{ formatDate(profile.dateOfBirth) }}</span>
+          </div>
+        </div>
+
+        <div class="info-item" id="profile-favorite-artist">
+          <div class="info-icon">⭐</div>
+          <div class="info-content">
+            <span class="info-label">Artista favorito</span>
+            @if (profile.favoriteArtist) {
+            <a class="info-value artist-link" [routerLink]="['/artist', profile.favoriteArtist.id]" id="profile-artist-link">
+              {{ profile.favoriteArtist.name }}
+              <span class="link-arrow">→</span>
+            </a>
+            } @else {
+            <span class="info-value empty-value">Nenhum artista favorito definido</span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>
