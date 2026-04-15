@@ -53,6 +53,25 @@ export interface ProfileResponse {
   user: UserProfile;
 }
 
+export interface UpdateProfileData {
+  username?: string;
+  email?: string;
+  newPassword?: string;
+  dateOfBirth?: string;
+  currentPassword: string;
+}
+
+export interface UpdateProfileResponse {
+  message: string;
+  user?: {
+    id: string;
+    username: string;
+    email: string;
+    dateOfBirth: string;
+  };
+  errors?: string[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -77,6 +96,25 @@ export class AuthService {
       Authorization: `Bearer ${this.getToken()}`
     });
     return this.http.get<ProfileResponse>(`${this.usersApiUrl}/profile`, { headers });
+  }
+
+  updateProfile(data: UpdateProfileData): Observable<UpdateProfileResponse> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.getToken()}`
+    });
+    return this.http.put<UpdateProfileResponse>(`${this.usersApiUrl}/profile`, data, { headers });
+  }
+
+  updateSessionUser(username: string, email: string): void {
+    const userRaw = localStorage.getItem(this.userKey);
+    if (userRaw) {
+      try {
+        const user = JSON.parse(userRaw);
+        user.username = username;
+        user.email = email;
+        localStorage.setItem(this.userKey, JSON.stringify(user));
+      } catch { /* ignore */ }
+    }
   }
 
   saveSession(response: LoginResponse): void {
