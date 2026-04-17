@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/register/register';
 import { ProfileComponent } from './components/profile/profile';
 import { EditProfileComponent } from './components/edit-profile/edit-profile';
 import { authGuard } from './guards/auth.guard';
+import { SearchComponent } from './components/search/search';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,5 +14,8 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'profile/edit', component: EditProfileComponent, canActivate: [authGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' }
+  { path: 'search', component: SearchComponent, canActivate: [authGuard] },
+  { path: '**', redirectTo: '/login' },
+
+
 ];
