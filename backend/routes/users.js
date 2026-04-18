@@ -1,32 +1,125 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const User = require('../models/User');
+const Artist = require('../models/Artist');
 const authMiddleware = require('../middleware/auth');
 
 // GET /api/users/profile - Obter perfil do utilizador autenticado
 router.get('/profile', authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.userId)
+      .populate('favoriteArtist', 'name isni')
       .select('-password -__v');
 
     if (!user) {
       return res.status(404).json({ message: 'Utilizador não encontrado.' });
     }
 
-    // TODO: Quando o modelo Artist existir (US6/7), fazer populate do favoriteArtist
-    // Por agora, retornar null já que o modelo Artist ainda não foi criado
     res.status(200).json({
       user: {
         id: user._id,
         username: user.username,
         email: user.email,
         dateOfBirth: user.dateOfBirth,
-        favoriteArtist: null
+        favoriteArtist: user.favoriteArtist
+          ? {
+            id: user.favoriteArtist._id,
+            name: user.favoriteArtist.name,
+            isni: user.favoriteArtist.isni
+          }
+          : null
       }
     });
   } catch (err) {
     console.error('Erro ao obter perfil:', err);
     res.status(500).json({ message: 'Erro interno do servidor.' });
+  }
+});
+
+// PUT /api/users/favorite-artist/:artistId - Definir artista favorito
+router.put('/favorite-artist/:artistId', authMiddleware, async (req, res) => {
+  try {
+    const { artistId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(artistId)) {
+      return res.status(400).json({ message: 'ID de artista inválido.' });
+    }
+
+    const user = await User.findById(req.userId).select('favoriteArtist');
+    if (!user) {
+      return res.status(404).json({ message: 'Utilizador não encontrado.' });
+    }
+
+    const artist = await Artist.findById(artistId).select('name isni');
+    if (!artist) {
+      return res.status(404).json({ message: 'Artista não encontrado.' });
+    }
+
+    if (user.favoriteArtist && user.favoriteArtist.toString() === artistId) {
+      return res.status(400).json({
+        message: 'Este artista já está definido como favorito.'
+      });
+    }
+
+    if (user.favoriteArtist && user.favoriteArtist.toString() !== artistId) {
+      return res.status(400).json({
+        message: 'Já tens outro artista favorito. Remove o atual antes de adicionar um novo.'
+      });
+    }
+
+    user.favoriteArtist = artist._id;
+    await user.save();
+
+    return res.status(200).json({
+      message: 'Artista adicionado aos favoritos com sucesso!',
+      favoriteArtist: {
+        id: artist._id,
+        name: artist.name,
+        isni: artist.isni
+      }
+    });
+  } catch (err) {
+    console.error('Erro ao adicionar artista favorito:', err);
+    return res.status(500).json({ message: 'Erro interno do servidor.' });
+  }
+});
+
+// DELETE /api/users/favorite-artist/:artistId - Remover artista favorito
+router.delete('/favorite-artist/:artistId', authMiddleware, async (req, res) => {
+  try {
+    const { artistId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(artistId)) {
+      return res.status(400).json({ message: 'ID de artista inválido.' });
+    }
+
+    const user = await User.findById(req.userId).select('favoriteArtist');
+    if (!user) {
+      return res.status(404).json({ message: 'Utilizador não encontrado.' });
+    }
+
+    if (!user.favoriteArtist) {
+      return res.status(400).json({
+        message: 'Não tens nenhum artista favorito definido.'
+      });
+    }
+
+    if (user.favoriteArtist.toString() !== artistId) {
+      return res.status(400).json({
+        message: 'O artista indicado não está definido como favorito.'
+      });
+    }
+
+    user.favoriteArtist = null;
+    await user.save();
+
+    return res.status(200).json({
+      message: 'Artista removido dos favoritos com sucesso!'
+    });
+  } catch (err) {
+    console.error('Erro ao remover artista favorito:', err);
+    return res.status(500).json({ message: 'Erro interno do servidor.' });
   }
 });
 
