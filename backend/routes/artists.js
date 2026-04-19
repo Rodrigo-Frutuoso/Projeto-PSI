@@ -4,19 +4,32 @@ const Artist = require('../models/Artist');
 const Album = require('../models/Album');
 const authMiddleware = require('../middleware/auth');
 
+// Funcionalidade para converter query com/sem acentos numa regex universal
+const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const makeAccentIgnoredRegex = (text) => {
+    let escaped = escapeRegExp(text);
+    return escaped
+        .replace(/[aáàãâäAÁÀÃÂÄ]/g, '[aáàãâäAÁÀÃÂÄ]')
+        .replace(/[eéèêëEÉÈÊË]/g, '[eéèêëEÉÈÊË]')
+        .replace(/[iíìîïIÍÌÎÏ]/g, '[iíìîïIÍÌÎÏ]')
+        .replace(/[oóòõôöOÓÒÕÔÖ]/g, '[oóòõôöOÓÒÕÔÖ]')
+        .replace(/[uúùûüUÚÙÛÜ]/g, '[uúùûüUÚÙÛÜ]')
+        .replace(/[cçCÇ]/g, '[cçCÇ]')
+        .replace(/[nñNÑ]/g, '[nñNÑ]');
+};
+
 router.get('/', authMiddleware, async (req, res) => {
     try {
         const searchQuery = req.query.search;
-        if (!searchQuery) {
-            return res.status(400).json({ message: 'Precisas de fornecer um nome para pesquisar.' });
+        let queryRegex = {};
+        
+        if (searchQuery) {
+            queryRegex = { name: { $regex: makeAccentIgnoredRegex(searchQuery), $options: 'i' } };
         }
 
-
-        const artists = await Artist.find({
-            name: { $regex: searchQuery, $options: 'i' }
-        })
+        const artists = await Artist.find(queryRegex)
             .sort({ name: 1 })
-            .limit(20);
+            .limit(searchQuery ? 20 : 5); // Se pesquisa vazia (recomendações), mostra apenas 5 aleatórios ou 5 primeiros
 
         res.status(200).json(artists);
 

@@ -27,6 +27,49 @@ a {
   text-decoration: none;
 }
 
-input, button, select, textarea {
+input,
+button,
+select,
+textarea {
   font-family: inherit;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+app-login,
+app-register,
+app-dashboard,
+app-profile,
+app-search,
+app-artist,
+app-edit-profile {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+router-outlet {
+  display: none !important;
+}
+
+.login-page,
+.register-page,
+.dashboard-page,
+.artist-page,
+.search-page,
+.edit-profile-page {
+  min-height: 0 !important;
+  flex: 1;
 }

@@ -1,1 +1,85 @@
-<router-outlet />
+<header class="global-navbar">
+  <!-- Left Side: Logo -->
+  <a [routerLink]="isAuthenticated ? '/dashboard' : '/login'" class="nav-left nav-logo">
+    <span class="animated-music-icon">♫</span>
+    <span class="nav-title">Music Collection</span>
+  </a>
+
+  <!-- Show middle & right sections ONLY if authenticated -->
+  @if (isAuthenticated) {
+    <!-- Center: Search Bar -->
+    <div class="nav-center">
+      <form class="nav-search-form" (ngSubmit)="onSearch()">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          name="searchQuery"
+          [(ngModel)]="searchQuery" 
+          (ngModelChange)="onSearchChange($event)"
+          (focus)="onSearchFocus()"
+          (blur)="closeSearch()"
+          autocomplete="off"
+          placeholder="Pesquisar artistas..." 
+          class="nav-search-input"
+        >
+
+        <!-- Live Search Dropdown -->
+        @if (searchResults.length > 0 || isSearching) {
+          <div class="search-dropdown">
+            @if (isSearching) {
+              <div class="search-item text-muted">A carregar...</div>
+            } @else {
+              @if (!searchQuery.trim()) {
+                <div class="dropdown-header">Artistas Recomendados</div>
+              }
+              @for (artist of searchResults.slice(0, 5); track artist.id) {
+                <a [routerLink]="['/artist', artist.id]" class="search-item" (click)="searchQuery = ''; searchResults = []; isSearching = false">
+                  <strong>{{ artist.name }}</strong>
+                </a>
+              }
+              @if (searchQuery.trim()) {
+                <a [routerLink]="['/search']" [queryParams]="{q: searchQuery}" class="search-more" (click)="searchQuery = ''; searchResults = []; isSearching = false">
+                  Ver todos os resultados...
+                </a>
+              }
+            }
+          </div>
+        }
+      </form>
+    </div>
+
+    <!-- Right Side: Profile & Dropdown -->
+    <div class="nav-right">
+      <div class="profile-menu">
+        <button type="button" class="profile-btn" (click)="toggleDropdown()">
+          <div class="nav-avatar">{{ initial }}</div>
+        </button>
+
+        @if (isDropdownOpen) {
+          <div class="profile-dropdown">
+            <div class="dropdown-header">
+              <strong>{{ username }}</strong>
+            </div>
+            <a routerLink="/profile" class="dropdown-item">O meu perfil</a>
+            <hr class="dropdown-divider">
+            <button type="button" class="dropdown-item item-danger" (click)="logout()">Terminar sessão</button>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <!-- Center: Welcome Text -->
+    <div class="nav-center">
+      <span class="nav-welcome">Bem-vindo!</span>
+    </div>
+
+    <!-- Right Side: Auth Buttons -->
+    <div class="nav-right nav-auth-buttons">
+      <a routerLink="/register" class="nav-btn-signup">Sign up</a>
+      <a routerLink="/login" class="nav-btn-login">Login</a>
+    </div>
+  }
+</header>
+<main class="app-main-view">
+  <router-outlet />
+</main>

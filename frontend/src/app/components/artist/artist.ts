@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ArtistService, ArtistSummary } from '../../services/artist.service';
 import { AuthService, UserProfile } from '../../services/auth.service';
@@ -26,7 +26,8 @@ export class ArtistComponent implements OnInit {
     private readonly router: Router,
     private readonly artistService: ArtistService,
     private readonly authService: AuthService,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly location: Location
   ) {}
 
   ngOnInit(): void {
@@ -127,6 +128,6 @@ export class ArtistComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/search']);
+    this.location.back();
   }
 }

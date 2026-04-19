@@ -1,5 +1,5 @@
 .edit-profile-page {
-  min-height: 100vh;
+  min-height: calc(100vh - 70px);
   display: flex;
   align-items: flex-start;
   justify-content: center;

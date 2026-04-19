@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class LoginComponent {
   constructor(
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly cdr: ChangeDetectorRef
   ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, this.usernameValidator]],
@@ -59,10 +61,12 @@ export class LoginComponent {
         this.isLoading = false;
         this.authService.saveSession(response);
         this.router.navigate(['/dashboard']);
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.isLoading = false;
         this.serverError = err.error?.message || 'Nao foi possivel iniciar sessao. Tente novamente.';
+        this.cdr.detectChanges();
       }
     });
   }

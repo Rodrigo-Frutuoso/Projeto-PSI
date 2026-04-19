@@ -1,56 +1,60 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { ArtistService, ArtistSummary } from '../../services/artist.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './search.html',
   styleUrl: './search.css'
 })
-export class SearchComponent {
-  searchForm: FormGroup;
+export class SearchComponent implements OnInit, OnDestroy {
   results: ArtistSummary[] = [];
   isLoading = false;
   errorMessage = '';
+  currentQuery = '';
+  private sub?: Subscription;
 
   constructor(
-    private readonly fb: FormBuilder,
     private readonly artistService: ArtistService,
     private readonly router: Router,
+    private readonly route: ActivatedRoute,
     private readonly cdr: ChangeDetectorRef
-  ) {
-    this.searchForm = this.fb.group({
-      query: ['']
+  ) {}
+
+  ngOnInit(): void {
+    this.sub = this.route.queryParams.subscribe(params => {
+      const q = params['q'] || '';
+      this.currentQuery = q;
+      if (q.trim()) {
+        this.performSearch(q);
+      } else {
+        this.results = [];
+        this.errorMessage = 'Nenhum termo de pesquisa introduzido.';
+      }
     });
   }
 
-  onSubmit(): void {
-    const query = (this.searchForm.value.query || '').trim();
+  performSearch(query: string): void {
     this.errorMessage = '';
     this.results = [];
-
-    if (!query) {
-      this.errorMessage = 'Introduz um nome para pesquisar.';
-      return;
-    }
-
     this.isLoading = true;
+
     this.artistService.searchArtists(query).subscribe({
       next: (artists) => {
-        this.results = artists;
+        this.results = artists || [];
         this.isLoading = false;
-        if (artists.length === 0) {
+        if (this.results.length === 0) {
           this.errorMessage = 'Não foram encontrados artistas com esse nome.';
         }
         this.cdr.detectChanges();
       },
       error: (err) => {
         this.isLoading = false;
-        this.errorMessage = err.error?.message || 'Não foi possível pesquisar os artistas.';
+        this.errorMessage = err.error?.message || 'Erro ao comunicar com o servidor.';
         this.cdr.detectChanges();
       }
     });
@@ -59,4 +63,8 @@ export class SearchComponent {
   openArtist(artistId: string): void {
     this.router.navigate(['/artist', artistId]);
   }
-}
+
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+  }
+}

@@ -1,46 +1,30 @@
 <div class="search-page">
   <div class="search-card">
-    <div class="badge">Pesquisar artistas</div>
-    <h1>Procura um artista</h1>
-    <p>Usa a pesquisa parcial para encontrar artistas e abrir a respetiva página.</p>
-
-    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-form" novalidate>
-      <div class="input-row">
-        <input
-          type="text"
-          formControlName="query"
-          class="search-input"
-          placeholder="Ex: Ornatos, Papa Roach, Madonna"
-        />
-        <button type="submit" class="btn-search" [disabled]="isLoading">
-          @if (isLoading) {
-          A pesquisar...
-          } @else {
-          Pesquisar
+    <div class="badge">Resultados da pesquisa</div>
+    <h1>Pesquisaste por: "{{ currentQuery }}"</h1>
+    
+    @if (isLoading) {
+      <p>A carregar resultados...</p>
+    } @else {
+      @if (errorMessage) {
+        <div class="alert alert-info">
+          <span class="alert-icon">ℹ</span>
+          <div>
+            <strong>Pesquisa</strong>
+            <p>{{ errorMessage }}</p>
+          </div>
+        </div>
+      } @else if (results.length > 0) {
+        <p>Encontrámos {{ results.length }} artista(s) para a tua pesquisa.</p>
+        <div class="results-list">
+          @for (artist of results; track artist.id) {
+          <button type="button" class="result-item" (click)="openArtist(artist.id)">
+            <strong>{{ artist.name }}</strong>
+            <span class="result-arrow">→</span>
+          </button>
           }
-        </button>
-      </div>
-    </form>
-
-    @if (errorMessage) {
-    <div class="alert alert-info">
-      <span class="alert-icon">ℹ</span>
-      <div>
-        <strong>Pesquisa</strong>
-        <p>{{ errorMessage }}</p>
-      </div>
-    </div>
-    }
-
-    @if (results.length > 0) {
-    <div class="results-list">
-      @for (artist of results; track artist.id) {
-      <button type="button" class="result-item" (click)="openArtist(artist.id)">
-        <strong>{{ artist.name }}</strong>
-        <span class="result-arrow">→</span>
-      </button>
+        </div>
       }
-    </div>
     }
 
     <div class="footer-actions">

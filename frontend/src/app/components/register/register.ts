@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.registerForm = this.fb.group({
       username: ['', [Validators.required, this.usernameValidator]],
@@ -88,6 +90,7 @@ export class RegisterComponent {
         this.isLoading = false;
         this.successMessage = response.message;
         this.registerForm.reset();
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.isLoading = false;
@@ -98,6 +101,7 @@ export class RegisterComponent {
         } else {
           this.serverErrors = ['Erro ao criar conta. Tente novamente.'];
         }
+        this.cdr.detectChanges();
       }
     });
   }
