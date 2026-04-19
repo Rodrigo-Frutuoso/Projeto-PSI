@@ -1,0 +1,23 @@
+<div class="search-page">
+  <div class="search-card">
+    <h2>Pesquisar Artistas</h2>
+    
+    <div class="form-group">
+      <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="onSearch()" placeholder="Escreve o nome de um artista...">
+    </div>
+
+    <!-- Lista que só aparece se tiver resultados -->
+    <div class="results" *ngIf="artists.length > 0">
+      <div class="artist-item" *ngFor="let artist of artists">
+        <!-- O Link aponta para a US6 -->
+        <a [routerLink]="['/artist', artist._id]" class="artist-name">{{ artist.name }}</a>
+        <span class="artist-year">Ativo desde {{ artist.startYear }}</span>
+      </div>
+    </div>
+
+    <!-- Mensagem de Sem Resultados -->
+    <div class="no-results" *ngIf="hasSearched && artists.length === 0">
+      Não foi encontrado nenhum artista com esse nome.
+    </div>
+  </div>
+</div>
