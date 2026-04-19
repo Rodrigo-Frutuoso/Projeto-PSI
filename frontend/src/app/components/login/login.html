@@ -5,14 +5,14 @@
         <span class="logo-icon">♫</span>
         <h1>Music Collection</h1>
       </div>
-      <p class="subtitle">Inicia sessao para acederes a dashboard</p>
+      <p class="subtitle">Inicia sessão para acederes à dashboard</p>
     </div>
 
     @if (serverError) {
     <div class="alert alert-error">
       <span class="alert-icon">✕</span>
       <div>
-        <strong>Falha na autenticacao</strong>
+        <strong>Falha na autenticação</strong>
         <p>{{ serverError }}</p>
       </div>
     </div>
@@ -35,10 +35,10 @@
         @if (username?.touched && username?.invalid) {
         <div class="field-errors">
           @if (username?.errors?.['required']) {
-          <span class="error-msg">O nome de utilizador e obrigatorio.</span>
+          <span class="error-msg">O nome de utilizador é obrigatório.</span>
           }
           @if (username?.errors?.['invalidUsername']) {
-          <span class="error-msg">So pode conter letras e digitos.</span>
+          <span class="error-msg">Só pode conter letras e dígitos.</span>
           }
         </div>
         }
@@ -62,7 +62,7 @@
         </div>
         @if (password?.touched && password?.invalid) {
         <div class="field-errors">
-          <span class="error-msg">A palavra-passe e obrigatoria.</span>
+          <span class="error-msg">A palavra-passe é obrigatória.</span>
         </div>
         }
       </div>
@@ -70,15 +70,15 @@
       <button type="submit" class="btn-submit" [disabled]="isLoading" id="login-submit-btn">
         @if (isLoading) {
         <span class="spinner"></span>
-        A iniciar sessao...
+        A iniciar sessão...
         } @else {
-        Iniciar sessao
+        Iniciar sessão
         }
       </button>
     </form>
 
     <div class="login-footer">
-      <p>Ainda nao tens conta? <a routerLink="/register" class="link">Criar conta</a></p>
+      <p>Ainda não tens conta? <a routerLink="/register" class="link">Criar conta</a></p>
     </div>
   </div>
 </div>
