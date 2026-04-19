@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, NgZone } from '@angular/core';
 import { RouterOutlet, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -22,12 +22,14 @@ export class App implements OnInit {
   private searchSubject = new Subject<string>();
   searchResults: ArtistSummary[] = [];
   isSearching = false;
+  isSearchFocused = false;
 
   constructor(
     public authService: AuthService,
     private artistService: ArtistService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone
   ) {}
 
   ngOnInit() {
@@ -50,14 +52,18 @@ export class App implements OnInit {
       })
     ).subscribe({
       next: (results) => {
-        this.searchResults = results;
-        this.isSearching = false;
-        this.cdr.detectChanges();
+        this.zone.run(() => {
+          this.searchResults = results;
+          this.isSearching = false;
+          this.cdr.detectChanges();
+        });
       },
       error: () => {
-        this.searchResults = [];
-        this.isSearching = false;
-        this.cdr.detectChanges();
+        this.zone.run(() => {
+          this.searchResults = [];
+          this.isSearching = false;
+          this.cdr.detectChanges();
+        });
       }
     });
   }
@@ -85,6 +91,7 @@ export class App implements OnInit {
   }
 
   onSearchFocus() {
+    this.isSearchFocused = true;
     if (!this.searchQuery.trim() && this.searchResults.length === 0) {
       this.isSearching = true;
       this.searchSubject.next('');
@@ -109,6 +116,7 @@ export class App implements OnInit {
   closeSearch() {
     // Delay slightly so a click event on an item can trigger before DOM removal
     setTimeout(() => {
+      this.isSearchFocused = false;
       this.searchResults = [];
       this.isSearching = false;
     }, 200);

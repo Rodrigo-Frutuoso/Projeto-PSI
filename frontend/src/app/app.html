@@ -24,10 +24,12 @@
         >
 
         <!-- Live Search Dropdown -->
-        @if (searchResults.length > 0 || isSearching) {
+        @if (isSearchFocused && (searchResults.length > 0 || isSearching || searchQuery.trim())) {
           <div class="search-dropdown">
             @if (isSearching) {
               <div class="search-item text-muted">A carregar...</div>
+            } @else if (searchResults.length === 0 && searchQuery.trim()) {
+              <div class="search-item text-muted">Nenhum artista encontrado.</div>
             } @else {
               @if (!searchQuery.trim()) {
                 <div class="dropdown-header">Artistas Recomendados</div>
