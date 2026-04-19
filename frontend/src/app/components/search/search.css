@@ -114,12 +114,7 @@
 
 .result-item strong {
   display: block;
-  margin-bottom: 0.2rem;
-}
-
-.result-item span {
-  color: rgba(255, 255, 255, 0.68);
-  font-size: 0.92rem;
+  margin: 0;
 }
 
 .result-arrow {

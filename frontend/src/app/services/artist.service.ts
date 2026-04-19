@@ -19,6 +19,11 @@ interface ArtistApiResponse {
   artistType?: 'solo' | 'group';
 }
 
+interface ArtistDetailsApiResponse {
+  artist: ArtistApiResponse;
+  recentAlbums?: unknown[];
+}
+
 export interface FavoriteArtistResponse {
   message: string;
   user?: {
@@ -69,17 +74,20 @@ export class ArtistService {
   }
 
   getArtistById(id: string): Observable<ArtistSummary> {
-    return this.http.get<ArtistApiResponse>(`${this.apiUrl}/${id}`, {
+    return this.http.get<ArtistApiResponse | ArtistDetailsApiResponse>(`${this.apiUrl}/${id}`, {
       headers: this.getAuthHeaders()
     }).pipe(
-      map((artist) => ({
-        id: artist.id || artist._id || id,
-        name: artist.name,
-        isni: artist.isni,
-        startYear: artist.startYear,
-        artistType: artist.artistType
+      map((response) => {
+        const artist = 'artist' in response ? response.artist : response;
+
+        return {
+          id: artist.id || artist._id || id,
+          name: artist.name,
+          isni: artist.isni,
+          startYear: artist.startYear,
+          artistType: artist.artistType
+        };
       }))
-    );
   }
 
   addFavoriteArtist(artistId: string): Observable<FavoriteArtistResponse> {

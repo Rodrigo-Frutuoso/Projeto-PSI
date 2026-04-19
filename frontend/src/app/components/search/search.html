@@ -36,10 +36,7 @@
     <div class="results-list">
       @for (artist of results; track artist.id) {
       <button type="button" class="result-item" (click)="openArtist(artist.id)">
-        <div>
-          <strong>{{ artist.name }}</strong>
-          <span>ISNI: {{ artist.isni }}</span>
-        </div>
+        <strong>{{ artist.name }}</strong>
         <span class="result-arrow">→</span>
       </button>
       }
