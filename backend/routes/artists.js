@@ -38,6 +38,7 @@ router.get('/:id', authMiddleware, async (req, res) => {
 
         res.status(200).json({ artist, recentAlbums });
 
+
     } catch (error) {
         console.error('Erro ao obter perfil do artista:', error);
         res.status(500).json({ message: 'Erro a obter dados do artista.' });
