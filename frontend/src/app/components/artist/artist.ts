@@ -96,7 +96,7 @@ export class ArtistComponent implements OnInit {
     this.successMessage = '';
 
     const request = this.isFavorite
-      ? this.artistService.removeFavoriteArtist()
+      ? this.artistService.removeFavoriteArtist(this.artist.id)
       : this.artistService.addFavoriteArtist(this.artist.id);
 
     request.subscribe({

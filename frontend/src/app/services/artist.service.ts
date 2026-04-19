@@ -96,8 +96,8 @@ export class ArtistService {
     });
   }
 
-  removeFavoriteArtist(): Observable<FavoriteArtistResponse> {
-    return this.http.delete<FavoriteArtistResponse>(`${this.usersApiUrl}/favorite-artist`, {
+  removeFavoriteArtist(artistId: string): Observable<FavoriteArtistResponse> {
+    return this.http.delete<FavoriteArtistResponse>(`${this.usersApiUrl}/favorite-artist/${artistId}`, {
       headers: this.getAuthHeaders()
     });
   }
