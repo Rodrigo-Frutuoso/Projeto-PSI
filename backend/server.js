@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+const { seedTestData } = require('./services/seedData');
 
 const app = express();
 
@@ -31,10 +32,25 @@ app.use((err, req, res, next) => {
 // Ligar ao MongoDB e iniciar o servidor
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/psi-music-collection';
+const AUTO_SEED_ON_STARTUP = process.env.AUTO_SEED_ON_STARTUP === 'true';
 
 mongoose.connect(MONGODB_URI)
-  .then(() => {
+  .then(async () => {
     console.log('✅ Ligado ao MongoDB com sucesso');
+
+    if (AUTO_SEED_ON_STARTUP) {
+      try {
+        const seedResult = await seedTestData();
+        if (seedResult.alreadySeeded) {
+          console.log('ℹ Seed automático ignorado: dados de teste já existem.');
+        } else {
+          console.log(`🌱 Seed automático concluído: +${seedResult.insertedArtists} artistas, +${seedResult.insertedAlbums} álbuns.`);
+        }
+      } catch (seedError) {
+        console.error('❌ Erro no seed automático:', seedError.message);
+      }
+    }
+
     app.listen(PORT, () => {
       console.log(`🚀 Servidor a correr em http://localhost:${PORT}`);
     });
