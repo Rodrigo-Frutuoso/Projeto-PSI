@@ -1,23 +1,53 @@
 <div class="search-page">
   <div class="search-card">
-    <h2>Pesquisar Artistas</h2>
-    
-    <div class="form-group">
-      <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="onSearch()" placeholder="Escreve o nome de um artista...">
-    </div>
+    <div class="badge">Pesquisar artistas</div>
+    <h1>Procura um artista</h1>
+    <p>Usa a pesquisa parcial para encontrar artistas e abrir a respetiva página.</p>
 
-    <!-- Lista que só aparece se tiver resultados -->
-    <div class="results" *ngIf="artists.length > 0">
-      <div class="artist-item" *ngFor="let artist of artists">
-        <!-- O Link aponta para a US6 -->
-        <a [routerLink]="['/artist', artist._id]" class="artist-name">{{ artist.name }}</a>
-        <span class="artist-year">Ativo desde {{ artist.startYear }}</span>
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-form" novalidate>
+      <div class="input-row">
+        <input
+          type="text"
+          formControlName="query"
+          class="search-input"
+          placeholder="Ex: Ornatos, Papa Roach, Madonna"
+        />
+        <button type="submit" class="btn-search" [disabled]="isLoading">
+          @if (isLoading) {
+          A pesquisar...
+          } @else {
+          Pesquisar
+          }
+        </button>
+      </div>
+    </form>
+
+    @if (errorMessage) {
+    <div class="alert alert-info">
+      <span class="alert-icon">ℹ</span>
+      <div>
+        <strong>Pesquisa</strong>
+        <p>{{ errorMessage }}</p>
       </div>
     </div>
+    }
 
-    <!-- Mensagem de Sem Resultados -->
-    <div class="no-results" *ngIf="hasSearched && artists.length === 0">
-      Não foi encontrado nenhum artista com esse nome.
+    @if (results.length > 0) {
+    <div class="results-list">
+      @for (artist of results; track artist.id) {
+      <button type="button" class="result-item" (click)="openArtist(artist.id)">
+        <div>
+          <strong>{{ artist.name }}</strong>
+          <span>ISNI: {{ artist.isni }}</span>
+        </div>
+        <span class="result-arrow">→</span>
+      </button>
+      }
+    </div>
+    }
+
+    <div class="footer-actions">
+      <a routerLink="/dashboard" class="btn-back">Voltar à dashboard</a>
     </div>
   </div>
 </div>

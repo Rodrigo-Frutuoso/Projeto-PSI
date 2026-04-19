@@ -1,63 +1,183 @@
 .search-page {
+  min-height: 100vh;
   display: flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  padding: 2rem 1rem;
+  background:
+    radial-gradient(circle at top left, rgba(245, 158, 11, 0.25), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.18), transparent 40%),
+    linear-gradient(160deg, #0f172a 0%, #111827 100%);
 }
 
 .search-card {
-  background: white;
+  width: 100%;
+  max-width: 780px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 600px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
 }
 
-h2 {
-  margin-bottom: 1.5rem;
-  color: #2c3e50;
+.badge {
+  display: inline-block;
+  background: rgba(251, 191, 36, 0.22);
+  color: #fde68a;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
 }
 
-input {
-  width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 1.5rem;
+.search-card h1 {
+  margin: 1rem 0 0.5rem;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.search-card p {
+  margin: 0 0 1.5rem;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.search-form {
+  margin-bottom: 1.25rem;
+}
+
+.input-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  padding: 0.95rem 1rem;
   font-size: 1rem;
 }
 
-.artist-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  border-bottom: 1px solid #eee;
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
 }
 
-.artist-item:last-child {
-  border-bottom: none;
-}
-
-.artist-name {
-  font-weight: bold;
-  color: #2c3e50;
+.btn-search,
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 14px;
+  padding: 0.95rem 1.1rem;
+  font-weight: 700;
   text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-.artist-name:hover {
-  text-decoration: underline;
-  color: #3498db;
+.btn-search {
+  background: linear-gradient(135deg, #f59e0b, #fb7185);
+  color: #fff;
+  min-width: 150px;
 }
 
-.artist-year {
-  color: #7f8c8d;
-  font-size: 0.9em;
+.btn-search:hover,
+.btn-back:hover,
+.result-item:hover {
+  transform: translateY(-1px);
 }
 
-.no-results {
-  text-align: center;
-  color: #e74c3c;
-  padding: 1rem;
-  background: #fdf5f5;
-  border-radius: 4px;
+.results-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.result-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  padding: 1rem 1.1rem;
+  cursor: pointer;
+  text-align: left;
+}
+
+.result-item strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.result-item span {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.92rem;
+}
+
+.result-arrow {
+  color: #fde68a;
+  font-size: 1.2rem;
+}
+
+.alert {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.15rem;
+  border-radius: 14px;
+  margin: 1rem 0;
+}
+
+.alert-info {
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #bfdbfe;
+}
+
+.alert-icon {
+  flex-shrink: 0;
+}
+
+.alert strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.alert p {
+  margin: 0;
+}
+
+.footer-actions {
+  margin-top: 1.25rem;
+}
+
+.btn-back {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e5e7eb;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+@media (max-width: 640px) {
+  .search-card {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .search-card h1 {
+    font-size: 1.6rem;
+  }
+
+  .input-row {
+    flex-direction: column;
+  }
+
+  .btn-search {
+    width: 100%;
+  }
 }

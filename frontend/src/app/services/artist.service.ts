@@ -1,29 +1,96 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
 
-export interface Artist {
-  _id: string;
+export interface ArtistSummary {
+  id: string;
   name: string;
   isni: string;
   startYear: number;
-  artistType: string;
+  artistType?: 'solo' | 'group';
+}
+
+interface ArtistApiResponse {
+  _id?: string;
+  id?: string;
+  name: string;
+  isni: string;
+  startYear: number;
+  artistType?: 'solo' | 'group';
+}
+
+export interface FavoriteArtistResponse {
+  message: string;
+  user?: {
+    id: string;
+    username: string;
+    email: string;
+    dateOfBirth: string;
+    favoriteArtist: {
+      id: string;
+      name: string;
+      isni: string;
+    } | null;
+  };
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArtistService {
-  private apiUrl = '/api/artists';
+  private readonly apiUrl = '/api/artists';
+  private readonly usersApiUrl = '/api/users';
+  private readonly tokenKey = 'auth_token';
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) {}
 
-  searchArtists(query: string): Observable<Artist[]> {
-    const params = new HttpParams().set('search', query);
-    const token = localStorage.getItem('auth_token');
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
+  private getAuthHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      Authorization: `Bearer ${this.getToken()}`
     });
-    return this.http.get<Artist[]>(this.apiUrl, { params, headers });
+  }
+
+  private getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
+
+  searchArtists(search: string): Observable<ArtistSummary[]> {
+    return this.http.get<ArtistApiResponse[]>(`${this.apiUrl}?search=${encodeURIComponent(search)}`, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      map((artists) => artists.map((artist) => ({
+        id: artist.id || artist._id || '',
+        name: artist.name,
+        isni: artist.isni,
+        startYear: artist.startYear,
+        artistType: artist.artistType
+      })))
+    );
+  }
+
+  getArtistById(id: string): Observable<ArtistSummary> {
+    return this.http.get<ArtistApiResponse>(`${this.apiUrl}/${id}`, {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      map((artist) => ({
+        id: artist.id || artist._id || id,
+        name: artist.name,
+        isni: artist.isni,
+        startYear: artist.startYear,
+        artistType: artist.artistType
+      }))
+    );
+  }
+
+  addFavoriteArtist(artistId: string): Observable<FavoriteArtistResponse> {
+    return this.http.put<FavoriteArtistResponse>(`${this.usersApiUrl}/favorite-artist/${artistId}`, {}, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  removeFavoriteArtist(): Observable<FavoriteArtistResponse> {
+    return this.http.delete<FavoriteArtistResponse>(`${this.usersApiUrl}/favorite-artist`, {
+      headers: this.getAuthHeaders()
+    });
   }
 }

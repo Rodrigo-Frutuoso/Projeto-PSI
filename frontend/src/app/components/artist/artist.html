@@ -1,0 +1,83 @@
+<div class="artist-page">
+  <div class="artist-container">
+    <div class="artist-header">
+      <button type="button" class="btn-back" (click)="goBack()">← Pesquisar</button>
+      <a routerLink="/dashboard" class="btn-link">Dashboard</a>
+    </div>
+
+    @if (isLoading) {
+    <div class="loading-state">
+      <div class="loader-ring"></div>
+      <p>A carregar artista...</p>
+    </div>
+    }
+
+    @if (loadError) {
+    <div class="alert alert-error">
+      <span class="alert-icon">✕</span>
+      <div>
+        <strong>Erro</strong>
+        <p>{{ loadError }}</p>
+      </div>
+    </div>
+    }
+
+    @if (!isLoading && !loadError && artist) {
+    <div class="artist-card">
+      <div class="artist-badge">Página de artista</div>
+      <h1>{{ artist.name }}</h1>
+
+      <div class="artist-grid">
+        <div class="detail-item">
+          <span class="detail-label">ISNI</span>
+          <span class="detail-value">{{ artist.isni }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Ano de início</span>
+          <span class="detail-value">{{ artist.startYear }}</span>
+        </div>
+      </div>
+
+      @if (successMessage || actionMessage) {
+      <div class="alert alert-success">
+        <span class="alert-icon">✓</span>
+        <div>
+          <strong>{{ successMessage || actionMessage }}</strong>
+        </div>
+      </div>
+      }
+
+      @if (actionError) {
+      <div class="alert alert-error">
+        <span class="alert-icon">✕</span>
+        <div>
+          <strong>Erro</strong>
+          <p>{{ actionError }}</p>
+        </div>
+      </div>
+      }
+
+      <div class="artist-actions">
+        <button type="button" class="btn-favorite" (click)="toggleFavorite()" [disabled]="isSaving">
+          @if (isSaving) {
+          A guardar...
+          } @else if (isFavorite) {
+          Remover dos favoritos
+          } @else {
+          Adicionar aos favoritos
+          }
+        </button>
+      </div>
+
+      @if (profile?.favoriteArtist && isFavorite) {
+      <p class="favorite-note">Este artista está guardado como favorito na tua conta.</p>
+      }
+
+      <div class="profile-link-box">
+        <span>Queres confirmar o favorito guardado?</span>
+        <a routerLink="/profile" class="btn-link">Abrir perfil</a>
+      </div>
+    </div>
+    }
+  </div>
+</div>

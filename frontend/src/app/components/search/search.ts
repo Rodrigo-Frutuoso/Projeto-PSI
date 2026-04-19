@@ -1,39 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { ArtistService, Artist } from '../../services/artist.service';
+import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { RouterLink, Router } from '@angular/router';
+import { ArtistService, ArtistSummary } from '../../services/artist.service';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './search.html',
-  styleUrls: ['./search.css']
+  styleUrl: './search.css'
 })
 export class SearchComponent {
-  searchQuery: string = '';
-  artists: Artist[] = [];
-  hasSearched: boolean = false;
+  searchForm: FormGroup;
+  results: ArtistSummary[] = [];
+  isLoading = false;
+  errorMessage = '';
 
-  constructor(private artistService: ArtistService) {}
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly artistService: ArtistService,
+    private readonly router: Router,
+    private readonly cdr: ChangeDetectorRef
+  ) {
+    this.searchForm = this.fb.group({
+      query: ['']
+    });
+  }
 
-  onSearch() {
-    if (!this.searchQuery.trim()) {
-      this.artists = [];
-      this.hasSearched = false;
+  onSubmit(): void {
+    const query = (this.searchForm.value.query || '').trim();
+    this.errorMessage = '';
+    this.results = [];
+
+    if (!query) {
+      this.errorMessage = 'Introduz um nome para pesquisar.';
       return;
     }
 
-    this.hasSearched = true;
-
-    this.artistService.searchArtists(this.searchQuery).subscribe({
-      next: (results) => {
-        this.artists = results;
+    this.isLoading = true;
+    this.artistService.searchArtists(query).subscribe({
+      next: (artists) => {
+        this.results = artists;
+        this.isLoading = false;
+        if (artists.length === 0) {
+          this.errorMessage = 'Não foram encontrados artistas com esse nome.';
+        }
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Erro na pesquisa', err);
+        this.isLoading = false;
+        this.errorMessage = err.error?.message || 'Não foi possível pesquisar os artistas.';
+        this.cdr.detectChanges();
       }
     });
+  }
+
+  openArtist(artistId: string): void {
+    this.router.navigate(['/artist', artistId]);
   }
 }
