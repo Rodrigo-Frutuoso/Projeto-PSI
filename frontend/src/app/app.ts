@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit, NgZone } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, NgZone, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { RouterOutlet, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +15,9 @@ import { ArtistService, ArtistSummary } from './services/artist.service';
   styleUrl: './app.css'
 })
 export class App implements OnInit {
+  @ViewChild('searchInput') searchInput?: ElementRef<HTMLInputElement>;
+  @ViewChild('profileButton') profileButton?: ElementRef<HTMLButtonElement>;
+
   searchQuery = '';
   isDropdownOpen = false;
   
@@ -84,6 +87,29 @@ export class App implements OnInit {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target;
+    const clickedInsideSearch = target instanceof Element && !!target.closest('.nav-search-form');
+    const clickedInsideProfile = target instanceof Element && !!target.closest('.profile-menu');
+
+    if (!clickedInsideSearch && this.isSearchFocused) {
+      this.closeSearchImmediately();
+    }
+
+    if (!clickedInsideSearch && document.activeElement === this.searchInput?.nativeElement) {
+      this.searchInput.nativeElement.blur();
+    }
+
+    if (!clickedInsideProfile && this.isDropdownOpen) {
+      this.isDropdownOpen = false;
+    }
+
+    if (!clickedInsideProfile && document.activeElement === this.profileButton?.nativeElement) {
+      this.profileButton.nativeElement.blur();
+    }
+  }
+
   logout() {
     this.authService.clearSession();
     this.isDropdownOpen = false;
@@ -116,9 +142,13 @@ export class App implements OnInit {
   closeSearch() {
     // Delay slightly so a click event on an item can trigger before DOM removal
     setTimeout(() => {
-      this.isSearchFocused = false;
-      this.searchResults = [];
-      this.isSearching = false;
+      this.closeSearchImmediately();
     }, 200);
+  }
+
+  private closeSearchImmediately() {
+    this.isSearchFocused = false;
+    this.searchResults = [];
+    this.isSearching = false;
   }
 }

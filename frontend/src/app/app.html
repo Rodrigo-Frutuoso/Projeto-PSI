@@ -12,6 +12,7 @@
       <form class="nav-search-form" (ngSubmit)="onSearch()">
         <span class="search-icon">🔍</span>
         <input 
+          #searchInput
           type="text" 
           name="searchQuery"
           [(ngModel)]="searchQuery" 
@@ -53,7 +54,7 @@
     <!-- Right Side: Profile & Dropdown -->
     <div class="nav-right">
       <div class="profile-menu">
-        <button type="button" class="profile-btn" (click)="toggleDropdown()">
+        <button #profileButton type="button" class="profile-btn" (click)="toggleDropdown()">
           <div class="nav-avatar">{{ initial }}</div>
         </button>
 
