@@ -41,6 +41,9 @@ const TEST_ALBUMS = [
   { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0601', title: 'Existir', releaseYear: 1990, albumType: 'LP', artistName: 'Madredeus' },
   { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0602', title: 'O Pastor', releaseYear: 1994, albumType: 'single', artistName: 'Madredeus' },
 
+  { mbid: 'a1b2c3d4-e5f6-7890-1234-56789abcdef0', title: 'Now 4', releaseYear: 1999, albumType: 'LP' },
+  { mbid: 'a1b2c3d4-e5f6-7890-1234-56789abcdef1', title: 'O Monstro Precisa de Amigos', releaseYear: 1999, albumType: 'LP', artistName: 'Ornatos Violeta' },
+  { mbid: 'a1b2c3d4-e5f6-7890-1234-56789abcdef2', title: 'Dar & Receber', releaseYear: 1984, albumType: 'LP', artistName: 'António Variações' }
 ];
 
 async function buildTestAlbums() {

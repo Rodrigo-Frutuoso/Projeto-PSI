@@ -38,6 +38,33 @@
         </div>
       </div>
 
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+
+      <div class="albums-section">
+        <h3>Lançamentos Mais Recentes</h3>
+        
+        @if (artistProfile!.recentAlbums && artistProfile!.recentAlbums.length > 0) {
+        <div class="albums-list" style="margin-top: 15px;">
+          @for (album of artistProfile!.recentAlbums; track album._id) {
+          <div class="album-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f9f9f9;">
+            <span class="album-title" style="font-weight: 500;">{{ album.title }}</span>
+            <span class="album-year" style="color: #666;">{{ album.releaseYear }}</span>
+          </div>
+          }
+        </div>
+        } @else {
+        <div class="no-albums" style="margin: 15px 0; color: #888;">
+          Este artista ainda não tem álbuns.
+        </div>
+        }
+
+        <a [routerLink]="['/artist', artist.id, 'albums']" class="btn-link" style="display: inline-block; margin-top: 15px; text-decoration: underline; cursor: pointer;">
+          → Ver discografia completa
+        </a>
+      </div>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+
       @if (successMessage || actionMessage) {
       <div class="alert alert-success">
         <span class="alert-icon">✓</span>

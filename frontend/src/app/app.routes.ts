@@ -7,6 +7,7 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile';
 import { authGuard } from './guards/auth.guard';
 import { SearchComponent } from './components/search/search';
 import { ArtistComponent } from './components/artist/artist';
+import { ArtistAlbumsComponent } from './components/artist-albums/artist-albums';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'search', component: SearchComponent, canActivate: [authGuard] },
   { path: 'artist/:id', component: ArtistComponent, canActivate: [authGuard] },
+  { path: 'artist/:id/albums', component: ArtistAlbumsComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: '/login' },
 
 

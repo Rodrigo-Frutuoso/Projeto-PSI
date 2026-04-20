@@ -1,0 +1,21 @@
+<div class="albums-page">
+  <div class="albums-header">
+    <a href="javascript:history.back()" class="back-link">← Voltar ao Perfil</a>
+    <h2>Discografia Completa</h2>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    A carregar álbuns...
+  </div>
+
+  <div *ngIf="!isLoading && albums.length > 0" class="albums-list">
+    <div class="album-item" *ngFor="let album of albums">
+      <span class="album-title">{{ album.title }}</span>
+      <span class="album-year">{{ album.releaseYear }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && albums.length === 0" class="no-albums">
+    Este artista ainda não tem álbuns registados.
+  </div>
+</div>

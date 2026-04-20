@@ -1,7 +1,7 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ArtistService, ArtistSummary } from '../../services/artist.service';
+import { ArtistService, ArtistSummary, ArtistProfile } from '../../services/artist.service';
 import { AuthService, UserProfile } from '../../services/auth.service';
 
 @Component({
@@ -12,7 +12,10 @@ import { AuthService, UserProfile } from '../../services/auth.service';
   styleUrl: './artist.css'
 })
 export class ArtistComponent implements OnInit {
-  artist: ArtistSummary | null = null;
+  artistProfile: ArtistProfile | null = null;
+  get artist(): ArtistSummary | null {
+    return this.artistProfile?.artist || null;
+  }
   profile: UserProfile | null = null;
   isLoading = true;
   isSaving = false;
@@ -50,8 +53,8 @@ export class ArtistComponent implements OnInit {
     this.successMessage = '';
 
     this.artistService.getArtistById(artistId).subscribe({
-      next: (artist) => {
-        this.artist = artist;
+      next: (profile) => {
+        this.artistProfile = profile;
         this.loadProfile();
       },
       error: () => {
