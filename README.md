@@ -42,32 +42,33 @@ Projeto-PSI/
 ├── backend/
 │   ├── middleware/
 │   ├── models/
-│   │   └── User.js                    # Modelo de utilizador (US1, US2)
+│   │   ├── User.js                    # Modelo de utilizador (US1-US4, US7)
+│   │   ├── Artist.js                  # Modelo de artista (US5-US7)
+│   │   └── Album.js                   # Modelo de álbum (US6)
 │   ├── routes/
-│   │   └── auth.js                    # Registo + login (US1, US2)
-│   ├── server.js                      # Registo de rotas /api/auth (US1, US2)
+│   │   ├── auth.js                    # Registo + login (US1, US2)
+│   │   ├── users.js                   # Gerir/Ver perfil + Favoritos (US3, US4, US7)
+│   │   ├── artists.js                 # Pesquisa + Pág. de artista (US5, US6)
+│   │   └── init.js                    # Inicializações para testes
+│   ├── server.js                      # Inicialização do express e rotas
 │   └── package.json
 ├── frontend/
 │   ├── src/
 │   │   ├── app/
-│   │   │   ├── app.routes.ts          # /register, /login, /dashboard (US1, US2)
+│   │   │   ├── app.routes.ts          # Navegação e associação de componentes
 │   │   │   ├── services/
-│   │   │   │   └── auth.service.ts    # API auth + sessao localStorage (US1, US2)
+│   │   │   │   └── auth.service.ts    # Comunicação com a API
 │   │   │   ├── guards/
-│   │   │   │   └── auth.guard.ts      # Protege dashboard (US2)
+│   │   │   │   └── auth.guard.ts      # Protege rotas estritas
 │   │   │   └── components/
-│   │   │       ├── register/
-│   │   │       │   ├── register.ts
-│   │   │       │   ├── register.html
-│   │   │       │   └── register.css   # Criar conta (US1)
-│   │   │       ├── login/
-│   │   │       │   ├── login.ts
-│   │   │       │   ├── login.html
-│   │   │       │   └── login.css      # Iniciar sessao (US2)
-│   │   │       └── dashboard/
-│   │   │           ├── dashboard.ts
-│   │   │           ├── dashboard.html
-│   │   │           └── dashboard.css  # Dashboard apos login (US2)
+│   │   │       ├── register/          # Criar conta (US1)
+│   │   │       ├── login/             # Iniciar sessao (US2)
+│   │   │       ├── dashboard/         # Dashboard inicial (US2)
+│   │   │       ├── profile/           # Perfil e favorito (US3, US7)
+│   │   │       ├── edit-profile/      # Editar perfil (US4)
+│   │   │       ├── search/            # Pesquisar artistas (US5)
+│   │   │       ├── artist/            # Informação do artista (US6)
+│   │   │       └── artist-albums/     # Albuns do artista (US6)
 │   │   └── proxy.conf.json            # Proxy /api -> backend
 │   └── package.json
 └── README.md
@@ -75,17 +76,30 @@ Projeto-PSI/
 
 ## Mapa de User Stories
 
-| User Story | Descricao curta | Estado |
-| --- | --- | --- |
-| US1 | Criar conta | Implementado |
-| US2 | Iniciar sessao | Implementado |
-| US3 | Visualizar perfil | Pendente |
-| US4 | Gerir perfil | Pendente |
-| US5 | Pesquisar artistas | Pendente |
-| US6 | Pagina de artista | Pendente |
-| US7 | Adicionar artista favorito | Pendente |
+| User Story | Descricao curta |
+| --- | --- |
+| US1 | Criar conta | 
+| US2 | Iniciar sessao | 
+| US3 | Visualizar perfil | 
+| US4 | Gerir perfil | 
+| US5 | Pesquisar artistas | 
+| US6 | Pagina de artista | 
+| US7 | Adicionar artista favorito | 
 
-## Endpoints de Autenticacao
+## Endpoints da API
 
-- `POST /api/auth/register`
-- `POST /api/auth/login`
+**Autenticação (`/api/auth`)**
+- `POST /register`
+- `POST /login`
+
+**Utilizadores (`/api/users`)**
+- `GET /me` (Visualizar perfil)
+- `PUT /me` (Atualizar perfil)
+- `POST /me/favorites` (Adicionar favorito)
+- `DELETE /me/favorites/:artistId` (Remover favorito)
+- `GET /me/favorites` (Listar favoritos)
+
+**Artistas (`/api/artists`)**
+- `GET /search?q=` (Pesquisar artistas)
+- `GET /:id` (Detalhes do artista)
+- `GET /:id/albums` (Álbuns do artista)
