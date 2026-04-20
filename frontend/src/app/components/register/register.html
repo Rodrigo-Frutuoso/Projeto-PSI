@@ -85,8 +85,19 @@
           <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" class="form-input"
             placeholder="Mínimo 8 caracteres" [class.input-error]="password?.invalid && password?.touched"
             [class.input-success]="password?.valid && password?.touched" />
-          <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
-            {{ showPassword ? '🙈' : '👁' }}
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="showPassword ? 'Ocultar palavra-passe' : 'Mostrar palavra-passe'"
+          >
+            <img
+              class="toggle-password-icon"
+              [src]="showPassword ? 'https://www.gstatic.com/images/icons/material/system/2x/visibility_off_white_24dp.png' : 'https://www.gstatic.com/images/icons/material/system/2x/visibility_white_24dp.png'"
+              [alt]="showPassword ? 'Ocultar palavra-passe' : 'Mostrar palavra-passe'"
+              width="20"
+              height="20"
+            />
           </button>
         </div>
         @if (password?.touched && password?.invalid) {

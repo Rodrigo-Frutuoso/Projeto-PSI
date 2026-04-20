@@ -240,10 +240,22 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 4px;
-  line-height: 1;
   z-index: 1;
+}
+
+.toggle-password-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  opacity: 0.9;
+}
+
+.toggle-password:hover .toggle-password-icon {
+  opacity: 1;
 }
 
 /* Field Errors */
