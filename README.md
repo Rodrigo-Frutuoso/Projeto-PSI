@@ -12,6 +12,9 @@ Aplicação web para gestão de coleções de álbuns de música em formato fís
 ## Instalação
 
 ```bash
+# .env
+cp .env.example .env
+
 # Backend
 cd backend
 npm install
@@ -78,13 +81,13 @@ Projeto-PSI/
 
 | User Story | Descricao curta |
 | --- | --- |
-| US1 | Criar conta | 
-| US2 | Iniciar sessao | 
-| US3 | Visualizar perfil | 
-| US4 | Gerir perfil | 
-| US5 | Pesquisar artistas | 
-| US6 | Pagina de artista | 
-| US7 | Adicionar artista favorito | 
+| US1 | Criar conta |
+| US2 | Iniciar sessao |
+| US3 | Visualizar perfil |
+| US4 | Gerir perfil |
+| US5 | Pesquisar artistas |
+| US6 | Pagina de artista |
+| US7 | Adicionar artista favorito |
 
 ## Endpoints da API
 
