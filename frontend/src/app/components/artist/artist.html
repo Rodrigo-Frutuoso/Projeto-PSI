@@ -57,31 +57,12 @@
         </div>
         }
 
-        <a [routerLink]="['/artist', artist.id, 'albums']" class="btn-link" style="display: inline-block; margin-top: 15px; text-decoration: underline; cursor: pointer;">
+        <a [routerLink]="['/artist', artist.id, 'albums']" class="btn-link" style="display: inline-block; margin-top: 15px; cursor: pointer;">
           → Ver discografia completa
         </a>
       </div>
 
       <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
-
-      @if (successMessage || actionMessage) {
-      <div class="alert alert-success">
-        <span class="alert-icon">✓</span>
-        <div>
-          <strong>{{ successMessage || actionMessage }}</strong>
-        </div>
-      </div>
-      }
-
-      @if (actionError) {
-      <div class="alert alert-error">
-        <span class="alert-icon">✕</span>
-        <div>
-          <strong>Erro</strong>
-          <p>{{ actionError }}</p>
-        </div>
-      </div>
-      }
 
       <div class="artist-actions">
         <button type="button" class="btn-favorite" (click)="toggleFavorite()" [disabled]="isSaving">
@@ -93,11 +74,29 @@
           Adicionar aos favoritos
           }
         </button>
-      </div>
 
-      @if (profile?.favoriteArtist && isFavorite) {
-      <p class="favorite-note">Este artista está guardado como favorito na tua conta.</p>
-      }
+        @if (successMessage || actionMessage || actionError) {
+        <div class="artist-actions-feedback">
+          @if (successMessage || actionMessage) {
+          <div class="alert alert-success action-alert">
+            <span class="alert-icon">✓</span>
+            <div>
+              <strong>{{ successMessage || actionMessage }}</strong>
+            </div>
+          </div>
+          }
+
+          @if (actionError) {
+          <div class="alert alert-error action-alert">
+            <span class="alert-icon">✕</span>
+            <div>
+              <p>{{ actionError }}</p>
+            </div>
+          </div>
+          }
+        </div>
+        }
+      </div>
     </div>
     }
   </div>

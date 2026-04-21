@@ -109,25 +109,30 @@ export class ArtistComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const wasFavorite = this.isFavorite;
+
     this.isSaving = true;
     this.actionError = '';
     this.actionMessage = '';
     this.successMessage = '';
 
-    const request = this.isFavorite
+    const request = wasFavorite
       ? this.artistService.removeFavoriteArtist(this.artist.id)
       : this.artistService.addFavoriteArtist(this.artist.id);
 
     request.subscribe({
       next: (response) => {
         this.isSaving = false;
-        this.successMessage = response.message;
-        this.actionMessage = response.message;
+        const message = wasFavorite
+          ? 'Removido com sucesso!'
+          : 'Foi guardado como favorito na tua conta.';
+        this.successMessage = message;
+        this.actionMessage = message;
 
         if (this.profile) {
           this.profile = {
             ...this.profile,
-            favoriteArtist: this.isFavorite ? null : {
+            favoriteArtist: wasFavorite ? null : {
               id: this.artist!.id,
               name: this.artist!.name,
               isni: this.artist!.isni

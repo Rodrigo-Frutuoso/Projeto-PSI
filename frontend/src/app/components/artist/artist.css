@@ -100,6 +100,18 @@
 
 .artist-actions {
   margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.artist-actions-feedback {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
 }
 
 .btn-favorite {
@@ -107,6 +119,7 @@
   background: linear-gradient(135deg, #14b8a6, #0ea5e9);
   color: #fff;
   min-width: 220px;
+  padding: 0.8rem 1rem;
 }
 
 .btn-favorite:hover,
@@ -144,6 +157,12 @@
   margin: 0;
 }
 
+.action-alert {
+  margin-top: 0;
+  align-items: center;
+  padding: 0.5rem 1.1rem;
+}
+
 .loading-state {
   padding: 4rem 0;
   text-align: center;
@@ -162,11 +181,6 @@
 
 @keyframes spin {
   to { transform: rotate(360deg); }
-}
-
-.favorite-note {
-  margin-top: 1rem;
-  color: rgba(255, 255, 255, 0.78);
 }
 
 .profile-link-box {
@@ -199,6 +213,15 @@
     grid-template-columns: 1fr;
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .artist-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .artist-actions-feedback {
+    width: 100%;
   }
 
   .btn-favorite,

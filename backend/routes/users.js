@@ -64,7 +64,7 @@ router.put('/favorite-artist/:artistId', authMiddleware, async (req, res) => {
 
     if (user.favoriteArtist && user.favoriteArtist.toString() !== artistId) {
       return res.status(400).json({
-        message: 'Já tens outro artista favorito. Remove o atual antes de adicionar um novo.'
+        message: 'Já tens outro artista favorito. Remove o atual.'
       });
     }
 
