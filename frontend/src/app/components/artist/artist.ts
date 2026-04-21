@@ -1,8 +1,9 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ArtistService, ArtistSummary, ArtistProfile } from '../../services/artist.service';
 import { AuthService, UserProfile } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-artist',
@@ -11,7 +12,7 @@ import { AuthService, UserProfile } from '../../services/auth.service';
   templateUrl: './artist.html',
   styleUrl: './artist.css'
 })
-export class ArtistComponent implements OnInit {
+export class ArtistComponent implements OnInit, OnDestroy {
   artistProfile: ArtistProfile | null = null;
   get artist(): ArtistSummary | null {
     return this.artistProfile?.artist || null;
@@ -23,6 +24,8 @@ export class ArtistComponent implements OnInit {
   actionMessage = '';
   actionError = '';
   successMessage = '';
+  private routeSub?: Subscription;
+  private currentArtistId: string | null = null;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -34,15 +37,28 @@ export class ArtistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const artistId = this.route.snapshot.paramMap.get('id');
+    // React to route param changes so /artist/:id -> /artist/:newId reloads profile.
+    this.routeSub = this.route.paramMap.subscribe((params) => {
+      const artistId = params.get('id');
 
-    if (!artistId) {
-      this.isLoading = false;
-      this.loadError = 'Artista inválido.';
-      return;
-    }
+      if (!artistId) {
+        this.currentArtistId = null;
+        this.isLoading = false;
+        this.loadError = 'Artista inválido.';
+        return;
+      }
 
-    this.loadArtist(artistId);
+      if (this.currentArtistId === artistId) {
+        return;
+      }
+
+      this.currentArtistId = artistId;
+      this.loadArtist(artistId);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
   }
 
   loadArtist(artistId: string): void {
