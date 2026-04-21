@@ -1,4 +1,4 @@
-# 🎵 PSI Projeto 2025/2026 — Grupo 01
+# 🎵 PSI Projeto 2025/2026 - Grupo 01
 
 Aplicação web para gestão de coleções de álbuns de música em formato físico.
 
@@ -41,7 +41,11 @@ O proxy está configurado para que o frontend reencaminhe pedidos `/api/*` para 
 ```
 Projeto-PSI/
 ├── backend/
+│   ├── .env.example
+│   ├── package.json
+│   ├── server.js                      # Inicialização do Express e registo de rotas
 │   ├── middleware/
+│   │   └── auth.js                    # Validação de JWT
 │   ├── models/
 │   │   ├── User.js                    # Modelo de utilizador (US1-US4, US7)
 │   │   ├── Artist.js                  # Modelo de artista (US5-US7)
@@ -51,27 +55,39 @@ Projeto-PSI/
 │   │   ├── users.js                   # Gerir/Ver perfil + Favoritos (US3, US4, US7)
 │   │   ├── artists.js                 # Pesquisa + Pág. de artista (US5, US6)
 │   │   └── init.js                    # Inicializações para testes
-│   ├── server.js                      # Inicialização do express e rotas
-│   └── package.json
+│   └── services/
+│       └── seedData.js                # Seed de dados para desenvolvimento/testes
 ├── frontend/
+│   ├── angular.json
+│   ├── package.json
 │   ├── src/
+│   │   ├── main.ts
+│   │   ├── styles.css
+│   │   ├── index.html
+│   │   ├── proxy.conf.json            # Proxy /api -> backend
 │   │   ├── app/
+│   │   │   ├── app.ts                 # Componente raiz + navbar + pesquisa global
+│   │   │   ├── app.html
+│   │   │   ├── app.css
+│   │   │   ├── app.config.ts
 │   │   │   ├── app.routes.ts          # Navegação e associação de componentes
 │   │   │   ├── services/
-│   │   │   │   └── auth.service.ts    # Comunicação com a API
+│   │   │   │   ├── auth.service.ts    # Comunicação de autenticação/perfil com a API
+│   │   │   │   └── artist.service.ts  # Pesquisa/artistas/discografia/favoritos
 │   │   │   ├── guards/
-│   │   │   │   └── auth.guard.ts      # Protege rotas estritas
+│   │   │   │   ├── auth.guard.ts      # Protege rotas autenticadas
+│   │   │   │   └── guest.guard.ts     # Bloqueia páginas de auth após login
 │   │   │   └── components/
 │   │   │       ├── register/          # Criar conta (US1)
-│   │   │       ├── login/             # Iniciar sessao (US2)
+│   │   │       ├── login/             # Iniciar sessão (US2)
 │   │   │       ├── dashboard/         # Dashboard inicial (US2)
 │   │   │       ├── profile/           # Perfil e favorito (US3, US7)
 │   │   │       ├── edit-profile/      # Editar perfil (US4)
 │   │   │       ├── search/            # Pesquisar artistas (US5)
 │   │   │       ├── artist/            # Informação do artista (US6)
 │   │   │       └── artist-albums/     # Albuns do artista (US6)
-│   │   └── proxy.conf.json            # Proxy /api -> backend
-│   └── package.json
+│   └── public/
+├── diagrama_bd.png
 └── README.md
 ```
 
