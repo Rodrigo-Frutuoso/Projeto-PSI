@@ -12,11 +12,9 @@ Aplicação web para gestão de coleções de álbuns de música em formato fís
 ## Instalação
 
 ```bash
-# .env
-cp .env.example .env
-
 # Backend
 cd backend
+cp .env.example .env
 npm install
 
 # Frontend
