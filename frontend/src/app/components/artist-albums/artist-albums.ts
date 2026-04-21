@@ -13,15 +13,17 @@ import { ArtistService, Album } from '../../services/artist.service';
 export class ArtistAlbumsComponent implements OnInit {
   albums: Album[] = [];
   isLoading = true;
+  artistId = '';
 
   constructor(
-    private route: ActivatedRoute,
-    private artistService: ArtistService,
-    private cdr: ChangeDetectorRef
+    private readonly route: ActivatedRoute,
+    private readonly artistService: ArtistService,
+    private readonly cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
+    this.artistId = id || '';
     console.log('[ArtistAlbums] O router carregou o ID:', id);
 
     if (id) {

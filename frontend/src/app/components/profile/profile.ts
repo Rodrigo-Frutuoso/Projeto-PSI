@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService, UserProfile } from '../../services/auth.service';
 
@@ -18,7 +18,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly location: Location
   ) {}
 
   ngOnInit(): void {
@@ -58,11 +59,6 @@ export class ProfileComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/dashboard']);
-  }
-
-  logout(): void {
-    this.authService.clearSession();
-    this.router.navigate(['/login']);
+    this.location.back();
   }
 }

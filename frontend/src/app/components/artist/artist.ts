@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ArtistService, ArtistSummary, ArtistProfile } from '../../services/artist.service';
 import { AuthService, UserProfile } from '../../services/auth.service';
@@ -32,8 +32,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly artistService: ArtistService,
     private readonly authService: AuthService,
-    private readonly cdr: ChangeDetectorRef,
-    private readonly location: Location
+    private readonly cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -102,7 +101,7 @@ export class ArtistComponent implements OnInit, OnDestroy {
   }
 
   get isFavorite(): boolean {
-    return Boolean(this.profile?.favoriteArtist && this.artist && this.profile.favoriteArtist.id === this.artist.id);
+    return this.profile?.favoriteArtist?.id === this.artist?.id;
   }
 
   toggleFavorite(): void {
@@ -147,6 +146,6 @@ export class ArtistComponent implements OnInit, OnDestroy {
   }
 
   goBack(): void {
-    this.location.back();
+    this.router.navigate(['/dashboard']);
   }
 }
