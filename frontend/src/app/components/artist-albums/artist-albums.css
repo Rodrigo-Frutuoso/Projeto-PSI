@@ -1,65 +1,188 @@
 .albums-page {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background:
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.2), transparent 38%),
+    radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.18), transparent 36%),
+    linear-gradient(160deg, #020617 0%, #111827 100%);
+}
+
+.albums-container {
+  width: 100%;
+  max-width: 760px;
 }
 
 .albums-header {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 2rem;
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.back-link {
-  color: #3498db;
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
   text-decoration: none;
-  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  font-family: inherit;
+  background: #1f2937;
+  color: #f8fafc;
+  border: 1px solid #334155;
 }
 
-.back-link:hover {
-  text-decoration: underline;
+.btn-back:hover {
+  transform: translateY(-1px);
 }
 
-.albums-header h2 {
+.albums-card {
+  background: #182236;
+  border: 1px solid #2b3b57;
+  border-radius: 24px;
+  padding: 2rem;
+  color: #f8fafc;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.36);
+}
+
+.albums-badge {
+  display: inline-block;
+  margin-bottom: 1rem;
+  background: #0f3f37;
+  color: #d1fae5;
+  border: 1px solid #1f6b5d;
+  border-radius: 999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+.albums-card h1 {
   margin: 0;
-  color: #2c3e50;
+  font-size: 2rem;
+}
+
+.albums-subtitle {
+  margin: 0.75rem 0 0;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.albums-divider {
+  margin: 1.4rem 0 1.1rem;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .albums-list {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
 }
 
 .album-item {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid #eee;
+  gap: 1rem;
+  padding: 0.95rem 1rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
 }
 
-.album-item:last-child {
-  border-bottom: none;
+.album-main {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.album-position {
+  color: rgba(255, 255, 255, 0.52);
+  font-weight: 700;
 }
 
 .album-title {
-  font-weight: 500;
-  color: #333;
+  font-weight: 600;
+  color: #f8fafc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .album-year {
-  color: #7f8c8d;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
 }
 
-.no-albums, .loading {
+.loading-state,
+.empty-state {
+  padding: 2.2rem 1rem;
   text-align: center;
-  padding: 3rem;
-  background: white;
-  border-radius: 8px;
-  color: #7f8c8d;
+  color: #e5e7eb;
+  border-radius: 14px;
+  background: #1f2937;
+  border: 1px solid #334155;
+}
+
+.loader-ring {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 1rem;
+  border: 3px solid rgba(255, 255, 255, 0.18);
+  border-top-color: #22d3ee;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.alert {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  margin-top: 0.5rem;
+}
+
+.alert-error {
+  background: #4c1d29;
+  border: 1px solid #7f1d32;
+  color: #ffe4e6;
+}
+
+.alert p {
+  margin: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .albums-card {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .albums-card h1 {
+    font-size: 1.6rem;
+  }
+
+  .album-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .album-year {
+    padding-left: 1.65rem;
+  }
+
+  .btn-back {
+    width: 100%;
+  }
 }

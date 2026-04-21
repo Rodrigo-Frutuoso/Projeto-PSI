@@ -14,6 +14,7 @@ export class ArtistAlbumsComponent implements OnInit {
   albums: Album[] = [];
   isLoading = true;
   artistId = '';
+  loadError = '';
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -21,28 +22,27 @@ export class ArtistAlbumsComponent implements OnInit {
     private readonly cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.artistId = id || '';
-    console.log('[ArtistAlbums] O router carregou o ID:', id);
 
     if (id) {
-      console.log('[ArtistAlbums] A iniciar o pedido HTTP para buscar os álbuns...');
       this.artistService.getArtistAlbums(id).subscribe({
         next: (data) => {
           this.albums = data;
           this.isLoading = false;
+          this.loadError = '';
           this.cdr.detectChanges();
         },
-        error: (err) => {
-          console.error('[ArtistAlbums] Erro a carregar álbuns', err);
+        error: () => {
           this.isLoading = false;
+          this.loadError = 'Não foi possível carregar a discografia deste artista.';
           this.cdr.detectChanges();
         }
       });
     } else {
-      console.warn('[ArtistAlbums] Nenhum ID foi encontrado no URL.');
       this.isLoading = false;
+      this.loadError = 'Artista inválido.';
       this.cdr.detectChanges();
     }
   }
