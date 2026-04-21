@@ -3,7 +3,7 @@ import { RouterOutlet, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subject, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, catchError } from 'rxjs/operators';
+import { debounceTime, switchMap, catchError } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
 import { ArtistService, ArtistSummary } from './services/artist.service';
 
@@ -22,17 +22,17 @@ export class App implements OnInit {
   isDropdownOpen = false;
   
   // Live Search variables
-  private searchSubject = new Subject<string>();
+  private readonly searchSubject = new Subject<string>();
   searchResults: ArtistSummary[] = [];
   isSearching = false;
   isSearchFocused = false;
 
   constructor(
     public authService: AuthService,
-    private artistService: ArtistService,
-    private router: Router,
-    private cdr: ChangeDetectorRef,
-    private zone: NgZone
+    private readonly artistService: ArtistService,
+    private readonly router: Router,
+    private readonly cdr: ChangeDetectorRef,
+    private readonly zone: NgZone
   ) {}
 
   ngOnInit() {
@@ -44,10 +44,11 @@ export class App implements OnInit {
     // Configure Live Search autocomplete
     this.searchSubject.pipe(
       debounceTime(150),
-      distinctUntilChanged(),
       switchMap(query => {
+        const trimmedQuery = (query || '').trim();
+
         this.isSearching = true;
-        return this.artistService.searchArtists(query || '').pipe(
+        return this.artistService.searchArtists(trimmedQuery).pipe(
           catchError(() => {
             return of([]); // Impede que o Subject morra por erro do servidor
           })
@@ -118,7 +119,9 @@ export class App implements OnInit {
 
   onSearchFocus() {
     this.isSearchFocused = true;
-    if (!this.searchQuery.trim() && this.searchResults.length === 0) {
+
+    if (!this.searchQuery.trim()) {
+      this.searchResults = [];
       this.isSearching = true;
       this.searchSubject.next('');
     }
@@ -135,8 +138,16 @@ export class App implements OnInit {
   }
 
   onSearchChange(query: string) {
-    this.isSearching = true;
-    this.searchSubject.next(query);
+    const trimmedQuery = query.trim();
+
+    if (!trimmedQuery) {
+      this.searchResults = [];
+      this.isSearching = true;
+      this.searchSubject.next('');
+      return;
+    }
+
+    this.searchSubject.next(trimmedQuery);
   }
 
   closeSearch() {
