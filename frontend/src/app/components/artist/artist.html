@@ -23,7 +23,30 @@
 
     @if (!isLoading && !loadError && artist) {
     <div class="artist-card">
-      <div class="artist-badge">Página de artista</div>
+      <div class="artist-top-bar">
+        <div class="artist-badge">Página de artista</div>
+
+        <div class="artist-favorite-corner">
+          <button
+            type="button"
+            class="favorite-star-button"
+            [class.active]="isFavorite"
+            [class.replace]="hasDifferentFavorite"
+            (click)="toggleFavorite()"
+            [disabled]="isSaving"
+            [attr.aria-label]="isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'"
+            [title]="isFavorite ? 'Remover dos favoritos' : (hasDifferentFavorite ? 'Substituir favorito atual' : 'Adicionar aos favoritos')"
+          >
+            <img
+              [src]="isFavorite ? 'icons/star-filled.svg' : 'icons/star-outline.svg'"
+              alt=""
+              class="favorite-star-icon"
+              aria-hidden="true"
+            >
+          </button>
+        </div>
+      </div>
+
       <h1>{{ artist.name }}</h1>
 
       <div class="artist-grid">
@@ -63,40 +86,25 @@
       </div>
 
       <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+    </div>
+    }
 
-      <div class="artist-actions">
-        <button type="button" class="btn-favorite" (click)="toggleFavorite()" [disabled]="isSaving">
-          @if (isSaving) {
-          A guardar...
-          } @else if (isFavorite) {
-          Remover dos favoritos
-          } @else {
-          Adicionar aos favoritos
-          }
-        </button>
-
-        @if (successMessage || actionMessage || actionError) {
-        <div class="artist-actions-feedback">
-          @if (successMessage || actionMessage) {
-          <div class="alert alert-success action-alert">
-            <span class="alert-icon">✓</span>
-            <div>
-              <strong>{{ successMessage || actionMessage }}</strong>
-            </div>
-          </div>
-          }
-
-          @if (actionError) {
-          <div class="alert alert-error action-alert">
-            <span class="alert-icon">✕</span>
-            <div>
-              <p>{{ actionError }}</p>
-            </div>
-          </div>
-          }
+    @if (showConfirmPopup) {
+    <div class="app-modal-backdrop">
+      <dialog open class="app-modal" aria-labelledby="favorite-modal-title" (keydown.escape)="cancelReplaceFavorite()">
+        <p>Já tens <strong>{{ profile?.favoriteArtist?.name || 'outro artista' }}</strong> como artista favorito. Queres substituí-lo?</p>
+        <div class="app-modal-actions">
+          <button type="button" class="modal-btn modal-btn-secondary" (click)="cancelReplaceFavorite()">Cancelar</button>
+          <button type="button" class="modal-btn modal-btn-primary" (click)="confirmReplaceFavorite()" [disabled]="isSaving">Confirmar</button>
         </div>
-        }
-      </div>
+      </dialog>
+    </div>
+    }
+
+    @if (showAppToast) {
+    <div class="app-toast" [class.success]="appToastType === 'success'" [class.error]="appToastType === 'error'">
+      <span>{{ appToastMessage }}</span>
+      <button type="button" class="app-toast-close" (click)="closeAppToast()" aria-label="Fechar mensagem">✕</button>
     </div>
     }
   </div>
