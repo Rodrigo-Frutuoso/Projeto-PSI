@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, UserProfile } from '../../services/auth.service';
@@ -26,7 +26,8 @@ export class EditProfileComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly router: Router,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly location: Location
   ) {}
 
   ngOnInit(): void {
@@ -208,7 +209,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/profile']);
+    this.location.back();
   }
 
   // Helpers para o template
