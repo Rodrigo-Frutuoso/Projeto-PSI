@@ -16,34 +16,133 @@ const TEST_ARTISTS = [
 ];
 
 const TEST_ALBUMS = [
+  // --- Radiohead ---
+  { mbid: 'a1b2c3d4-0001-0001-0001-000000000001', title: 'Pablo Honey', releaseYear: 1993, albumType: 'LP', artistName: 'Radiohead' },
+  { mbid: 'a1b2c3d4-0001-0001-0001-000000000002', title: 'The Bends', releaseYear: 1995, albumType: 'LP', artistName: 'Radiohead' },
   { mbid: 'ddacdf34-2e2d-4d7a-af37-56e632d4b998', title: 'OK Computer', releaseYear: 1997, albumType: 'LP', artistName: 'Radiohead' },
   { mbid: 'c2eaf764-ca57-4180-b2f5-b6d8f1e5fb06', title: 'Kid A', releaseYear: 2000, albumType: 'LP', artistName: 'Radiohead' },
-  { mbid: '488582ba-c69e-4eec-b530-5bfa2ab8f731', title: 'Creep', releaseYear: 1992, albumType: 'single', artistName: 'Radiohead' },
-  { mbid: 'd22d25f7-fdfa-4fc8-9fce-e0c65df5af9c', title: 'Abbey Road', releaseYear: 1969, albumType: 'LP', artistName: 'The Beatles' },
+  { mbid: 'a1b2c3d4-0001-0001-0001-000000000003', title: 'Amnesiac', releaseYear: 2001, albumType: 'LP', artistName: 'Radiohead' },
+  { mbid: 'a1b2c3d4-0001-0001-0001-000000000004', title: 'Hail to the Thief', releaseYear: 2003, albumType: 'LP', artistName: 'Radiohead' },
+  { mbid: 'a1b2c3d4-0001-0001-0001-000000000005', title: 'In Rainbows', releaseYear: 2007, albumType: 'LP', artistName: 'Radiohead' },
+  { mbid: 'a1b2c3d4-0001-0001-0001-000000000006', title: 'The King of Limbs', releaseYear: 2011, albumType: 'LP', artistName: 'Radiohead' },
+  { mbid: 'a1b2c3d4-0001-0001-0001-000000000007', title: 'A Moon Shaped Pool', releaseYear: 2016, albumType: 'LP', artistName: 'Radiohead' },
+
+  // --- The Beatles ---
+  { mbid: 'd22d25f7-fdfa-4fc8-9fce-e0c65df5af9c', title: 'Please Please Me', releaseYear: 1963, albumType: 'LP', artistName: 'The Beatles' },
+  { mbid: 'a1b2c3d4-0002-0002-0002-000000000001', title: 'With The Beatles', releaseYear: 1963, albumType: 'LP', artistName: 'The Beatles' },
+  { mbid: 'a1b2c3d4-0002-0002-0002-000000000002', title: 'A Hard Day\'s Night', releaseYear: 1964, albumType: 'LP', artistName: 'The Beatles' },
+  { mbid: 'a1b2c3d4-0002-0002-0002-000000000003', title: 'Beatles For Sale', releaseYear: 1964, albumType: 'LP', artistName: 'The Beatles' },
+  { mbid: 'a1b2c3d4-0002-0002-0002-000000000004', title: 'Help!', releaseYear: 1965, albumType: 'LP', artistName: 'The Beatles' },
+  { mbid: 'a1b2c3d4-0002-0002-0002-000000000005', title: 'Rubber Soul', releaseYear: 1965, albumType: 'LP', artistName: 'The Beatles' },
+  { mbid: 'a1b2c3d4-0002-0002-0002-000000000006', title: 'Revolver', releaseYear: 1966, albumType: 'LP', artistName: 'The Beatles' },
+  { mbid: 'a1b2c3d4-0002-0002-0002-000000000007', title: 'Sgt. Pepper\'s Lonely Hearts Club Band', releaseYear: 1967, albumType: 'LP', artistName: 'The Beatles' },
+  { mbid: 'a1b2c3d4-0002-0002-0002-000000000008', title: 'Magical Mystery Tour', releaseYear: 1967, albumType: 'LP', artistName: 'The Beatles' },
+  { mbid: 'a1b2c3d4-0002-0002-0002-000000000009', title: 'The Beatles (White Album)', releaseYear: 1968, albumType: 'LP', artistName: 'The Beatles' },
+  { mbid: 'a1b2c3d4-0002-0002-0002-000000000010', title: 'Yellow Submarine', releaseYear: 1969, albumType: 'LP', artistName: 'The Beatles' },
+  { mbid: 'a1b2c3d4-0002-0002-0002-000000000011', title: 'Abbey Road', releaseYear: 1969, albumType: 'LP', artistName: 'The Beatles' },
   { mbid: '64e32095-d24b-4ec5-bc16-6701509930f9', title: 'Let It Be', releaseYear: 1970, albumType: 'LP', artistName: 'The Beatles' },
+
+  // --- Ornatos Violeta ---
+  { mbid: 'a1b2c3d4-e5f6-7890-1234-56789abcdef1', title: 'Cão!', releaseYear: 1997, albumType: 'LP', artistName: 'Ornatos Violeta' },
+  { mbid: 'a1b2c3d4-0003-0003-0003-000000000001', title: 'O Monstro Precisa de Amigos', releaseYear: 1999, albumType: 'LP', artistName: 'Ornatos Violeta' },
+
+  // --- António Variações ---
+  { mbid: 'a1b2c3d4-e5f6-7890-1234-56789abcdef2', title: 'Dar & Receber', releaseYear: 1984, albumType: 'LP', artistName: 'António Variações' },
+  { mbid: 'a1b2c3d4-0004-0004-0004-000000000001', title: 'Anjo da Guarda', releaseYear: 1983, albumType: 'LP', artistName: 'António Variações' },
+  { mbid: 'a1b2c3d4-0004-0004-0004-000000000002', title: 'O Melhor de António Variações', releaseYear: 1997, albumType: 'Compilation', artistName: 'António Variações' },
+  { mbid: 'a1b2c3d4-0004-0004-0004-000000000003', title: 'A História de António Variações – Entre Braga e Nova Iorque', releaseYear: 2006, albumType: 'Compilation', artistName: 'António Variações' },
+
+  // --- Papa Roach ---
   { mbid: '2bb5e8fc-f5b2-4d14-8742-1e9bf478635d', title: 'Infest', releaseYear: 2000, albumType: 'LP', artistName: 'Papa Roach' },
+  { mbid: 'a1b2c3d4-0005-0005-0005-000000000001', title: 'Lovehatetragedy', releaseYear: 2002, albumType: 'LP', artistName: 'Papa Roach' },
+  { mbid: 'a1b2c3d4-0005-0005-0005-000000000002', title: 'Getting Away with Murder', releaseYear: 2004, albumType: 'LP', artistName: 'Papa Roach' },
+  { mbid: 'a1b2c3d4-0005-0005-0005-000000000003', title: 'The Paramour Sessions', releaseYear: 2006, albumType: 'LP', artistName: 'Papa Roach' },
+  { mbid: 'a1b2c3d4-0005-0005-0005-000000000004', title: 'Metamorphosis', releaseYear: 2009, albumType: 'LP', artistName: 'Papa Roach' },
+  { mbid: 'a1b2c3d4-0005-0005-0005-000000000005', title: 'Time for Annihilation', releaseYear: 2010, albumType: 'LP', artistName: 'Papa Roach' },
+  { mbid: 'a1b2c3d4-0005-0005-0005-000000000006', title: 'The Connection', releaseYear: 2012, albumType: 'LP', artistName: 'Papa Roach' },
+  { mbid: 'a1b2c3d4-0005-0005-0005-000000000007', title: 'F.E.A.R.', releaseYear: 2015, albumType: 'LP', artistName: 'Papa Roach' },
+  { mbid: 'a1b2c3d4-0005-0005-0005-000000000008', title: 'Crooked Teeth', releaseYear: 2017, albumType: 'LP', artistName: 'Papa Roach' },
+  { mbid: 'a1b2c3d4-0005-0005-0005-000000000009', title: 'Who Do You Trust?', releaseYear: 2019, albumType: 'LP', artistName: 'Papa Roach' },
+  { mbid: 'a1b2c3d4-0005-0005-0005-000000000010', title: 'Ego Trip', releaseYear: 2022, albumType: 'LP', artistName: 'Papa Roach' },
 
-  { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0101', title: 'Bacalhau à Portuguesa', releaseYear: 1992, albumType: 'single', artistName: 'Quim Barreiros' },
-  { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0102', title: 'A Cabritinha', releaseYear: 1986, albumType: 'single', artistName: 'Quim Barreiros' },
+  // --- Quim Barreiros ---
+  { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0101', title: 'Bacalhau à Portuguesa', releaseYear: 1986, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000010', title: 'CD d\'Ouro', releaseYear: 1991, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000011', title: 'Original (O Franguito da Maria)', releaseYear: 1992, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000012', title: 'Deixa Botar Só a Cabeça (Acredita em Mim)', releaseYear: 1993, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000013', title: 'Insónia', releaseYear: 1993, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000014', title: 'Mestre da Culinária', releaseYear: 1994, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000015', title: 'Nunca Gastes Tudo', releaseYear: 1995, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000016', title: 'Minha Vaca Louca', releaseYear: 1996, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000017', title: '15 Grandes Sucessos', releaseYear: 1997, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000018', title: 'Marcha do 3º Milénio', releaseYear: 1999, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000019', title: 'A Garagem da Vizinha', releaseYear: 2000, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000020', title: 'Comer, Comer', releaseYear: 2001, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000021', title: 'Cantares ao Desafio', releaseYear: 2002, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000022', title: 'Na Tua Casa Tá Entrando Outro Macho', releaseYear: 2003, albumType: 'LP', artistName: 'Quim Barreiros' },
+  { mbid: 'a1b2c3d4-0006-0006-0006-000000000023', title: 'A Cabritinha', releaseYear: 2004, albumType: 'LP', artistName: 'Quim Barreiros' },
 
+  // --- Amália Rodrigues ---
   { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0201', title: 'Com Que Voz', releaseYear: 1970, albumType: 'LP', artistName: 'Amália Rodrigues' },
-  { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0202', title: 'Gaivota', releaseYear: 1955, albumType: 'single', artistName: 'Amália Rodrigues' },
+  { mbid: 'a1b2c3d4-0007-0007-0007-000000000010', title: 'Amália no Olympia', releaseYear: 1957, albumType: 'LP', artistName: 'Amália Rodrigues' },
+  { mbid: 'a1b2c3d4-0007-0007-0007-000000000011', title: 'Busto', releaseYear: 1962, albumType: 'LP', artistName: 'Amália Rodrigues' },
+  { mbid: 'a1b2c3d4-0007-0007-0007-000000000012', title: 'Fado Português', releaseYear: 1965, albumType: 'LP', artistName: 'Amália Rodrigues' },
+  { mbid: 'a1b2c3d4-0007-0007-0007-000000000013', title: 'Fados 67', releaseYear: 1967, albumType: 'LP', artistName: 'Amália Rodrigues' },
+  { mbid: 'a1b2c3d4-0007-0007-0007-000000000014', title: 'Amália/Vinicius', releaseYear: 1970, albumType: 'LP', artistName: 'Amália Rodrigues' },
+  { mbid: 'a1b2c3d4-0007-0007-0007-000000000015', title: 'Cantigas de Amigos', releaseYear: 1971, albumType: 'LP', artistName: 'Amália Rodrigues' },
+  { mbid: 'a1b2c3d4-0007-0007-0007-000000000016', title: 'Trova do Vento que Passa', releaseYear: 1974, albumType: 'LP', artistName: 'Amália Rodrigues' },
+  { mbid: 'a1b2c3d4-0007-0007-0007-000000000017', title: 'Amália & Don Byas', releaseYear: 1973, albumType: 'LP', artistName: 'Amália Rodrigues' },
 
+  // --- Xutos & Pontapés ---
   { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0301', title: 'Circo de Feras', releaseYear: 1987, albumType: 'LP', artistName: 'Xutos & Pontapés' },
-  { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0302', title: 'A Minha Casinha', releaseYear: 1987, albumType: 'single', artistName: 'Xutos & Pontapés' },
+  { mbid: 'a1b2c3d4-0008-0008-0008-000000000010', title: '78/82', releaseYear: 1982, albumType: 'LP', artistName: 'Xutos & Pontapés' },
+  { mbid: 'a1b2c3d4-0008-0008-0008-000000000011', title: 'Cerco', releaseYear: 1985, albumType: 'LP', artistName: 'Xutos & Pontapés' },
+  { mbid: 'a1b2c3d4-0008-0008-0008-000000000012', title: '88', releaseYear: 1988, albumType: 'LP', artistName: 'Xutos & Pontapés' },
+  { mbid: 'a1b2c3d4-0008-0008-0008-000000000013', title: 'Gritos Mudos', releaseYear: 1990, albumType: 'LP', artistName: 'Xutos & Pontapés' },
+  { mbid: 'a1b2c3d4-0008-0008-0008-000000000014', title: 'Dizer Não de Vez', releaseYear: 1992, albumType: 'LP', artistName: 'Xutos & Pontapés' },
+  { mbid: 'a1b2c3d4-0008-0008-0008-000000000015', title: 'Direito ao Deserto', releaseYear: 1993, albumType: 'LP', artistName: 'Xutos & Pontapés' },
+  { mbid: 'a1b2c3d4-0008-0008-0008-000000000016', title: 'Dados Viciados', releaseYear: 1997, albumType: 'LP', artistName: 'Xutos & Pontapés' },
+  { mbid: 'a1b2c3d4-0008-0008-0008-000000000017', title: 'Xutos & Pontapés', releaseYear: 2009, albumType: 'LP', artistName: 'Xutos & Pontapés' },
+  { mbid: 'a1b2c3d4-0008-0008-0008-000000000018', title: 'Puro', releaseYear: 2014, albumType: 'LP', artistName: 'Xutos & Pontapés' },
+  { mbid: 'a1b2c3d4-0008-0008-0008-000000000019', title: 'Duro', releaseYear: 2019, albumType: 'LP', artistName: 'Xutos & Pontapés' },
+  { mbid: 'a1b2c3d4-0008-0008-0008-000000000020', title: 'Ao Vivo', releaseYear: 1988, albumType: 'LP', artistName: 'Xutos & Pontapés' },
 
+  // --- GNR ---
   { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0401', title: 'Psicopátria', releaseYear: 1986, albumType: 'LP', artistName: 'GNR' },
-  { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0402', title: 'Dunas', releaseYear: 1983, albumType: 'single', artistName: 'GNR' },
+  { mbid: 'a1b2c3d4-0009-0009-0009-000000000010', title: 'Independança', releaseYear: 1982, albumType: 'LP', artistName: 'GNR' },
+  { mbid: 'a1b2c3d4-0009-0009-0009-000000000011', title: 'Defeitos Especiais', releaseYear: 1984, albumType: 'LP', artistName: 'GNR' },
+  { mbid: 'a1b2c3d4-0009-0009-0009-000000000012', title: 'Os Homens Não Se Querem Bonitos', releaseYear: 1985, albumType: 'LP', artistName: 'GNR' },
+  { mbid: 'a1b2c3d4-0009-0009-0009-000000000013', title: 'Valsa dos Detectives', releaseYear: 1989, albumType: 'LP', artistName: 'GNR' },
+  { mbid: 'a1b2c3d4-0009-0009-0009-000000000014', title: 'Rock in Rio Douro', releaseYear: 1992, albumType: 'LP', artistName: 'GNR' },
+  { mbid: 'a1b2c3d4-0009-0009-0009-000000000015', title: 'Sob Escuta', releaseYear: 1994, albumType: 'LP', artistName: 'GNR' },
+  { mbid: 'a1b2c3d4-0009-0009-0009-000000000016', title: 'Mosquito', releaseYear: 1998, albumType: 'LP', artistName: 'GNR' },
+  { mbid: 'a1b2c3d4-0009-0009-0009-000000000017', title: 'Popless', releaseYear: 2000, albumType: 'LP', artistName: 'GNR' },
+  { mbid: 'a1b2c3d4-0009-0009-0009-000000000018', title: 'Do Lado dos Cisnes', releaseYear: 2002, albumType: 'LP', artistName: 'GNR' },
+  { mbid: 'a1b2c3d4-0009-0009-0009-000000000019', title: 'Retropolitana', releaseYear: 2010, albumType: 'LP', artistName: 'GNR' },
+  { mbid: 'a1b2c3d4-0009-0009-0009-000000000020', title: 'Voos Domésticos', releaseYear: 2011, albumType: 'LP', artistName: 'GNR' },
 
+  // --- Rui Veloso ---
   { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0501', title: 'Ar de Rock', releaseYear: 1980, albumType: 'LP', artistName: 'Rui Veloso' },
-  { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0502', title: 'Chico Fininho', releaseYear: 1980, albumType: 'single', artistName: 'Rui Veloso' },
+  { mbid: 'a1b2c3d4-0010-0010-0010-000000000010', title: 'Fora de Moda', releaseYear: 1982, albumType: 'LP', artistName: 'Rui Veloso' },
+  { mbid: 'a1b2c3d4-0010-0010-0010-000000000011', title: 'Guardador de Margens', releaseYear: 1983, albumType: 'LP', artistName: 'Rui Veloso' },
+  { mbid: 'a1b2c3d4-0010-0010-0010-000000000012', title: 'Rui Veloso', releaseYear: 1986, albumType: 'LP', artistName: 'Rui Veloso' },
+  { mbid: 'a1b2c3d4-0010-0010-0010-000000000013', title: 'Ao Vivo', releaseYear: 1988, albumType: 'LP', artistName: 'Rui Veloso' },
+  { mbid: 'a1b2c3d4-0010-0010-0010-000000000014', title: 'Mingos & Os Samurais', releaseYear: 1990, albumType: 'LP', artistName: 'Rui Veloso' },
+  { mbid: 'a1b2c3d4-0010-0010-0010-000000000015', title: 'Auto da Pimenta', releaseYear: 1991, albumType: 'LP', artistName: 'Rui Veloso' },
+  { mbid: 'a1b2c3d4-0010-0010-0010-000000000016', title: 'Lado Lunar', releaseYear: 1995, albumType: 'LP', artistName: 'Rui Veloso' },
+  { mbid: 'a1b2c3d4-0010-0010-0010-000000000017', title: 'Avenidas', releaseYear: 1998, albumType: 'LP', artistName: 'Rui Veloso' },
+  { mbid: 'a1b2c3d4-0010-0010-0010-000000000018', title: 'A Espuma das Canções', releaseYear: 2005, albumType: 'LP', artistName: 'Rui Veloso' },
+  { mbid: 'a1b2c3d4-0010-0010-0010-000000000019', title: 'Rui Veloso e Amigos', releaseYear: 2012, albumType: 'LP', artistName: 'Rui Veloso' },
 
-  { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0601', title: 'Existir', releaseYear: 1990, albumType: 'LP', artistName: 'Madredeus' },
-  { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0602', title: 'O Pastor', releaseYear: 1994, albumType: 'single', artistName: 'Madredeus' },
-
-  { mbid: 'a1b2c3d4-e5f6-7890-1234-56789abcdef0', title: 'Now 4', releaseYear: 1999, albumType: 'LP' },
-  { mbid: 'a1b2c3d4-e5f6-7890-1234-56789abcdef1', title: 'O Monstro Precisa de Amigos', releaseYear: 1999, albumType: 'LP', artistName: 'Ornatos Violeta' },
-  { mbid: 'a1b2c3d4-e5f6-7890-1234-56789abcdef2', title: 'Dar & Receber', releaseYear: 1984, albumType: 'LP', artistName: 'António Variações' }
+  // --- Madredeus ---
+  { mbid: 'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0601', title: 'Os Dias da MadreDeus', releaseYear: 1987, albumType: 'LP', artistName: 'Madredeus' },
+  { mbid: 'a1b2c3d4-0011-0011-0011-000000000010', title: 'Existir', releaseYear: 1990, albumType: 'LP', artistName: 'Madredeus' },
+  { mbid: 'a1b2c3d4-0011-0011-0011-000000000011', title: 'O Espírito da Paz', releaseYear: 1994, albumType: 'LP', artistName: 'Madredeus' },
+  { mbid: 'a1b2c3d4-0011-0011-0011-000000000012', title: 'Ainda', releaseYear: 1995, albumType: 'LP', artistName: 'Madredeus' },
+  { mbid: 'a1b2c3d4-0011-0011-0011-000000000013', title: 'O Paraíso', releaseYear: 1997, albumType: 'LP', artistName: 'Madredeus' },
+  { mbid: 'a1b2c3d4-0011-0011-0011-000000000014', title: 'Movimento', releaseYear: 2001, albumType: 'LP', artistName: 'Madredeus' },
+  { mbid: 'a1b2c3d4-0011-0011-0011-000000000015', title: 'Um Amor Infinito', releaseYear: 2004, albumType: 'LP', artistName: 'Madredeus' },
+  { mbid: 'a1b2c3d4-0011-0011-0011-000000000016', title: 'Faluas do Tejo', releaseYear: 2005, albumType: 'LP', artistName: 'Madredeus' }
 ];
 
 async function buildTestAlbums() {
