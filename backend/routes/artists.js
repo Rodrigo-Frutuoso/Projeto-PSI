@@ -18,20 +18,40 @@ const makeAccentIgnoredRegex = (text) => {
         .replace(/[nñNÑ]/g, '[nñNÑ]');
 };
 
+const normalizeSearchText = (text) => (text || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+    
+const matchesArtistWordPrefix = (artistName, searchQuery) => {
+    const normalizedQuery = normalizeSearchText(searchQuery);
+    if (!normalizedQuery) return false;
+
+    return normalizeSearchText(artistName)
+        .split(/\s+/)
+        .some((word) => word.startsWith(normalizedQuery));
+};
+
 router.get('/', authMiddleware, async (req, res) => {
     try {
-        const searchQuery = req.query.search;
+        const searchQuery = (req.query.search || '').trim();
         let queryRegex = {};
         
         if (searchQuery) {
-            queryRegex = { name: { $regex: makeAccentIgnoredRegex(searchQuery), $options: 'i' } };
+            const searchPattern = makeAccentIgnoredRegex(searchQuery);
+            queryRegex = { name: { $regex: `(^|\\s)${searchPattern}`, $options: 'i' } };
         }
 
         const artists = await Artist.find(queryRegex)
             .sort({ name: 1 })
             .limit(searchQuery ? 20 : 5); // Se pesquisa vazia (recomendações), mostra apenas 5 aleatórios ou 5 primeiros
 
-        res.status(200).json(artists);
+        const filteredArtists = searchQuery
+            ? artists.filter((artist) => matchesArtistWordPrefix(artist.name, searchQuery))
+            : artists;
+
+        res.status(200).json(filteredArtists);
 
     } catch (error) {
         console.error('Erro na pesquisa de artistas:', error);

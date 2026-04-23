@@ -72,17 +72,43 @@ export class ArtistService {
     return localStorage.getItem(this.tokenKey);
   }
 
+  private normalizeSearchText(text: string): string {
+    return (text || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+  }
+
+  private matchesWordPrefix(name: string, search: string): boolean {
+    const normalizedQuery = this.normalizeSearchText(search);
+    if (!normalizedQuery) {
+      return false;
+    }
+
+    return this.normalizeSearchText(name)
+      .split(/\s+/)
+      .some((word) => word.startsWith(normalizedQuery));
+  }
+
   searchArtists(search: string): Observable<ArtistSummary[]> {
     return this.http.get<ArtistApiResponse[]>(`${this.apiUrl}?search=${encodeURIComponent(search)}`, {
       headers: this.getAuthHeaders()
     }).pipe(
-      map((artists) => artists.map((artist) => ({
-        id: artist.id || artist._id || '',
-        name: artist.name,
-        isni: artist.isni,
-        startYear: artist.startYear,
-        artistType: artist.artistType
-      })))
+      map((artists) => {
+        const trimmedSearch = (search || '').trim();
+        const filteredArtists = trimmedSearch
+          ? artists.filter((artist) => this.matchesWordPrefix(artist.name, trimmedSearch))
+          : artists;
+
+        return filteredArtists.map((artist) => ({
+          id: artist.id || artist._id || '',
+          name: artist.name,
+          isni: artist.isni,
+          startYear: artist.startYear,
+          artistType: artist.artistType
+        }));
+      })
     );
   }
 

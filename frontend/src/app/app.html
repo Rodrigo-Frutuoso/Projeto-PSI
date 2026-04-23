@@ -10,19 +10,23 @@
     <!-- Center: Search Bar -->
     <div class="nav-center">
       <form class="nav-search-form" (ngSubmit)="onSearch()">
-        <span class="search-icon">🔍</span>
-        <input 
-          #searchInput
-          type="text" 
-          name="searchQuery"
-          [(ngModel)]="searchQuery" 
-          (ngModelChange)="onSearchChange($event)"
-          (focus)="onSearchFocus()"
-          (blur)="closeSearch()"
-          autocomplete="off"
-          placeholder="Pesquisar artistas..." 
-          class="nav-search-input"
-        >
+        <div class="search-input-group">
+          <input 
+            #searchInput
+            type="text" 
+            name="searchQuery"
+            [(ngModel)]="searchQuery" 
+            (ngModelChange)="onSearchChange($event)"
+            (focus)="onSearchFocus()"
+            (blur)="closeSearch()"
+            autocomplete="off"
+            placeholder="Pesquisar artistas..." 
+            class="nav-search-input"
+          >
+          <button type="submit" class="nav-search-button" aria-label="Pesquisar artistas">
+            🔍
+          </button>
+        </div>
 
         <!-- Live Search Dropdown -->
         @if (isSearchFocused && (searchResults.length > 0 || isSearching || searchQuery.trim())) {
