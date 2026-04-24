@@ -24,6 +24,10 @@ npm install
 
 ## Execução (Desenvolvimento)
 
+O proxy está configurado para que o frontend reencaminhe pedidos `/api/*` para `http://localhost:3000`.
+
+### Desktop
+
 ```bash
 # Terminal 1 — Backend (porta 3000)
 cd backend
@@ -34,7 +38,27 @@ cd frontend
 npm start
 ```
 
-O proxy está configurado para que o frontend reencaminhe pedidos `/api/*` para `http://localhost:3000`.
+Abre: `http://localhost:4200`
+
+### Telemóvel
+
+1. Liga o PC e o telemóvel à mesma rede Wi-Fi.
+
+```bash
+# Terminal 1 — Backend (porta 3000)
+cd backend
+npm run dev
+
+# Terminal 2 — Frontend (porta 4200, exposto na rede)
+cd frontend
+npm start -- --host 0.0.0.0 --port 4200
+```
+
+2. No terminal do frontend, vais ver os links da rede. Abre no telemóvel o primeiro link de Network.
+
+Por exemplo:```http://192.168.1.78:4200```
+
+(O IP pode ser diferente no teu caso — copia o que aparece no teu terminal)
 
 ## Estrutura do Projeto
 

@@ -332,6 +332,7 @@
   text-decoration: none;
   font-size: 0.95rem;
   font-weight: 700;
+  white-space: nowrap;
   border-radius: 999px;
   padding: 0.55rem 1.25rem;
   transition: all 0.2s ease;
@@ -361,4 +362,56 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(120, 255, 214, 0.5);
   color: #0f172a;
+}
+
+@media (max-width: 768px) {
+  .global-navbar {
+    padding: 0 0.7rem;
+  }
+
+  .nav-left,
+  .nav-right {
+    flex: 0 0 auto;
+  }
+
+  .nav-center {
+    flex: 1;
+    padding: 0 0.6rem;
+  }
+
+  .nav-search-form {
+    max-width: none;
+  }
+
+  .global-navbar:not(.auth-page) .nav-title {
+    display: none;
+  }
+
+  .nav-center-guest {
+    display: none;
+  }
+
+  .nav-auth-buttons {
+    gap: 0.6rem;
+  }
+
+  .global-navbar.auth-page .nav-auth-buttons {
+    gap: 0.4rem;
+  }
+
+  .nav-btn-login,
+  .nav-btn-signup {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .global-navbar.auth-page .nav-btn-signup {
+    font-size: 0.76rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .global-navbar.auth-page .nav-btn-login {
+    font-size: 0.83rem;
+    padding: 0.38rem 0.85rem;
+  }
 }

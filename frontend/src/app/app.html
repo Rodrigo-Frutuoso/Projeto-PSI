@@ -1,8 +1,10 @@
-<header class="global-navbar">
+<header class="global-navbar" [class.auth-page]="isAuthPage">
   <!-- Left Side: Logo -->
   <a [routerLink]="isAuthenticated ? '/dashboard' : '/login'" class="nav-left nav-logo">
     <span class="animated-music-icon">♫</span>
+    @if (showBrandTitle) {
     <span class="nav-title">Music Collection</span>
+    }
   </a>
 
   <!-- Show middle & right sections ONLY if authenticated -->
@@ -76,13 +78,13 @@
     </div>
   } @else {
     <!-- Center: Welcome Text -->
-    <div class="nav-center">
+    <div class="nav-center nav-center-guest">
       <span class="nav-welcome">Bem-vindo!</span>
     </div>
 
     <!-- Right Side: Auth Buttons -->
     <div class="nav-right nav-auth-buttons">
-      <a routerLink="/register" class="nav-btn-signup">Sign up</a>
+      <a routerLink="/register" class="nav-btn-signup">Sign Up</a>
       <a routerLink="/login" class="nav-btn-login">Login</a>
     </div>
   }

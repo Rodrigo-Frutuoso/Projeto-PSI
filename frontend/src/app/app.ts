@@ -76,6 +76,15 @@ export class App implements OnInit {
     return this.authService.isAuthenticated();
   }
 
+  get isAuthPage() {
+    const currentPath = this.router.url.split('?')[0];
+    return currentPath === '/login' || currentPath === '/register';
+  }
+
+  get showBrandTitle() {
+    return this.isAuthPage;
+  }
+
   get username() {
     return this.authService.getCurrentUsername();
   }
