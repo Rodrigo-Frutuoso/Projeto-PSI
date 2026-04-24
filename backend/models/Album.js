@@ -28,8 +28,8 @@ const albumSchema = new mongoose.Schema({
 
     albumType: {
         type: String,
-        enum: ['single', 'EP', 'LP'],
-        required: [true, 'O tipo de álbum é obrigatório (single, EP, ou LP).']
+        enum: ['single', 'EP', 'LP', 'Compilation'],
+        required: [true, 'O tipo de álbum é obrigatório (single, EP, LP, ou Compilation).']
     },
 
     artista: {
