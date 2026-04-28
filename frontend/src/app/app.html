@@ -13,6 +13,19 @@
     <div class="nav-center">
       <form class="nav-search-form" (ngSubmit)="onSearch()">
         <div class="search-input-group">
+          <!-- Type selector (Custom Dropdown) -->
+          <div class="custom-type-select-container">
+            <button type="button" class="nav-type-select" (click)="toggleTypeDropdown()">
+              {{ navSearchType === 'albums' ? 'Álbuns' : 'Artistas' }}
+            </button>
+            @if (isTypeDropdownOpen) {
+              <div class="custom-type-dropdown">
+                <button type="button" class="custom-type-option" [class.active]="navSearchType === 'artists'" (click)="selectType('artists')">Artistas</button>
+                <button type="button" class="custom-type-option" [class.active]="navSearchType === 'albums'" (click)="selectType('albums')">Álbuns</button>
+              </div>
+            }
+          </div>
+
           <input 
             #searchInput
             type="text" 
@@ -22,32 +35,57 @@
             (focus)="onSearchFocus()"
             (blur)="closeSearch()"
             autocomplete="off"
-            placeholder="Pesquisar artistas..." 
+            [placeholder]="navSearchType === 'albums' ? 'Pesquisar álbuns...' : 'Pesquisar artistas...'" 
             class="nav-search-input"
           >
-          <button type="submit" class="nav-search-button" aria-label="Pesquisar artistas">
+          <button type="submit" class="nav-search-button" [attr.aria-label]="'Pesquisar ' + (navSearchType === 'albums' ? 'álbuns' : 'artistas')">
             <img src="icons/search.svg" alt="" class="search-button-icon" aria-hidden="true">
           </button>
         </div>
 
         <!-- Live Search Dropdown -->
-        @if (isSearchFocused && (searchResults.length > 0 || isSearching || searchQuery.trim())) {
+        @if (isSearchFocused && (activeResults.length > 0 || isSearching || searchQuery.trim())) {
           <div class="search-dropdown">
             @if (isSearching) {
               <div class="search-item text-muted">A carregar...</div>
-            } @else if (searchResults.length === 0 && searchQuery.trim()) {
-              <div class="search-item text-muted">Nenhum artista encontrado.</div>
+            } @else if (activeResults.length === 0 && searchQuery.trim()) {
+              <div class="search-item text-muted">
+                {{ navSearchType === 'albums' ? 'Nenhum álbum encontrado.' : 'Nenhum artista encontrado.' }}
+              </div>
             } @else {
               @if (!searchQuery.trim()) {
-                <div class="dropdown-header">Artistas Recomendados</div>
+                <div class="dropdown-header">
+                  {{ navSearchType === 'albums' ? 'Álbuns Recomendados' : 'Artistas Recomendados' }}
+                </div>
               }
-              @for (artist of searchResults.slice(0, 5); track artist.id) {
-                <a [routerLink]="['/artist', artist.id]" class="search-item" (click)="searchQuery = ''; searchResults = []; isSearching = false">
-                  <strong>{{ artist.name }}</strong>
-                </a>
+
+              <!-- Artist results -->
+              @if (navSearchType === 'artists') {
+                @for (artist of searchResults.slice(0, 5); track artist.id) {
+                  <a [routerLink]="['/artist', artist.id]" class="search-item" (click)="clearDropdown()">
+                    <img src="https://www.gstatic.com/images/icons/material/system/2x/mic_white_24dp.png" alt="" class="search-item-icon">
+                    <strong>{{ artist.name }}</strong>
+                  </a>
+                }
               }
+
+              <!-- Album results -->
+              @if (navSearchType === 'albums') {
+                @for (album of albumSearchResults.slice(0, 5); track album._id) {
+                  <a [routerLink]="['/search']" [queryParams]="{q: album.title, type: 'albums'}" class="search-item search-item--album-row" (click)="clearDropdown()">
+                    <img src="https://www.gstatic.com/images/icons/material/system/2x/album_white_24dp.png" alt="" class="search-item-icon">
+                    <div class="search-item-info">
+                      <strong>{{ album.title }}</strong>
+                      @if (album.artista?.name) {
+                        <span class="search-item-meta">{{ album.artista!.name }}</span>
+                      }
+                    </div>
+                  </a>
+                }
+              }
+
               @if (searchQuery.trim()) {
-                <a [routerLink]="['/search']" [queryParams]="{q: searchQuery}" class="search-more" (click)="searchQuery = ''; searchResults = []; isSearching = false">
+                <a [routerLink]="['/search']" [queryParams]="{q: searchQuery, type: navSearchType}" class="search-more" (click)="clearDropdown()">
                   Ver todos os resultados...
                 </a>
               }

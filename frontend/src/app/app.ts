@@ -6,6 +6,7 @@ import { Subject, of } from 'rxjs';
 import { debounceTime, switchMap, catchError } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
 import { ArtistService, ArtistSummary } from './services/artist.service';
+import { AlbumService, AlbumSummary } from './services/album.service';
 
 @Component({
   selector: 'app-root',
@@ -20,16 +21,21 @@ export class App implements OnInit {
 
   searchQuery = '';
   isDropdownOpen = false;
+  isTypeDropdownOpen = false;
+  navSearchType: 'artists' | 'albums' = 'artists';
   
   // Live Search variables
   private readonly searchSubject = new Subject<string>();
+  private readonly albumSearchSubject = new Subject<string>();
   searchResults: ArtistSummary[] = [];
+  albumSearchResults: AlbumSummary[] = [];
   isSearching = false;
   isSearchFocused = false;
 
   constructor(
     public authService: AuthService,
     private readonly artistService: ArtistService,
+    private readonly albumService: AlbumService,
     private readonly router: Router,
     private readonly cdr: ChangeDetectorRef,
     private readonly zone: NgZone
@@ -41,7 +47,7 @@ export class App implements OnInit {
       this.isDropdownOpen = false;
     });
 
-    // Configure Live Search autocomplete
+    // Configure Live Search autocomplete — Artists
     this.searchSubject.pipe(
       debounceTime(150),
       switchMap(query => {
@@ -70,6 +76,36 @@ export class App implements OnInit {
         });
       }
     });
+
+    // Configure Live Search autocomplete — Albums
+    this.albumSearchSubject.pipe(
+      debounceTime(150),
+      switchMap(query => {
+        const trimmedQuery = (query || '').trim();
+
+        this.isSearching = true;
+        return this.albumService.searchAlbums(trimmedQuery).pipe(
+          catchError(() => {
+            return of([]);
+          })
+        );
+      })
+    ).subscribe({
+      next: (results) => {
+        this.zone.run(() => {
+          this.albumSearchResults = results;
+          this.isSearching = false;
+          this.cdr.detectChanges();
+        });
+      },
+      error: () => {
+        this.zone.run(() => {
+          this.albumSearchResults = [];
+          this.isSearching = false;
+          this.cdr.detectChanges();
+        });
+      }
+    });
   }
 
   get isAuthenticated() {
@@ -93,6 +129,11 @@ export class App implements OnInit {
     return this.username ? this.username.charAt(0).toUpperCase() : '?';
   }
 
+  /** Returns the active results list for the current search type */
+  get activeResults(): any[] {
+    return this.navSearchType === 'albums' ? this.albumSearchResults : this.searchResults;
+  }
+
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
@@ -102,6 +143,11 @@ export class App implements OnInit {
     const target = event.target;
     const clickedInsideSearch = target instanceof Element && !!target.closest('.nav-search-form');
     const clickedInsideProfile = target instanceof Element && !!target.closest('.profile-menu');
+    const clickedInsideTypeSelect = target instanceof Element && !!target.closest('.custom-type-select-container');
+
+    if (!clickedInsideTypeSelect && this.isTypeDropdownOpen) {
+      this.isTypeDropdownOpen = false;
+    }
 
     if (!clickedInsideSearch && this.isSearchFocused) {
       this.closeSearchImmediately();
@@ -130,19 +176,20 @@ export class App implements OnInit {
     this.isSearchFocused = true;
 
     if (!this.searchQuery.trim()) {
-      this.searchResults = [];
+      this.clearAllResults();
       this.isSearching = true;
-      this.searchSubject.next('');
+      this.emitSearch('');
     }
   }
 
   onSearch() {
     if (this.searchQuery.trim()) {
       const q = this.searchQuery;
+      const type = this.navSearchType;
       this.searchQuery = ''; // Clear after navigating
-      this.searchResults = [];
+      this.clearAllResults();
       this.isSearching = false;
-      this.router.navigate(['/search'], { queryParams: { q } });
+      this.router.navigate(['/search'], { queryParams: { q, type } });
     }
   }
 
@@ -150,13 +197,30 @@ export class App implements OnInit {
     const trimmedQuery = query.trim();
 
     if (!trimmedQuery) {
-      this.searchResults = [];
+      this.clearAllResults();
       this.isSearching = true;
-      this.searchSubject.next('');
+      this.emitSearch('');
       return;
     }
 
-    this.searchSubject.next(trimmedQuery);
+    this.emitSearch(trimmedQuery);
+  }
+
+  onNavTypeChange(_type: 'artists' | 'albums') {
+    // Clear live results when switching type, then re-trigger search
+    this.clearAllResults();
+    this.isSearching = true;
+    this.emitSearch(this.searchQuery.trim());
+  }
+
+  toggleTypeDropdown() {
+    this.isTypeDropdownOpen = !this.isTypeDropdownOpen;
+  }
+
+  selectType(type: 'artists' | 'albums') {
+    this.navSearchType = type;
+    this.isTypeDropdownOpen = false;
+    this.onNavTypeChange(type);
   }
 
   closeSearch() {
@@ -166,9 +230,29 @@ export class App implements OnInit {
     }, 200);
   }
 
+  /** Clear dropdown result when clicking an item */
+  clearDropdown() {
+    this.searchQuery = '';
+    this.clearAllResults();
+    this.isSearching = false;
+  }
+
+  private emitSearch(query: string) {
+    if (this.navSearchType === 'albums') {
+      this.albumSearchSubject.next(query);
+    } else {
+      this.searchSubject.next(query);
+    }
+  }
+
+  private clearAllResults() {
+    this.searchResults = [];
+    this.albumSearchResults = [];
+  }
+
   private closeSearchImmediately() {
     this.isSearchFocused = false;
-    this.searchResults = [];
+    this.clearAllResults();
     this.isSearching = false;
   }
 }
