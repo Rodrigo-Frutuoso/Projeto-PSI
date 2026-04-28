@@ -1,0 +1,121 @@
+<div class="collection-page">
+  <div class="collection-container">
+    <!-- Header -->
+    <div class="page-header">
+      <button class="btn-back" (click)="goToDashboard()" id="collection-back-btn">
+        <span class="back-arrow">←</span>
+        Dashboard
+      </button>
+      <h1 class="page-title">A minha coleção</h1>
+    </div>
+
+    <!-- Success -->
+    @if (successMessage) {
+    <div class="alert alert-success" id="collection-success-msg">
+      <span class="alert-icon">✓</span>
+      <strong>{{ successMessage }}</strong>
+    </div>
+    }
+
+    <!-- Error -->
+    @if (loadError) {
+    <div class="alert alert-error">
+      <span class="alert-icon">✕</span>
+      <div>
+        <strong>Erro</strong>
+        <p>{{ loadError }}</p>
+      </div>
+    </div>
+    <div class="retry-wrapper">
+      <button class="btn-retry" (click)="loadCollection()" id="collection-retry-btn">Tentar novamente</button>
+    </div>
+    }
+
+    <!-- Loading -->
+    @if (isLoading) {
+    <div class="loading-state">
+      <div class="loader-ring"></div>
+      <p>A carregar coleção...</p>
+    </div>
+    }
+
+    <!-- Empty state -->
+    @if (!isLoading && !loadError && collection.length === 0) {
+    <div class="empty-state" id="collection-empty">
+      <div class="empty-icon">📀</div>
+      <h2>Coleção vazia</h2>
+      <p>Ainda não adicionaste nenhum álbum à tua coleção. Pesquisa álbuns e adiciona versões!</p>
+    </div>
+    }
+
+    <!-- Collection Table -->
+    @if (!isLoading && !loadError && collection.length > 0) {
+    <div class="collection-stats">
+      <span class="stats-badge">{{ collection.length }} {{ collection.length === 1 ? 'item' : 'itens' }}</span>
+    </div>
+
+    <div class="table-wrapper" id="collection-table">
+      <table class="collection-table">
+        <thead>
+          <tr>
+            <th (click)="sortBy('title')" class="sortable" id="sort-title">
+              Título <span class="sort-icon">{{ getSortIcon('title') }}</span>
+            </th>
+            <th (click)="sortBy('releaseYear')" class="sortable" id="sort-year">
+              Ano <span class="sort-icon">{{ getSortIcon('releaseYear') }}</span>
+            </th>
+            <th (click)="sortBy('artistName')" class="sortable" id="sort-artist">
+              Artista <span class="sort-icon">{{ getSortIcon('artistName') }}</span>
+            </th>
+            <th (click)="sortBy('ean13')" class="sortable" id="sort-ean13">
+              EAN-13 <span class="sort-icon">{{ getSortIcon('ean13') }}</span>
+            </th>
+            <th (click)="sortBy('physicalSupport')" class="sortable" id="sort-support">
+              Suporte <span class="sort-icon">{{ getSortIcon('physicalSupport') }}</span>
+            </th>
+            <th (click)="sortBy('designation')" class="sortable" id="sort-designation">
+              Designação <span class="sort-icon">{{ getSortIcon('designation') }}</span>
+            </th>
+            <th (click)="sortBy('addedAt')" class="sortable" id="sort-added">
+              Adicionado <span class="sort-icon">{{ getSortIcon('addedAt') }}</span>
+            </th>
+            <th class="col-actions">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of collection; track item.id) {
+          <tr class="collection-row" id="collection-item-{{ item.id }}">
+            <td class="cell-title">
+              <a (click)="goToAlbum(item.albumId)" class="album-link" title="Ver álbum">{{ item.title }}</a>
+            </td>
+            <td class="cell-year">{{ item.releaseYear }}</td>
+            <td class="cell-artist">{{ item.artistName }}</td>
+            <td class="cell-ean">
+              <code class="ean-code">{{ item.ean13 }}</code>
+            </td>
+            <td class="cell-support">
+              <span class="support-badge" [class]="'support-' + item.physicalSupport.toLowerCase()">
+                {{ item.physicalSupport }}
+              </span>
+            </td>
+            <td class="cell-designation">
+              @if (item.designation) {
+              <span>{{ item.designation }}</span>
+              } @else {
+              <span class="empty-value">—</span>
+              }
+            </td>
+            <td class="cell-date">{{ formatDate(item.addedAt) }}</td>
+            <td class="cell-actions">
+              <button class="btn-remove" (click)="removeItem(item)" title="Remover da coleção" id="remove-{{ item.id }}">
+                🗑️
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    }
+  </div>
+</div>

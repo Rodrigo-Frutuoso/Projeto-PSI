@@ -145,6 +145,115 @@ const TEST_ALBUMS = [
   { mbid: 'a1b2c3d4-0011-0011-0011-000000000016', title: 'Faluas do Tejo', releaseYear: 2005, albumType: 'LP', artistName: 'Madredeus' }
 ];
 
+// Versões de álbuns (EAN-13, suporte físico, designação opcional)
+// Mapeadas pelo MBID do álbum
+const VERSIONS_BY_MBID = {
+  // Radiohead - OK Computer
+  'ddacdf34-2e2d-4d7a-af37-56e632d4b998': [
+    { ean13: '0724385522925', physicalSupport: 'CD', designation: null },
+    { ean13: '0634904078119', physicalSupport: 'vinil', designation: null },
+    { ean13: '0634904078218', physicalSupport: 'vinil', designation: 'OKNOTOK Edition' },
+    { ean13: '0634904078317', physicalSupport: 'cassete', designation: null }
+  ],
+  // Radiohead - Kid A
+  'c2eaf764-ca57-4180-b2f5-b6d8f1e5fb06': [
+    { ean13: '0724352957026', physicalSupport: 'CD', designation: null },
+    { ean13: '0634904079017', physicalSupport: 'vinil', designation: null }
+  ],
+  // Radiohead - In Rainbows
+  'a1b2c3d4-0001-0001-0001-000000000005': [
+    { ean13: '0634904032128', physicalSupport: 'CD', designation: null },
+    { ean13: '0634904032227', physicalSupport: 'vinil', designation: null },
+    { ean13: '0634904032326', physicalSupport: 'CD', designation: 'Deluxe Edition' }
+  ],
+  // The Beatles - Abbey Road
+  'a1b2c3d4-0002-0002-0002-000000000011': [
+    { ean13: '0094638246923', physicalSupport: 'CD', designation: null },
+    { ean13: '0094638246824', physicalSupport: 'vinil', designation: null },
+    { ean13: '0094638246725', physicalSupport: 'vinil', designation: '50th Anniversary Edition' },
+    { ean13: '0094638246626', physicalSupport: 'cassete', designation: null }
+  ],
+  // The Beatles - Let It Be
+  '64e32095-d24b-4ec5-bc16-6701509930f9': [
+    { ean13: '0602435922423', physicalSupport: 'CD', designation: null },
+    { ean13: '0602435922324', physicalSupport: 'vinil', designation: null }
+  ],
+  // The Beatles - Sgt. Pepper's
+  'a1b2c3d4-0002-0002-0002-000000000007': [
+    { ean13: '0602557455328', physicalSupport: 'CD', designation: null },
+    { ean13: '0602557455229', physicalSupport: 'vinil', designation: null },
+    { ean13: '0602557455120', physicalSupport: 'CD', designation: 'Deluxe Anniversary' }
+  ],
+  // Ornatos Violeta - Cão!
+  'a1b2c3d4-e5f6-7890-1234-56789abcdef1': [
+    { ean13: '5099749531628', physicalSupport: 'CD', designation: null },
+    { ean13: '5099749531529', physicalSupport: 'vinil', designation: 'Reedição 2022' }
+  ],
+  // Ornatos Violeta - O Monstro Precisa de Amigos
+  'a1b2c3d4-0003-0003-0003-000000000001': [
+    { ean13: '5099749531321', physicalSupport: 'CD', designation: null },
+    { ean13: '5099749531222', physicalSupport: 'vinil', designation: null }
+  ],
+  // António Variações - Anjo da Guarda
+  'a1b2c3d4-0004-0004-0004-000000000001': [
+    { ean13: '5099901098525', physicalSupport: 'CD', designation: null },
+    { ean13: '5099901098426', physicalSupport: 'vinil', designation: null },
+    { ean13: '5099901098327', physicalSupport: 'cassete', designation: null }
+  ],
+  // Papa Roach - Infest
+  '2bb5e8fc-f5b2-4d14-8742-1e9bf478635d': [
+    { ean13: '0600445032125', physicalSupport: 'CD', designation: null },
+    { ean13: '0600445032026', physicalSupport: 'vinil', designation: null },
+    { ean13: '0600445032224', physicalSupport: 'CD', designation: '20th Anniversary Edition' }
+  ],
+  // Quim Barreiros - Bacalhau à Portuguesa
+  'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0101': [
+    { ean13: '5601010100128', physicalSupport: 'CD', designation: null },
+    { ean13: '5601010100029', physicalSupport: 'vinil', designation: null }
+  ],
+  // Amália Rodrigues - Com Que Voz
+  'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0201': [
+    { ean13: '5601020200126', physicalSupport: 'CD', designation: null },
+    { ean13: '5601020200027', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601020200225', physicalSupport: 'CD', designation: 'Edição Remasterizada' }
+  ],
+  // Xutos & Pontapés - Circo de Feras
+  'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0301': [
+    { ean13: '5601030300124', physicalSupport: 'CD', designation: null },
+    { ean13: '5601030300025', physicalSupport: 'vinil', designation: null }
+  ],
+  // GNR - Psicopátria
+  'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0401': [
+    { ean13: '5601040400122', physicalSupport: 'CD', designation: null },
+    { ean13: '5601040400023', physicalSupport: 'vinil', designation: null }
+  ],
+  // Rui Veloso - Ar de Rock
+  'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0501': [
+    { ean13: '5601050500120', physicalSupport: 'CD', designation: null },
+    { ean13: '5601050500021', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601050500319', physicalSupport: 'cassete', designation: null }
+  ],
+  // Madredeus - Os Dias da MadreDeus
+  'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0601': [
+    { ean13: '5601060600128', physicalSupport: 'CD', designation: null },
+    { ean13: '5601060600029', physicalSupport: 'vinil', designation: null }
+  ],
+  // Radiohead - Pablo Honey
+  'a1b2c3d4-0001-0001-0001-000000000001': [
+    { ean13: '0724382189428', physicalSupport: 'CD', designation: null }
+  ],
+  // Radiohead - The Bends
+  'a1b2c3d4-0001-0001-0001-000000000002': [
+    { ean13: '0724383547227', physicalSupport: 'CD', designation: null },
+    { ean13: '0724383547128', physicalSupport: 'vinil', designation: null }
+  ],
+  // Radiohead - A Moon Shaped Pool
+  'a1b2c3d4-0001-0001-0001-000000000007': [
+    { ean13: '0634904079215', physicalSupport: 'CD', designation: null },
+    { ean13: '0634904079314', physicalSupport: 'vinil', designation: 'White Vinyl' }
+  ]
+};
+
 async function buildTestAlbums() {
   const artistNames = [...new Set(TEST_ALBUMS.filter((album) => album.artistName).map((album) => album.artistName))];
   const artists = await Artist.find({ name: { $in: artistNames } }).select('_id name').lean();
@@ -157,6 +266,23 @@ async function buildTestAlbums() {
       artista: artistName ? artistIdByName.get(artistName) || null : null
     };
   });
+}
+
+// Atualizar álbuns existentes com versões (caso ainda não tenham)
+async function seedVersions() {
+  let updatedCount = 0;
+  const mbids = Object.keys(VERSIONS_BY_MBID);
+
+  for (const mbid of mbids) {
+    const album = await Album.findOne({ mbid });
+    if (album && (!album.versions || album.versions.length === 0)) {
+      album.versions = VERSIONS_BY_MBID[mbid];
+      await album.save();
+      updatedCount++;
+    }
+  }
+
+  return updatedCount;
 }
 
 async function seedTestData() {
@@ -177,22 +303,32 @@ async function seedTestData() {
   }
 
   const testAlbums = await buildTestAlbums();
-  const seedMbids = testAlbums.map((album) => album.mbid);
+  // Adicionar versões aos álbuns novos antes de inserir
+  const testAlbumsWithVersions = testAlbums.map((album) => ({
+    ...album,
+    versions: VERSIONS_BY_MBID[album.mbid] || []
+  }));
+
+  const seedMbids = testAlbumsWithVersions.map((album) => album.mbid);
   const existingSeedAlbums = await Album.find({ mbid: { $in: seedMbids } }).select('mbid').lean();
   const existingSeedMbids = new Set(existingSeedAlbums.map((album) => album.mbid));
-  const albumsToInsert = testAlbums.filter((album) => !existingSeedMbids.has(album.mbid));
+  const albumsToInsert = testAlbumsWithVersions.filter((album) => !existingSeedMbids.has(album.mbid));
 
   if (albumsToInsert.length > 0) {
     await Album.insertMany(albumsToInsert);
     insertedAlbums = albumsToInsert.length;
   }
 
+  // Atualizar álbuns existentes que ainda não têm versões
+  const updatedVersions = await seedVersions();
+
   return {
     artistsCountBefore,
     albumsCountBefore,
     insertedArtists,
     insertedAlbums,
-    alreadySeeded: insertedArtists === 0 && insertedAlbums === 0
+    updatedVersions,
+    alreadySeeded: insertedArtists === 0 && insertedAlbums === 0 && updatedVersions === 0
   };
 }
 
