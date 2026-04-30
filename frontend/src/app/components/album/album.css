@@ -7,3 +7,99 @@
 .tracks th, .tracks td { text-align:left; padding:6px 8px; border-bottom:1px solid #eee; }
 .versions ul { list-style:none; padding-left:0; }
 .versions li { padding:4px 0; }
+
+/* ─── Version list item layout ─── */
+.version-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.version-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.version-actions {
+  flex-shrink: 0;
+}
+
+/* ─── Add button ─── */
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: linear-gradient(135deg, #78ffd6 0%, #a8ff78 100%);
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(120, 255, 214, 0.25);
+}
+
+.btn-add:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(120, 255, 214, 0.4);
+}
+
+.btn-add:active {
+  transform: translateY(0);
+}
+
+.btn-adding {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-adding:hover {
+  transform: none;
+  box-shadow: 0 2px 8px rgba(120, 255, 214, 0.25);
+}
+
+/* ─── Collected badge ─── */
+.badge-collected {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(120, 255, 214, 0.12);
+  color: #78ffd6;
+  border: 1px solid rgba(120, 255, 214, 0.25);
+}
+
+/* ─── Feedback messages ─── */
+.version-message {
+  width: 100%;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  animation: fadeInMsg 0.25s ease-out;
+}
+
+.msg-success {
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.msg-error {
+  background: rgba(248, 113, 113, 0.12);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+@keyframes fadeInMsg {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

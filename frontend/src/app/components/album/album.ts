@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { AlbumService, AlbumDetail, AlbumTrack, AlbumVersion } from '../../services/album.service';
+import { CollectionService } from '../../services/collection.service';
 
 @Component({
   selector: 'app-album',
@@ -16,9 +17,17 @@ export class AlbumComponent implements OnInit {
   loadError = '';
   readonly Object = Object;
 
+  /** EAN-13s already in the user's collection */
+  collectedEans = new Set<string>();
+  /** EAN-13s currently being added (loading spinner) */
+  addingEans = new Set<string>();
+  /** Feedback messages per EAN-13 */
+  versionMessages: Record<string, { text: string; type: 'success' | 'error' }> = {};
+
   constructor(
     private readonly route: ActivatedRoute,
     private readonly albumService: AlbumService,
+    private readonly collectionService: CollectionService,
     private readonly cdr: ChangeDetectorRef
   ) {}
 
@@ -31,6 +40,7 @@ export class AlbumComponent implements OnInit {
       return;
     }
 
+    // Load album data and user's collection in parallel
     this.albumService.getAlbum(id).subscribe({
       next: (data) => {
         this.album = data;
@@ -44,6 +54,78 @@ export class AlbumComponent implements OnInit {
         this.cdr.detectChanges();
       }
     });
+
+    // Pre-load the user's collection to know which versions are already collected
+    this.collectionService.getCollection().subscribe({
+      next: (items) => {
+        this.collectedEans = new Set(items.map(i => i.ean13));
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        // Non-critical: buttons will just not be pre-disabled
+      }
+    });
+  }
+
+  /** Add a specific version to the user's collection */
+  addToCollection(version: AlbumVersion): void {
+    if (!this.album?._id || !version.ean13) return;
+    if (this.collectedEans.has(version.ean13)) return;
+
+    this.addingEans.add(version.ean13);
+    delete this.versionMessages[version.ean13];
+    this.cdr.detectChanges();
+
+    this.collectionService.addToCollection(this.album._id, version.ean13).subscribe({
+      next: (response) => {
+        this.addingEans.delete(version.ean13);
+        this.collectedEans.add(version.ean13);
+        this.versionMessages[version.ean13] = {
+          text: response.message || 'Versão adicionada à coleção com sucesso!',
+          type: 'success'
+        };
+        this.cdr.detectChanges();
+
+        // Auto-hide success message after 5s
+        setTimeout(() => {
+          delete this.versionMessages[version.ean13];
+          this.cdr.detectChanges();
+        }, 5000);
+      },
+      error: (err) => {
+        this.addingEans.delete(version.ean13);
+
+        if (err.status === 409) {
+          // Already in collection — mark as collected
+          this.collectedEans.add(version.ean13);
+          this.versionMessages[version.ean13] = {
+            text: err.error?.message || 'Esta versão já se encontra na tua coleção.',
+            type: 'error'
+          };
+        } else {
+          this.versionMessages[version.ean13] = {
+            text: err.error?.message || 'Erro ao adicionar à coleção.',
+            type: 'error'
+          };
+        }
+        this.cdr.detectChanges();
+
+        setTimeout(() => {
+          delete this.versionMessages[version.ean13];
+          this.cdr.detectChanges();
+        }, 5000);
+      }
+    });
+  }
+
+  /** Check if a version is already in the collection */
+  isCollected(ean13: string): boolean {
+    return this.collectedEans.has(ean13);
+  }
+
+  /** Check if a version is currently being added */
+  isAdding(ean13: string): boolean {
+    return this.addingEans.has(ean13);
   }
 
   formatDuration(seconds?: number): string {

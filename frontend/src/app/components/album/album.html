@@ -48,9 +48,38 @@
         <div *ngFor="let group of Object.keys(groupedVersions())">
           <h4>{{ group }}</h4>
           <ul>
-            <li *ngFor="let v of groupedVersions()[group]">
-              <strong>EAN-13:</strong> {{ v.ean13 }}
-              <span *ngIf="(groupedVersions()[group].length > 1) && v.designation"> - {{ v.designation }}</span>
+            <li *ngFor="let v of groupedVersions()[group]" class="version-item">
+              <div class="version-info">
+                <strong>EAN-13:</strong> {{ v.ean13 }}
+                <span *ngIf="(groupedVersions()[group].length > 1) && v.designation"> - {{ v.designation }}</span>
+              </div>
+              <div class="version-actions">
+                <!-- Already in collection -->
+                <span *ngIf="isCollected(v.ean13)" class="badge-collected">
+                  ✓ Na coleção
+                </span>
+                <!-- Adding in progress -->
+                <button
+                  *ngIf="!isCollected(v.ean13) && isAdding(v.ean13)"
+                  class="btn-add btn-adding"
+                  disabled>
+                  A adicionar…
+                </button>
+                <!-- Add button -->
+                <button
+                  *ngIf="!isCollected(v.ean13) && !isAdding(v.ean13)"
+                  class="btn-add"
+                  (click)="addToCollection(v)">
+                  + Adicionar à coleção
+                </button>
+              </div>
+              <!-- Feedback message -->
+              <div *ngIf="versionMessages[v.ean13]"
+                   class="version-message"
+                   [class.msg-success]="versionMessages[v.ean13].type === 'success'"
+                   [class.msg-error]="versionMessages[v.ean13].type === 'error'">
+                {{ versionMessages[v.ean13].text }}
+              </div>
             </li>
           </ul>
         </div>
