@@ -3,6 +3,7 @@
   <div *ngIf="loadError" class="error">{{ loadError }}</div>
 
   <div *ngIf="album">
+    <div class="card">
     <div class="header">
       <img *ngIf="album.coverImage; else noCover" [src]="album.coverImage" alt="Capa" class="cover" />
       <ng-template #noCover>
@@ -88,5 +89,6 @@
         <p>Sem versões registadas.</p>
       </ng-template>
     </section>
+    </div>
   </div>
 </div>
