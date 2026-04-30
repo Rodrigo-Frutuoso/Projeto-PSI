@@ -8,6 +8,7 @@ export interface AlbumSummary {
   releaseYear: number;
   albumType?: string;
   mbid?: string;
+  coverImage?: string | null;
   artista?: {
     _id: string;
     name: string;
@@ -34,7 +35,6 @@ export interface AlbumVersion {
 }
 
 export interface AlbumDetail extends AlbumSummary {
-  coverImage?: string | null;
   tracks?: AlbumTrack[];
   versions?: AlbumVersion[];
 }

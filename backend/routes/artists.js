@@ -45,7 +45,7 @@ router.get('/', authMiddleware, async (req, res) => {
 
         const artists = await Artist.find(queryRegex)
             .sort({ name: 1 })
-            .limit(searchQuery ? 20 : 5); // Se pesquisa vazia (recomendações), mostra apenas 5 aleatórios ou 5 primeiros
+            .limit(searchQuery ? 50 : 100); 
 
         const filteredArtists = searchQuery
             ? artists.filter((artist) => matchesArtistWordPrefix(artist.name, searchQuery))
@@ -62,7 +62,7 @@ router.get('/', authMiddleware, async (req, res) => {
 
 router.get('/:id', authMiddleware, async (req, res) => {
     try {
-        const artist = await Artist.findById(req.params.id).select('name startYear isni');
+        const artist = await Artist.findById(req.params.id).select('name startYear isni imageUrl');
         if (!artist) return res.status(404).json({ message: 'Artista não encontrado.' });
 
         const recentAlbums = await Album.find({ artista: req.params.id })

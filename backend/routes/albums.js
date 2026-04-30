@@ -19,8 +19,23 @@ const makeAccentIgnoredRegex = (text) => {
         .replace(/[nñNÑ]/g, '[nñNÑ]');
 };
 
+const normalizeSearchText = (text) => (text || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+    
+const matchesWordPrefix = (title, searchQuery) => {
+    const normalizedQuery = normalizeSearchText(searchQuery);
+    if (!normalizedQuery) return false;
+
+    return normalizeSearchText(title)
+        .split(/\s+/)
+        .some((word) => word.startsWith(normalizedQuery));
+};
+
 // GET /api/albums?search=<query>
-// Pesquisa álbuns cujo título corresponde parcialmente ao termo pesquisado
+// Pesquisa álbuns cujo título corresponde ao termo pesquisado (início de palavra)
 router.get('/', authMiddleware, async (req, res) => {
     try {
         const searchQuery = (req.query.search || '').trim();
@@ -28,16 +43,20 @@ router.get('/', authMiddleware, async (req, res) => {
 
         if (searchQuery) {
             const searchPattern = makeAccentIgnoredRegex(searchQuery);
-            queryFilter = { title: { $regex: searchPattern, $options: 'i' } };
+            queryFilter = { title: { $regex: `(^|\\s)${searchPattern}`, $options: 'i' } };
         }
 
         const albums = await Album.find(queryFilter)
             .populate('artista', 'name')
-            .select('title releaseYear albumType mbid artista')
+            .select('title releaseYear albumType mbid artista coverImage')
             .sort({ title: 1 })
-            .limit(searchQuery ? 20 : 5);
+            .limit(searchQuery ? 50 : 100);
 
-        res.status(200).json(albums);
+        const filteredAlbums = searchQuery
+            ? albums.filter((album) => matchesWordPrefix(album.title, searchQuery))
+            : albums;
+
+        res.status(200).json(filteredAlbums);
 
     } catch (error) {
         console.error('Erro na pesquisa de álbuns:', error);

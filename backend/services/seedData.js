@@ -3,19 +3,19 @@ const Album = require('../models/Album');
 const Song = require('../models/Song');
 
 const TEST_ARTISTS = [
-  { name: 'Radiohead', startYear: 1985, isni: '0000000115264296', artistType: 'group', members: [] },
-  { name: 'The Beatles', startYear: 1960, isni: '0000000121707484', artistType: 'group', members: [] },
-  { name: 'Ornatos Violeta', startYear: 1991, isni: '0000000105374567', artistType: 'group', members: [] },
-  { name: 'António Variações', startYear: 1978, isni: '0000000080608544', artistType: 'solo', members: [] },
-  { name: 'Papa Roach', startYear: 1993, isni: '0000000115041071', artistType: 'group', members: [] },
-  { name: 'Quim Barreiros', startYear: 1971, isni: '0000000199001001', artistType: 'solo', members: [] },
-  { name: 'Amália Rodrigues', startYear: 1939, isni: '0000000199001002', artistType: 'solo', members: [] },
-  { name: 'Xutos & Pontapés', startYear: 1978, isni: '0000000199001003', artistType: 'group', members: [] },
-  { name: 'GNR', startYear: 1980, isni: '0000000199001004', artistType: 'group', members: [] },
-  { name: 'Rui Veloso', startYear: 1980, isni: '0000000199001005', artistType: 'solo', members: [] },
-  { name: 'Madredeus', startYear: 1985, isni: '0000000199001006', artistType: 'group', members: [] },
-  { name: 'Paulo Gonzo', startYear: 1975, isni: '0000000067812702', artistType: 'solo', members: [] },
-  { name: 'Bruno Mars', startYear: 2004, isni: '0000000115004121', artistType: 'solo', members: [] }
+  { name: 'Radiohead', startYear: 1985, isni: '0000000115264296', artistType: 'group', members: [], imageUrl: 'https://i.scdn.co/image/ab6761610000e5eb4104fbd80f1f795728abbd59' },
+  { name: 'The Beatles', startYear: 1960, isni: '0000000121707484', artistType: 'group', members: [], imageUrl: 'https://i.scdn.co/image/ab6761610000e5ebe9348cc01ff5d55971b22433' },
+  { name: 'Ornatos Violeta', startYear: 1991, isni: '0000000105374567', artistType: 'group', members: [], imageUrl: 'https://i.scdn.co/image/ab6761610000f1786264e5e495e2fc2e3362b829' },
+  { name: 'António Variações', startYear: 1978, isni: '0000000080608544', artistType: 'solo', members: [], imageUrl: 'https://i.scdn.co/image/ab67616d0000b273ae673fecee9af1ae7844a20f' },
+  { name: 'Papa Roach', startYear: 1993, isni: '0000000115041071', artistType: 'group', members: [], imageUrl: 'https://i.scdn.co/image/ab67616100005174d3757f63ec317d0309a8115a' },
+  { name: 'Quim Barreiros', startYear: 1971, isni: '0000000199001001', artistType: 'solo', members: [], imageUrl: 'https://i.scdn.co/image/ab67616100005174d762ee952a5ccccd741df4bf' },
+  { name: 'Amália Rodrigues', startYear: 1939, isni: '0000000199001002', artistType: 'solo', members: [], imageUrl: 'https://i.scdn.co/image/ab6761610000e5eb5589024ae35951d679840614' },
+  { name: 'Xutos & Pontapés', startYear: 1978, isni: '0000000199001003', artistType: 'group', members: [], imageUrl: 'https://i.scdn.co/image/ab67616d0000b273440e8c2bfc91cc9f09a42fba' },
+  { name: 'GNR', startYear: 1980, isni: '0000000199001004', artistType: 'group', members: [], imageUrl: 'https://i.scdn.co/image/ab676161000051746264e5e495e2fc2e3362b829' },
+  { name: 'Rui Veloso', startYear: 1980, isni: '0000000199001005', artistType: 'solo', members: [], imageUrl: 'https://i.scdn.co/image/ab6761610000e5eb2dc4886f0182279645cb3507' },
+  { name: 'Madredeus', startYear: 1985, isni: '0000000199001006', artistType: 'group', members: [], imageUrl: 'https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/thisisv3/3mlxV3eHtMwvoOSLzR6CFj/pt' },
+  { name: 'Paulo Gonzo', startYear: 1975, isni: '0000000067812702', artistType: 'solo', members: [], imageUrl: 'https://i.scdn.co/image/ab6761610000e5eb419a91c44615738317695474' },
+  { name: 'Bruno Mars', startYear: 2004, isni: '0000000115004121', artistType: 'solo', members: [], imageUrl: 'https://i.scdn.co/image/ab6761610000e5ebc7688aad1bf03986934d7e26' }
 ];
 
 const TEST_ALBUMS = [
@@ -952,7 +952,7 @@ const COVERS_BY_MBID = {
 
   // Xutos & Pontapés
   'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0301': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwmOcueG7hzDh4cZWM4kenNViDXmXgYreyGg&s',
-  'a1b2c3d4-0008-0008-0008-000000000010': 'https://xutos.pt/wp-content/uploads/1.-7882-compress.jpg', // 78/82 (1982)
+  'a1b2c3d4-0008-0008-0008-000000000010': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVUDJMqr_pHZIyxamGkbCsX_4JUp_TgHPp9Q&s', // 78/82 (1982)
   'a1b2c3d4-0008-0008-0008-000000000011': 'https://upload.wikimedia.org/wikipedia/pt/1/10/Cerco_xutos_e_pontap%C3%A9s.jpeg', // Cerco (1985)
   'a1b2c3d4-0008-0008-0008-000000000012': 'https://upload.wikimedia.org/wikipedia/pt/e/e0/88_xutos.jpeg', // 88 (1988)
   'a1b2c3d4-0008-0008-0008-000000000020': 'https://i.scdn.co/image/ab67616d0000b273571dd4b0e96f374953597285', // Ao Vivo (1988)

@@ -218,6 +218,11 @@ export class ArtistComponent implements OnInit, OnDestroy {
     this.toastTimer = undefined;
   }
 
+  getArtistAvatar(artist: any): string {
+    if (artist.imageUrl) return artist.imageUrl;
+    return `https://ui-avatars.com/api/?name=${encodeURIComponent(artist.name)}&background=random&color=fff&size=128`;
+  }
+
   goBack(): void {
     this.router.navigate(['/dashboard']);
   }

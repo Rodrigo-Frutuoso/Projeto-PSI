@@ -16,6 +16,7 @@ export interface ArtistSummary {
   isni: string;
   startYear: number;
   artistType?: 'solo' | 'group';
+  imageUrl?: string;
 }
 
 export interface ArtistProfile {
@@ -30,6 +31,7 @@ interface ArtistApiResponse {
   isni: string;
   startYear: number;
   artistType?: 'solo' | 'group';
+  imageUrl?: string;
 }
 
 interface ArtistDetailsApiResponse {
@@ -106,7 +108,8 @@ export class ArtistService {
           name: artist.name,
           isni: artist.isni,
           startYear: artist.startYear,
-          artistType: artist.artistType
+          artistType: artist.artistType,
+          imageUrl: artist.imageUrl
         }));
       })
     );
@@ -124,7 +127,8 @@ export class ArtistService {
             name: artistData.name,
             isni: artistData.isni,
             startYear: artistData.startYear,
-            artistType: artistData.artistType
+            artistType: artistData.artistType,
+            imageUrl: artistData.imageUrl
           },
           recentAlbums: response.recentAlbums || []
         };

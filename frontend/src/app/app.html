@@ -1,6 +1,6 @@
 <header class="global-navbar" [class.auth-page]="isAuthPage">
   <!-- Left Side: Logo -->
-  <a [routerLink]="isAuthenticated ? '/dashboard' : '/login'" class="nav-left nav-logo">
+  <a [routerLink]="isAuthenticated ? '/dashboard' : '/login'" (click)="clearSearchState()" class="nav-left nav-logo" style="cursor: pointer;">
     <span class="animated-music-icon">♫</span>
     @if (showBrandTitle) {
     <span class="nav-title">Music Collection</span>
@@ -32,8 +32,6 @@
             name="searchQuery"
             [(ngModel)]="searchQuery" 
             (ngModelChange)="onSearchChange($event)"
-            (focus)="onSearchFocus()"
-            (blur)="closeSearch()"
             autocomplete="off"
             [placeholder]="navSearchType === 'albums' ? 'Pesquisar álbuns...' : 'Pesquisar artistas...'" 
             class="nav-search-input"
@@ -43,55 +41,7 @@
           </button>
         </div>
 
-        <!-- Live Search Dropdown -->
-        @if (isSearchFocused && (activeResults.length > 0 || isSearching || searchQuery.trim())) {
-          <div class="search-dropdown">
-            @if (isSearching) {
-              <div class="search-item text-muted">A carregar...</div>
-            } @else if (activeResults.length === 0 && searchQuery.trim()) {
-              <div class="search-item text-muted">
-                {{ navSearchType === 'albums' ? 'Nenhum álbum encontrado.' : 'Nenhum artista encontrado.' }}
-              </div>
-            } @else {
-              @if (!searchQuery.trim()) {
-                <div class="dropdown-header">
-                  {{ navSearchType === 'albums' ? 'Álbuns Recomendados' : 'Artistas Recomendados' }}
-                </div>
-              }
 
-              <!-- Artist results -->
-              @if (navSearchType === 'artists') {
-                @for (artist of searchResults.slice(0, 5); track artist.id) {
-                  <a [routerLink]="['/artist', artist.id]" class="search-item" (click)="clearDropdown()">
-                    <img src="https://www.gstatic.com/images/icons/material/system/2x/mic_white_24dp.png" alt="" class="search-item-icon">
-                    <strong>{{ artist.name }}</strong>
-                  </a>
-                }
-              }
-
-              <!-- Album results -->
-              @if (navSearchType === 'albums') {
-                @for (album of albumSearchResults.slice(0, 5); track album._id) {
-                  <a [routerLink]="['/search']" [queryParams]="{q: album.title, type: 'albums'}" class="search-item search-item--album-row" (click)="clearDropdown()">
-                    <img src="https://www.gstatic.com/images/icons/material/system/2x/album_white_24dp.png" alt="" class="search-item-icon">
-                    <div class="search-item-info">
-                      <strong>{{ album.title }}</strong>
-                      @if (album.artista?.name) {
-                        <span class="search-item-meta">{{ album.artista!.name }}</span>
-                      }
-                    </div>
-                  </a>
-                }
-              }
-
-              @if (searchQuery.trim()) {
-                <a [routerLink]="['/search']" [queryParams]="{q: searchQuery, type: navSearchType}" class="search-more" (click)="clearDropdown()">
-                  Ver todos os resultados...
-                </a>
-              }
-            }
-          </div>
-        }
       </form>
     </div>
 
@@ -127,6 +77,31 @@
     </div>
   }
 </header>
-<main class="app-main-view">
-  <router-outlet />
-</main>
+<div class="app-layout" [class.authenticated]="isAuthenticated && !isAuthPage" [class.sidebar-collapsed]="!isSidebarExpanded">
+  @if (isAuthenticated && !isAuthPage) {
+    <aside class="app-sidebar" [class.collapsed]="!isSidebarExpanded">
+
+      <div class="sidebar-collection-container">
+        <div class="sidebar-header">
+          <button type="button" class="header-left toggle-btn" (click)="toggleSidebar()" aria-label="Recolher A minha biblioteca">
+            <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" class="header-icon" style="color: #b3b3b3; transition: color 0.2s;">
+              <path d="M14.5 2.134a1 1 0 0 1 1 0l6 3.464a1 1 0 0 1 .5.866V21a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V3a1 1 0 0 1 .5-.866zM16 4.732V20h4V7.041l-4-2.309zM3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zm6 0a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1z"></path>
+            </svg>
+            <span class="sidebar-text">A minha biblioteca</span>
+          </button>
+        </div>
+        
+        <nav class="sidebar-nav secondary-nav">
+          <a routerLink="/collection" class="sidebar-link" routerLinkActive="active" [title]="!isSidebarExpanded ? 'Coleção' : ''">
+            <span class="emoji-icon">📀</span>
+            <span class="sidebar-text">Coleção</span>
+          </a>
+        </nav>
+      </div>
+    </aside>
+  }
+
+  <main class="app-main-view">
+    <router-outlet />
+  </main>
+</div>

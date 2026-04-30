@@ -1,46 +1,26 @@
 <div class="search-page">
   <div class="search-card">
-
-    <!-- Header badge -->
-    <div class="badge">Resultados da pesquisa</div>
-    <h1>
-      @if (searchType === 'albums') {
-        Álbuns: <span class="query-highlight">{{ currentQuery }}</span>
-      } @else {
-        Artistas: <span class="query-highlight">{{ currentQuery }}</span>
-      }
-    </h1>
-
-    <!-- Inline search form (allows refining on this page) -->
-    <form class="search-form" (ngSubmit)="onSearch()">
-      <div class="input-row">
-        <!-- Type selector (Custom Dropdown) -->
-        <div class="custom-type-select-container">
-          <button type="button" class="type-select" (click)="toggleTypeDropdown()">
-            {{ searchType === 'albums' ? 'Álbuns' : 'Artistas' }}
-          </button>
-          @if (isTypeDropdownOpen) {
-            <div class="custom-type-dropdown">
-              <button type="button" class="custom-type-option" [class.active]="searchType === 'artists'" (click)="selectType('artists')">Artistas</button>
-              <button type="button" class="custom-type-option" [class.active]="searchType === 'albums'" (click)="selectType('albums')">Álbuns</button>
-            </div>
+    <div class="page-header">
+      <div class="header-titles">
+        <!-- Header -->
+        <h1>
+          @if (searchType === 'albums') {
+            {{ currentQuery.trim() ? 'Álbuns:' : 'Todos os Álbuns' }}
+          } @else {
+            {{ currentQuery.trim() ? 'Artistas:' : 'Todos os Artistas' }}
           }
-        </div>
-
-        <!-- Query input -->
-        <input
-          id="search-query-input"
-          type="text"
-          class="search-input"
-          [(ngModel)]="localQuery"
-          name="localQuery"
-          [placeholder]="searchType === 'albums' ? 'Pesquisar álbuns...' : 'Pesquisar artistas...'"
-          autocomplete="off"
-        />
-
-        <button type="submit" class="btn-search">Pesquisar</button>
+          @if (currentQuery.trim()) {
+            <span class="query-highlight">"{{ currentQuery }}"</span>
+          }
+        </h1>
       </div>
-    </form>
+
+      <div class="top-actions">
+        <a routerLink="/dashboard" class="btn-back">← Voltar à dashboard</a>
+      </div>
+    </div>
+
+    <!-- Inline search form removed per user request -->
 
     <!-- Loading -->
     @if (isLoading) {
@@ -65,51 +45,34 @@
           Encontrámos <strong>{{ totalResults }}</strong> {{ typeLabel }} para a tua pesquisa.
         </p>
 
-        <div class="results-list">
+        <div class="grid-container">
 
           <!-- Artist results -->
           @if (searchType === 'artists') {
             @for (artist of artistResults; track artist.id) {
-              <button
-                type="button"
-                class="result-item"
-                (click)="openArtist(artist.id)"
-                [attr.aria-label]="'Ver perfil de ' + artist.name"
-              >
-                <div class="result-info">
-                  <span class="result-icon artist-icon"><img src="https://www.gstatic.com/images/icons/material/system/2x/mic_white_24dp.png" alt="" class="result-image-icon"></span>
-                  <div class="result-text">
-                    <strong>{{ artist.name }}</strong>
-                    @if (artist.startYear) {
-                      <span class="result-meta">Desde {{ artist.startYear }}</span>
-                    }
-                  </div>
+              <a [routerLink]="['/artist', artist.id]" class="spotify-card artist-card">
+                <div class="card-image-wrapper">
+                  <img [src]="getArtistAvatar(artist)" [alt]="artist.name" class="card-image artist-img">
                 </div>
-                <span class="result-arrow">→</span>
-              </button>
+                <div class="card-info">
+                  <span class="card-title">{{ artist.name }}</span>
+                  <span class="card-subtitle">Artista</span>
+                </div>
+              </a>
             }
           }
 
           <!-- Album results -->
           @if (searchType === 'albums') {
             @for (album of albumResults; track album._id) {
-              <a [routerLink]="['/album', album._id]" class="result-item result-item--album" aria-label="Ver página do álbum {{ album.title }}">
-                <div class="result-info">
-                  <span class="result-icon album-icon"><img src="https://www.gstatic.com/images/icons/material/system/2x/album_white_24dp.png" alt="" class="result-image-icon"></span>
-                  <div class="result-text">
-                    <strong>{{ album.title }}</strong>
-                    <span class="result-meta">
-                      @if (album.artista?.name) {
-                        {{ album.artista!.name }} &bull;
-                      }
-                      {{ album.releaseYear }}
-                      @if (album.albumType) {
-                        &bull; {{ album.albumType }}
-                      }
-                    </span>
-                  </div>
+              <a [routerLink]="['/album', album._id]" class="spotify-card">
+                <div class="card-image-wrapper">
+                  <img [src]="album.coverImage || 'https://via.placeholder.com/300?text=Sem+Capa'" [alt]="album.title" class="card-image">
                 </div>
-                <span class="result-arrow">→</span>
+                <div class="card-info">
+                  <span class="card-title">{{ album.title }}</span>
+                  <span class="card-subtitle">{{ album.artista?.name || 'Artista Desconhecido' }}</span>
+                </div>
               </a>
             }
           }
@@ -118,8 +81,5 @@
       }
     }
 
-    <div class="footer-actions">
-      <a routerLink="/dashboard" class="btn-back">← Voltar à dashboard</a>
-    </div>
   </div>
 </div>

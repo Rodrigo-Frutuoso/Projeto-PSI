@@ -32,6 +32,11 @@ const artistSchema = new mongoose.Schema({
         required: [true, 'O tipo de artista é obrigatório.']
     },
 
+    imageUrl: {
+        type: String,
+        trim: true
+    },
+
     members: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Artist'

@@ -1,12 +1,11 @@
 import { Component, ChangeDetectorRef, OnInit, NgZone, HostListener, ViewChild, ElementRef } from '@angular/core';
-import { RouterOutlet, Router, RouterLink } from '@angular/router';
+import { RouterOutlet, Router, RouterLink, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Subject, of } from 'rxjs';
-import { debounceTime, switchMap, catchError } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
-import { ArtistService, ArtistSummary } from './services/artist.service';
-import { AlbumService, AlbumSummary } from './services/album.service';
+import { ArtistService } from './services/artist.service';
+import { AlbumService } from './services/album.service';
+import { SearchStateService } from './services/search-state.service';
 
 @Component({
   selector: 'app-root',
@@ -23,87 +22,49 @@ export class App implements OnInit {
   isDropdownOpen = false;
   isTypeDropdownOpen = false;
   navSearchType: 'artists' | 'albums' = 'artists';
+  isSidebarExpanded = true;
   
-  // Live Search variables
-  private readonly searchSubject = new Subject<string>();
-  private readonly albumSearchSubject = new Subject<string>();
-  searchResults: ArtistSummary[] = [];
-  albumSearchResults: AlbumSummary[] = [];
-  isSearching = false;
-  isSearchFocused = false;
+  toggleSidebar() {
+    this.isSidebarExpanded = !this.isSidebarExpanded;
+    localStorage.setItem('spotify_sidebar_expanded', this.isSidebarExpanded ? 'true' : 'false');
+  }
+
 
   constructor(
     public authService: AuthService,
     private readonly artistService: ArtistService,
     private readonly albumService: AlbumService,
+    private readonly searchStateService: SearchStateService,
     private readonly router: Router,
     private readonly cdr: ChangeDetectorRef,
     private readonly zone: NgZone
   ) {}
 
   ngOnInit() {
-    // Optionally close dropdown on navigation
-    this.router.events.subscribe(() => {
-      this.isDropdownOpen = false;
-    });
+    // Load sidebar state
+    const savedSidebarState = localStorage.getItem('spotify_sidebar_expanded');
+    if (savedSidebarState !== null) {
+      this.isSidebarExpanded = savedSidebarState === 'true';
+    }
 
-    // Configure Live Search autocomplete — Artists
-    this.searchSubject.pipe(
-      debounceTime(150),
-      switchMap(query => {
-        const trimmedQuery = (query || '').trim();
-
-        this.isSearching = true;
-        return this.artistService.searchArtists(trimmedQuery).pipe(
-          catchError(() => {
-            return of([]); // Impede que o Subject morra por erro do servidor
-          })
-        );
-      })
-    ).subscribe({
-      next: (results) => {
-        this.zone.run(() => {
-          this.searchResults = results;
-          this.isSearching = false;
-          this.cdr.detectChanges();
-        });
-      },
-      error: () => {
-        this.zone.run(() => {
-          this.searchResults = [];
-          this.isSearching = false;
-          this.cdr.detectChanges();
-        });
+    // Optionally close dropdown on navigation and auto-switch search type
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isDropdownOpen = false;
+        
+        // Auto-switch search type based on current page context
+        if (event.urlAfterRedirects.startsWith('/album')) {
+          this.searchStateService.setSearchType('albums');
+        } else if (event.urlAfterRedirects.startsWith('/artist')) {
+          this.searchStateService.setSearchType('artists');
+        }
       }
     });
 
-    // Configure Live Search autocomplete — Albums
-    this.albumSearchSubject.pipe(
-      debounceTime(150),
-      switchMap(query => {
-        const trimmedQuery = (query || '').trim();
-
-        this.isSearching = true;
-        return this.albumService.searchAlbums(trimmedQuery).pipe(
-          catchError(() => {
-            return of([]);
-          })
-        );
-      })
-    ).subscribe({
-      next: (results) => {
-        this.zone.run(() => {
-          this.albumSearchResults = results;
-          this.isSearching = false;
-          this.cdr.detectChanges();
-        });
-      },
-      error: () => {
-        this.zone.run(() => {
-          this.albumSearchResults = [];
-          this.isSearching = false;
-          this.cdr.detectChanges();
-        });
+    // Keep the top search bar type synced with global state
+    this.searchStateService.searchType$.subscribe(type => {
+      if (this.navSearchType !== type) {
+        this.navSearchType = type;
       }
     });
   }
@@ -129,10 +90,7 @@ export class App implements OnInit {
     return this.username ? this.username.charAt(0).toUpperCase() : '?';
   }
 
-  /** Returns the active results list for the current search type */
-  get activeResults(): any[] {
-    return this.navSearchType === 'albums' ? this.albumSearchResults : this.searchResults;
-  }
+
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
@@ -141,20 +99,11 @@ export class App implements OnInit {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
     const target = event.target;
-    const clickedInsideSearch = target instanceof Element && !!target.closest('.nav-search-form');
     const clickedInsideProfile = target instanceof Element && !!target.closest('.profile-menu');
     const clickedInsideTypeSelect = target instanceof Element && !!target.closest('.custom-type-select-container');
 
     if (!clickedInsideTypeSelect && this.isTypeDropdownOpen) {
       this.isTypeDropdownOpen = false;
-    }
-
-    if (!clickedInsideSearch && this.isSearchFocused) {
-      this.closeSearchImmediately();
-    }
-
-    if (!clickedInsideSearch && document.activeElement === this.searchInput?.nativeElement) {
-      this.searchInput.nativeElement.blur();
     }
 
     if (!clickedInsideProfile && this.isDropdownOpen) {
@@ -172,45 +121,32 @@ export class App implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  onSearchFocus() {
-    this.isSearchFocused = true;
-
-    if (!this.searchQuery.trim()) {
-      this.clearAllResults();
-      this.isSearching = true;
-      this.emitSearch('');
-    }
+  clearSearchState() {
+    this.searchQuery = '';
+    this.searchStateService.setSearchQuery('');
+    this.cdr.detectChanges();
   }
 
   onSearch() {
-    if (this.searchQuery.trim()) {
-      const q = this.searchQuery;
+    const q = this.searchQuery.trim();
+    if (q) {
       const type = this.navSearchType;
-      this.searchQuery = ''; // Clear after navigating
-      this.clearAllResults();
-      this.isSearching = false;
       this.router.navigate(['/search'], { queryParams: { q, type } });
+    } else {
+      // If the user submits an empty search, return to dashboard
+      this.searchQuery = '';
+      this.searchStateService.setSearchQuery('');
+      this.router.navigate(['/dashboard']);
     }
   }
 
   onSearchChange(query: string) {
     const trimmedQuery = query.trim();
-
-    if (!trimmedQuery) {
-      this.clearAllResults();
-      this.isSearching = true;
-      this.emitSearch('');
-      return;
+    this.searchStateService.setSearchQuery(trimmedQuery);
+    
+    if (this.router.url.startsWith('/search')) {
+      this.router.navigate(['/search'], { queryParams: { q: trimmedQuery, type: this.navSearchType }, replaceUrl: true });
     }
-
-    this.emitSearch(trimmedQuery);
-  }
-
-  onNavTypeChange(_type: 'artists' | 'albums') {
-    // Clear live results when switching type, then re-trigger search
-    this.clearAllResults();
-    this.isSearching = true;
-    this.emitSearch(this.searchQuery.trim());
   }
 
   toggleTypeDropdown() {
@@ -220,39 +156,12 @@ export class App implements OnInit {
   selectType(type: 'artists' | 'albums') {
     this.navSearchType = type;
     this.isTypeDropdownOpen = false;
-    this.onNavTypeChange(type);
-  }
-
-  closeSearch() {
-    // Delay slightly so a click event on an item can trigger before DOM removal
-    setTimeout(() => {
-      this.closeSearchImmediately();
-    }, 200);
-  }
-
-  /** Clear dropdown result when clicking an item */
-  clearDropdown() {
-    this.searchQuery = '';
-    this.clearAllResults();
-    this.isSearching = false;
-  }
-
-  private emitSearch(query: string) {
-    if (this.navSearchType === 'albums') {
-      this.albumSearchSubject.next(query);
-    } else {
-      this.searchSubject.next(query);
+    this.searchStateService.setSearchType(type);
+    
+    // Auto-update the search page if we are already on it
+    if (this.router.url.startsWith('/search')) {
+      const q = this.searchStateService.getCurrentQuery();
+      this.router.navigate(['/search'], { queryParams: { q, type } });
     }
-  }
-
-  private clearAllResults() {
-    this.searchResults = [];
-    this.albumSearchResults = [];
-  }
-
-  private closeSearchImmediately() {
-    this.isSearchFocused = false;
-    this.clearAllResults();
-    this.isSearching = false;
   }
 }

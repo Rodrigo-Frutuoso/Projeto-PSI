@@ -1,14 +1,45 @@
-<div class="dashboard-page">
-  <div class="dashboard-card">
-    <div class="badge">Dashboard</div>
-    <h1>Bem-vindo, {{ username }}!</h1>
-    <p>
-      Sessão iniciada com sucesso. Aqui vais poder aceder às funcionalidades da aplicação.
-    </p>
-
-    <div class="actions">
-      <a routerLink="/collection" class="btn-primary" id="dashboard-collection-btn">📀 A minha coleção</a>
-      <a routerLink="/profile" class="btn-secondary" id="dashboard-profile-btn">👤 O meu perfil</a>
+<div class="dashboard-content">
+  <!-- Artists Section -->
+  <section class="dashboard-section">
+    <div class="section-header">
+      <h2>Artistas recomendados</h2>
+      <a routerLink="/search" [queryParams]="{type: 'artists'}" class="show-all">Mostrar tudo</a>
     </div>
-  </div>
+
+    <div class="grid-container">
+      @for (artist of artists; track artist.id) {
+        <a [routerLink]="['/artist', artist.id]" class="spotify-card artist-card">
+          <div class="card-image-wrapper">
+            <img [src]="getArtistAvatar(artist)" [alt]="artist.name" class="card-image artist-img">
+          </div>
+          <div class="card-info">
+            <span class="card-title">{{ artist.name }}</span>
+            <span class="card-subtitle">Artista</span>
+          </div>
+        </a>
+      }
+    </div>
+  </section>
+
+  <!-- Albums Section -->
+  <section class="dashboard-section">
+    <div class="section-header">
+      <h2>Álbuns recomendados</h2>
+      <a routerLink="/search" [queryParams]="{type: 'albums'}" class="show-all">Mostrar tudo</a>
+    </div>
+
+    <div class="grid-container">
+      @for (album of albums; track album._id) {
+        <a [routerLink]="['/album', album._id]" class="spotify-card">
+          <div class="card-image-wrapper">
+            <img [src]="album.coverImage || 'https://via.placeholder.com/300?text=Sem+Capa'" [alt]="album.title" class="card-image">
+          </div>
+          <div class="card-info">
+            <span class="card-title">{{ album.title }}</span>
+            <span class="card-subtitle">{{ album.artista?.name || 'Artista Desconhecido' }}</span>
+          </div>
+        </a>
+      }
+    </div>
+  </section>
 </div>
