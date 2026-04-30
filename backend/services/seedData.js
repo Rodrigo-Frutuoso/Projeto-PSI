@@ -264,12 +264,1414 @@ const VERSIONS_BY_MBID = {
   'a1b2c3d4-0001-0001-0001-000000000007': [
     { ean13: '0634904079215', physicalSupport: 'CD', designation: null },
     { ean13: '0634904079314', physicalSupport: 'vinil', designation: 'White Vinyl' }
+  ],
+  // António Variações - O Melhor de António Variações
+  'a1b2c3d4-0004-0004-0004-000000000002': [
+    { ean13: '5601990070018', physicalSupport: 'CD', designation: null }
+  ],
+  // António Variações - A História de António Variações – Entre Braga e Nova Iorque
+  'a1b2c3d4-0004-0004-0004-000000000003': [
+    { ean13: '5601990070025', physicalSupport: 'CD', designation: null }
+  ],
+  // Papa Roach - Lovehatetragedy
+  'a1b2c3d4-0005-0005-0005-000000000001': [
+    { ean13: '5601990070032', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070049', physicalSupport: 'vinil', designation: null }
+  ],
+  // Papa Roach - Getting Away with Murder
+  'a1b2c3d4-0005-0005-0005-000000000002': [
+    { ean13: '5601990070056', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070063', physicalSupport: 'vinil', designation: null }
+  ],
+  // Papa Roach - The Paramour Sessions
+  'a1b2c3d4-0005-0005-0005-000000000003': [
+    { ean13: '5601990070070', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070087', physicalSupport: 'vinil', designation: null }
+  ],
+  // Papa Roach - Metamorphosis
+  'a1b2c3d4-0005-0005-0005-000000000004': [
+    { ean13: '5601990070094', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070100', physicalSupport: 'vinil', designation: null }
+  ],
+  // Papa Roach - Time for Annihilation
+  'a1b2c3d4-0005-0005-0005-000000000005': [
+    { ean13: '5601990070117', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070124', physicalSupport: 'vinil', designation: null }
+  ],
+  // Papa Roach - The Connection
+  'a1b2c3d4-0005-0005-0005-000000000006': [
+    { ean13: '5601990070131', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070148', physicalSupport: 'vinil', designation: null }
+  ],
+  // Papa Roach - F.E.A.R.
+  'a1b2c3d4-0005-0005-0005-000000000007': [
+    { ean13: '5601990070155', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070162', physicalSupport: 'vinil', designation: null }
+  ],
+  // Papa Roach - Crooked Teeth
+  'a1b2c3d4-0005-0005-0005-000000000008': [
+    { ean13: '5601990070179', physicalSupport: 'CD', designation: null }
+  ],
+  // Papa Roach - Who Do You Trust?
+  'a1b2c3d4-0005-0005-0005-000000000009': [
+    { ean13: '5601990070186', physicalSupport: 'CD', designation: null }
+  ],
+  // Papa Roach - Ego Trip
+  'a1b2c3d4-0005-0005-0005-000000000010': [
+    { ean13: '5601990070193', physicalSupport: 'CD', designation: null }
+  ],
+  // Quim Barreiros - CD d'Ouro
+  'a1b2c3d4-0006-0006-0006-000000000010': [
+    { ean13: '5601990070200', physicalSupport: 'CD', designation: null }
+  ],
+  // Quim Barreiros - Original (O Franguito da Maria)
+  'a1b2c3d4-0006-0006-0006-000000000011': [
+    { ean13: '5601990070209', physicalSupport: 'CD', designation: null }
+  ],
+  // Quim Barreiros - Deixa Botar Só a Cabeça (Acredita em Mim)
+  'a1b2c3d4-0006-0006-0006-000000000012': [
+    { ean13: '5601990070216', physicalSupport: 'CD', designation: null }
+  ],
+  // Quim Barreiros - Insónia
+  'a1b2c3d4-0006-0006-0006-000000000013': [
+    { ean13: '5601990070223', physicalSupport: 'CD', designation: null }
+  ],
+  // Quim Barreiros - Mestre da Culinária
+  'a1b2c3d4-0006-0006-0006-000000000014': [
+    { ean13: '5601990070230', physicalSupport: 'CD', designation: null }
+  ],
+  // Quim Barreiros - Nunca Gastes Tudo
+  'a1b2c3d4-0006-0006-0006-000000000015': [
+    { ean13: '5601990070247', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070254', physicalSupport: 'vinil', designation: null }
+  ],
+  // Quim Barreiros - Minha Vaca Louca
+  'a1b2c3d4-0006-0006-0006-000000000016': [
+    { ean13: '5601990070261', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070278', physicalSupport: 'vinil', designation: null }
+  ],
+  // Quim Barreiros - 15 Grandes Sucessos
+  'a1b2c3d4-0006-0006-0006-000000000017': [
+    { ean13: '5601990070285', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070292', physicalSupport: 'vinil', designation: null }
+  ],
+  // Quim Barreiros - Marcha do 3º Milénio
+  'a1b2c3d4-0006-0006-0006-000000000018': [
+    { ean13: '5601990070308', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070315', physicalSupport: 'vinil', designation: null }
+  ],
+  // Quim Barreiros - A Garagem da Vizinha
+  'a1b2c3d4-0006-0006-0006-000000000019': [
+    { ean13: '5601990070322', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070339', physicalSupport: 'vinil', designation: null }
+  ],
+  // Quim Barreiros - Comer, Comer
+  'a1b2c3d4-0006-0006-0006-000000000020': [
+    { ean13: '5601990070346', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070353', physicalSupport: 'vinil', designation: null }
+  ],
+  // Quim Barreiros - Cantares ao Desafio
+  'a1b2c3d4-0006-0006-0006-000000000021': [
+    { ean13: '5601990070360', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070377', physicalSupport: 'vinil', designation: null }
+  ],
+  // Quim Barreiros - Na Tua Casa Tá Entrando Outro Macho
+  'a1b2c3d4-0006-0006-0006-000000000022': [
+    { ean13: '5601990070384', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070391', physicalSupport: 'vinil', designation: null }
+  ],
+  // Quim Barreiros - A Cabritinha
+  'a1b2c3d4-0006-0006-0006-000000000023': [
+    { ean13: '5601990070407', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070414', physicalSupport: 'vinil', designation: null }
+  ],
+  // Amália Rodrigues - Amália no Olympia
+  'a1b2c3d4-0007-0007-0007-000000000010': [
+    { ean13: '5601990070421', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070438', physicalSupport: 'CD', designation: 'Edição Remasterizada' }
+  ],
+  // Amália Rodrigues - Busto
+  'a1b2c3d4-0007-0007-0007-000000000011': [
+    { ean13: '5601990070445', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070452', physicalSupport: 'CD', designation: 'Edição Remasterizada' }
+  ],
+  // Amália Rodrigues - Fado Português
+  'a1b2c3d4-0007-0007-0007-000000000012': [
+    { ean13: '5601990070469', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070476', physicalSupport: 'CD', designation: 'Edição Remasterizada' }
+  ],
+  // Amália Rodrigues - Fados 67
+  'a1b2c3d4-0007-0007-0007-000000000013': [
+    { ean13: '5601990070483', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070490', physicalSupport: 'CD', designation: 'Edição Remasterizada' }
+  ],
+  // Amália Rodrigues - Amália/Vinicius
+  'a1b2c3d4-0007-0007-0007-000000000014': [
+    { ean13: '5601990070506', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070513', physicalSupport: 'CD', designation: 'Edição Remasterizada' }
+  ],
+  // Amália Rodrigues - Cantigas de Amigos
+  'a1b2c3d4-0007-0007-0007-000000000015': [
+    { ean13: '5601990070520', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070537', physicalSupport: 'CD', designation: 'Edição Remasterizada' }
+  ],
+  // Amália Rodrigues - Trova do Vento que Passa
+  'a1b2c3d4-0007-0007-0007-000000000016': [
+    { ean13: '5601990070544', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070551', physicalSupport: 'CD', designation: 'Edição Remasterizada' }
+  ],
+  // Amália Rodrigues - Amália & Don Byas
+  'a1b2c3d4-0007-0007-0007-000000000017': [
+    { ean13: '5601990070568', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070575', physicalSupport: 'CD', designation: 'Edição Remasterizada' }
+  ],
+  // Xutos & Pontapés - 78/82
+  'a1b2c3d4-0008-0008-0008-000000000010': [
+    { ean13: '5601990070582', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070599', physicalSupport: 'CD', designation: 'Edição Remasterizada' }
+  ],
+  // Xutos & Pontapés - Cerco
+  'a1b2c3d4-0008-0008-0008-000000000011': [
+    { ean13: '5601990070605', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070612', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070629', physicalSupport: 'cassete', designation: null }
+  ],
+  // Xutos & Pontapés - 88
+  'a1b2c3d4-0008-0008-0008-000000000012': [
+    { ean13: '5601990070636', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070643', physicalSupport: 'CD', designation: null }
+  ],
+  // Xutos & Pontapés - Gritos Mudos
+  'a1b2c3d4-0008-0008-0008-000000000013': [
+    { ean13: '5601990070650', physicalSupport: 'CD', designation: null }
+  ],
+  // Xutos & Pontapés - Dizer Não de Vez
+  'a1b2c3d4-0008-0008-0008-000000000014': [
+    { ean13: '5601990070667', physicalSupport: 'CD', designation: null }
+  ],
+  // Xutos & Pontapés - Direito ao Deserto
+  'a1b2c3d4-0008-0008-0008-000000000015': [
+    { ean13: '5601990070674', physicalSupport: 'CD', designation: null }
+  ],
+  // Xutos & Pontapés - Dados Viciados
+  'a1b2c3d4-0008-0008-0008-000000000016': [
+    { ean13: '5601990070681', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070698', physicalSupport: 'vinil', designation: null }
+  ],
+  // Xutos & Pontapés - Xutos & Pontapés (2009)
+  'a1b2c3d4-0008-0008-0008-000000000017': [
+    { ean13: '5601990070704', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070711', physicalSupport: 'vinil', designation: null }
+  ],
+  // Xutos & Pontapés - Puro
+  'a1b2c3d4-0008-0008-0008-000000000018': [
+    { ean13: '5601990070728', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070735', physicalSupport: 'vinil', designation: null }
+  ],
+  // Xutos & Pontapés - Duro
+  'a1b2c3d4-0008-0008-0008-000000000019': [
+    { ean13: '5601990070742', physicalSupport: 'CD', designation: null }
+  ],
+  // Xutos & Pontapés - Ao Vivo
+  'a1b2c3d4-0008-0008-0008-000000000020': [
+    { ean13: '5601990070759', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070766', physicalSupport: 'CD', designation: null }
+  ],
+  // GNR - Independança
+  'a1b2c3d4-0009-0009-0009-000000000010': [
+    { ean13: '5601990070773', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070780', physicalSupport: 'CD', designation: 'Edição Remasterizada' }
+  ],
+  // GNR - Defeitos Especiais
+  'a1b2c3d4-0009-0009-0009-000000000011': [
+    { ean13: '5601990070797', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070803', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070810', physicalSupport: 'cassete', designation: null }
+  ],
+  // GNR - Os Homens Não Se Querem Bonitos
+  'a1b2c3d4-0009-0009-0009-000000000012': [
+    { ean13: '5601990070827', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070834', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070841', physicalSupport: 'cassete', designation: null }
+  ],
+  // GNR - Valsa dos Detectives
+  'a1b2c3d4-0009-0009-0009-000000000013': [
+    { ean13: '5601990070858', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990070865', physicalSupport: 'CD', designation: null }
+  ],
+  // GNR - Rock in Rio Douro
+  'a1b2c3d4-0009-0009-0009-000000000014': [
+    { ean13: '5601990070872', physicalSupport: 'CD', designation: null }
+  ],
+  // GNR - Sob Escuta
+  'a1b2c3d4-0009-0009-0009-000000000015': [
+    { ean13: '5601990070889', physicalSupport: 'CD', designation: null }
+  ],
+  // GNR - Mosquito
+  'a1b2c3d4-0009-0009-0009-000000000016': [
+    { ean13: '5601990070896', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070902', physicalSupport: 'vinil', designation: null }
+  ],
+  // GNR - Popless
+  'a1b2c3d4-0009-0009-0009-000000000017': [
+    { ean13: '5601990070919', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070926', physicalSupport: 'vinil', designation: null }
+  ],
+  // GNR - Do Lado dos Cisnes
+  'a1b2c3d4-0009-0009-0009-000000000018': [
+    { ean13: '5601990070933', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070940', physicalSupport: 'vinil', designation: null }
+  ],
+  // GNR - Retropolitana
+  'a1b2c3d4-0009-0009-0009-000000000019': [
+    { ean13: '5601990070957', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070964', physicalSupport: 'vinil', designation: null }
+  ],
+  // GNR - Voos Domésticos
+  'a1b2c3d4-0009-0009-0009-000000000020': [
+    { ean13: '5601990070971', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990070988', physicalSupport: 'vinil', designation: null }
+  ],
+  // Rui Veloso - Fora de Moda
+  'a1b2c3d4-0010-0010-0010-000000000010': [
+    { ean13: '5601990070995', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990071008', physicalSupport: 'CD', designation: 'Edição Remasterizada' }
+  ],
+  // Rui Veloso - Guardador de Margens
+  'a1b2c3d4-0010-0010-0010-000000000011': [
+    { ean13: '5601990071015', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990071022', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990071039', physicalSupport: 'cassete', designation: null }
+  ],
+  // Rui Veloso - Rui Veloso (1986)
+  'a1b2c3d4-0010-0010-0010-000000000012': [
+    { ean13: '5601990071046', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990071053', physicalSupport: 'CD', designation: null }
+  ],
+  // Rui Veloso - Ao Vivo
+  'a1b2c3d4-0010-0010-0010-000000000013': [
+    { ean13: '5601990071060', physicalSupport: 'vinil', designation: null },
+    { ean13: '5601990071077', physicalSupport: 'CD', designation: null }
+  ],
+  // Rui Veloso - Mingos & Os Samurais
+  'a1b2c3d4-0010-0010-0010-000000000014': [
+    { ean13: '5601990071084', physicalSupport: 'CD', designation: null }
+  ],
+  // Rui Veloso - Auto da Pimenta
+  'a1b2c3d4-0010-0010-0010-000000000015': [
+    { ean13: '5601990071091', physicalSupport: 'CD', designation: null }
+  ],
+  // Rui Veloso - Lado Lunar
+  'a1b2c3d4-0010-0010-0010-000000000016': [
+    { ean13: '5601990071107', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990071114', physicalSupport: 'vinil', designation: null }
+  ],
+  // Rui Veloso - Avenidas
+  'a1b2c3d4-0010-0010-0010-000000000017': [
+    { ean13: '5601990071121', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990071138', physicalSupport: 'vinil', designation: null }
+  ],
+  // Rui Veloso - A Espuma das Canções
+  'a1b2c3d4-0010-0010-0010-000000000018': [
+    { ean13: '5601990071145', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990071152', physicalSupport: 'vinil', designation: null }
+  ],
+  // Rui Veloso - Rui Veloso e Amigos
+  'a1b2c3d4-0010-0010-0010-000000000019': [
+    { ean13: '5601990071169', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990071176', physicalSupport: 'vinil', designation: null }
+  ],
+  // Madredeus - Existir
+  'a1b2c3d4-0011-0011-0011-000000000010': [
+    { ean13: '5601990071183', physicalSupport: 'CD', designation: null }
+  ],
+  // Madredeus - O Espírito da Paz
+  'a1b2c3d4-0011-0011-0011-000000000011': [
+    { ean13: '5601990071190', physicalSupport: 'CD', designation: null }
+  ],
+  // Madredeus - Ainda
+  'a1b2c3d4-0011-0011-0011-000000000012': [
+    { ean13: '5601990071206', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990071213', physicalSupport: 'vinil', designation: null }
+  ],
+  // Madredeus - O Paraíso
+  'a1b2c3d4-0011-0011-0011-000000000013': [
+    { ean13: '5601990071220', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990071237', physicalSupport: 'vinil', designation: null }
+  ],
+  // Madredeus - Movimento
+  'a1b2c3d4-0011-0011-0011-000000000014': [
+    { ean13: '5601990071244', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990071251', physicalSupport: 'vinil', designation: null }
+  ],
+  // Madredeus - Um Amor Infinito
+  'a1b2c3d4-0011-0011-0011-000000000015': [
+    { ean13: '5601990071268', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990071275', physicalSupport: 'vinil', designation: null }
+  ],
+  // Madredeus - Faluas do Tejo
+  'a1b2c3d4-0011-0011-0011-000000000016': [
+    { ean13: '5601990071282', physicalSupport: 'CD', designation: null },
+    { ean13: '5601990071299', physicalSupport: 'vinil', designation: null }
   ]
 };
 
 // Faixas por MBID. Tracklists reais e completas para todos os álbuns.
 const TRACKS_BY_MBID = {
   // Radiohead — OK Computer (tracklist completa)
+  // --- António Variações ---
+
+  // O Melhor de António Variações (1997) — compilação
+  'a1b2c3d4-0004-0004-0004-000000000002': [
+    { trackNumber: 1, title: 'Povo que Lavas no Rio', durationSeconds: 185 },
+    { trackNumber: 2, title: 'Estou Além', durationSeconds: 210 },
+    { trackNumber: 3, title: 'Canção de Engate', durationSeconds: 198 },
+    { trackNumber: 4, title: 'Anjinho da Guarda', durationSeconds: 192 },
+    { trackNumber: 5, title: 'Tema da Cama', durationSeconds: 204 },
+    { trackNumber: 6, title: 'Erva Daninha', durationSeconds: 215 },
+    { trackNumber: 7, title: 'Perdi a Memória', durationSeconds: 188 },
+    { trackNumber: 8, title: 'O Corpo é que Paga', durationSeconds: 222 },
+    { trackNumber: 9, title: 'É d\'Este Mimo Que Eu Gosto', durationSeconds: 196 },
+    { trackNumber: 10, title: 'Viva la vida Loca', durationSeconds: 207 },
+    { trackNumber: 11, title: 'Quero Ser Teu Cavalo', durationSeconds: 195 },
+    { trackNumber: 12, title: 'Dar & Receber', durationSeconds: 218 }
+  ],
+
+  // A História de António Variações – Entre Braga e Nova Iorque (2006) — compilação
+  'a1b2c3d4-0004-0004-0004-000000000003': [
+    { trackNumber: 1, title: 'Povo que Lavas no Rio', durationSeconds: 185 },
+    { trackNumber: 2, title: 'Canção de Engate', durationSeconds: 198 },
+    { trackNumber: 3, title: 'Anjinho da Guarda', durationSeconds: 192 },
+    { trackNumber: 4, title: 'Tema da Cama', durationSeconds: 204 },
+    { trackNumber: 5, title: 'Erva Daninha', durationSeconds: 215 },
+    { trackNumber: 6, title: 'Estou Além', durationSeconds: 210 },
+    { trackNumber: 7, title: 'Perdi a Memória', durationSeconds: 188 },
+    { trackNumber: 8, title: 'O Corpo é que Paga', durationSeconds: 222 },
+    { trackNumber: 9, title: 'É d\'Este Mimo Que Eu Gosto', durationSeconds: 196 },
+    { trackNumber: 10, title: 'Quero Ser Teu Cavalo', durationSeconds: 195 },
+    { trackNumber: 11, title: 'Viva la vida Loca', durationSeconds: 207 },
+    { trackNumber: 12, title: 'Dar & Receber', durationSeconds: 218 },
+    { trackNumber: 13, title: 'Minueto', durationSeconds: 201 },
+    { trackNumber: 14, title: 'Coro dos Contentes', durationSeconds: 188 }
+  ],
+
+  // --- Papa Roach ---
+
+  // Lovehatetragedy (2002)
+  'a1b2c3d4-0005-0005-0005-000000000001': [
+    { trackNumber: 1, title: 'M-80 (Explosive Energy Movement)', durationSeconds: 182 },
+    { trackNumber: 2, title: 'She Loves Me Not', durationSeconds: 193 },
+    { trackNumber: 3, title: 'Getting Away with Murder', durationSeconds: 198 },
+    { trackNumber: 4, title: 'Fault Line', durationSeconds: 176 },
+    { trackNumber: 5, title: 'Life Is a Bullet', durationSeconds: 204 },
+    { trackNumber: 6, title: 'Time Is Always on My Side', durationSeconds: 188 },
+    { trackNumber: 7, title: 'Breathe (You\'re the One)', durationSeconds: 215 },
+    { trackNumber: 8, title: 'Born with Nothing, Die with Everything', durationSeconds: 209 },
+    { trackNumber: 9, title: 'Singular Indestructible Droid', durationSeconds: 191 },
+    { trackNumber: 10, title: 'Do or Die', durationSeconds: 197 },
+    { trackNumber: 11, title: 'Black Clouds', durationSeconds: 212 },
+    { trackNumber: 12, title: 'Lovehatetragedy', durationSeconds: 356 }
+  ],
+
+  // Getting Away with Murder (2004)
+  'a1b2c3d4-0005-0005-0005-000000000002': [
+    { trackNumber: 1, title: 'Stop Looking Start Seeing', durationSeconds: 185 },
+    { trackNumber: 2, title: 'Getting Away with Murder', durationSeconds: 198 },
+    { trackNumber: 3, title: 'Be Free', durationSeconds: 193 },
+    { trackNumber: 4, title: 'Scars', durationSeconds: 215 },
+    { trackNumber: 5, title: 'Tyranny of Normality', durationSeconds: 176 },
+    { trackNumber: 6, title: 'Not Listening', durationSeconds: 204 },
+    { trackNumber: 7, title: 'Done with You', durationSeconds: 188 },
+    { trackNumber: 8, title: 'Hard Life', durationSeconds: 209 },
+    { trackNumber: 9, title: 'Deeper', durationSeconds: 191 },
+    { trackNumber: 10, title: 'Take Me', durationSeconds: 197 },
+    { trackNumber: 11, title: 'We Die', durationSeconds: 212 },
+    { trackNumber: 12, title: 'Blanket of Fear', durationSeconds: 218 },
+    { trackNumber: 13, title: 'Forever', durationSeconds: 223 }
+  ],
+
+  // The Paramour Sessions (2006)
+  'a1b2c3d4-0005-0005-0005-000000000003': [
+    { trackNumber: 1, title: 'To Be Loved', durationSeconds: 202 },
+    { trackNumber: 2, title: 'Ressurection', durationSeconds: 186 },
+    { trackNumber: 3, title: 'Dying to Believe', durationSeconds: 214 },
+    { trackNumber: 4, title: 'The World Around You', durationSeconds: 195 },
+    { trackNumber: 5, title: 'Not Afraid (with Kelly Clarkson)', durationSeconds: 209 },
+    { trackNumber: 6, title: 'I Devise My Own Demise', durationSeconds: 183 },
+    { trackNumber: 7, title: 'No More Secrets', durationSeconds: 197 },
+    { trackNumber: 8, title: 'My Heart Is a Fist', durationSeconds: 188 },
+    { trackNumber: 9, title: 'Time Is Running Out', durationSeconds: 219 },
+    { trackNumber: 10, title: 'Reckoning', durationSeconds: 193 },
+    { trackNumber: 11, title: 'Alive (N 2Deep)', durationSeconds: 201 },
+    { trackNumber: 12, title: 'Blanket of Fear', durationSeconds: 211 }
+  ],
+
+  // Metamorphosis (2009)
+  'a1b2c3d4-0005-0005-0005-000000000004': [
+    { trackNumber: 1, title: 'Metamorphosis', durationSeconds: 196 },
+    { trackNumber: 2, title: 'Lifeline', durationSeconds: 209 },
+    { trackNumber: 3, title: 'Hollywood Whore', durationSeconds: 185 },
+    { trackNumber: 4, title: 'No Circus', durationSeconds: 197 },
+    { trackNumber: 5, title: 'Hate (Lead the Way)', durationSeconds: 188 },
+    { trackNumber: 6, title: 'I Almost Told You That I Loved You', durationSeconds: 214 },
+    { trackNumber: 7, title: 'Carry Me', durationSeconds: 201 },
+    { trackNumber: 8, title: 'September', durationSeconds: 193 },
+    { trackNumber: 9, title: 'Forever', durationSeconds: 207 },
+    { trackNumber: 10, title: 'Change or Die', durationSeconds: 189 },
+    { trackNumber: 11, title: 'Roses on My Grave', durationSeconds: 215 },
+    { trackNumber: 12, title: 'Had Enough', durationSeconds: 198 },
+    { trackNumber: 13, title: 'Alive', durationSeconds: 221 }
+  ],
+
+  // Time for Annihilation (2010)
+  'a1b2c3d4-0005-0005-0005-000000000005': [
+    { trackNumber: 1, title: 'Kick in the Teeth', durationSeconds: 185 },
+    { trackNumber: 2, title: 'No Matter What', durationSeconds: 198 },
+    { trackNumber: 3, title: 'Burn', durationSeconds: 192 },
+    { trackNumber: 4, title: 'One Track Mind', durationSeconds: 205 },
+    { trackNumber: 5, title: 'Lift Me Up', durationSeconds: 188 },
+    { trackNumber: 6, title: 'Between Angels and Insects (Live)', durationSeconds: 215 },
+    { trackNumber: 7, title: 'Last Resort (Live)', durationSeconds: 208 },
+    { trackNumber: 8, title: 'Getting Away with Murder (Live)', durationSeconds: 201 },
+    { trackNumber: 9, title: 'Scars (Live)', durationSeconds: 218 },
+    { trackNumber: 10, title: 'To Be Loved (Live)', durationSeconds: 205 }
+  ],
+
+  // The Connection (2012)
+  'a1b2c3d4-0005-0005-0005-000000000006': [
+    { trackNumber: 1, title: 'Still Swingin\'', durationSeconds: 196 },
+    { trackNumber: 2, title: 'Where Did the Angels Go', durationSeconds: 209 },
+    { trackNumber: 3, title: 'Leader of the Broken Hearts', durationSeconds: 185 },
+    { trackNumber: 4, title: 'Silence & Scream', durationSeconds: 197 },
+    { trackNumber: 5, title: 'Gravity', durationSeconds: 214 },
+    { trackNumber: 6, title: 'Falling Apart', durationSeconds: 188 },
+    { trackNumber: 7, title: 'Burning Bright', durationSeconds: 201 },
+    { trackNumber: 8, title: 'Kukuku', durationSeconds: 193 },
+    { trackNumber: 9, title: 'Walk with Me', durationSeconds: 207 },
+    { trackNumber: 10, title: 'No Matter What', durationSeconds: 189 },
+    { trackNumber: 11, title: 'Before I Die', durationSeconds: 215 },
+    { trackNumber: 12, title: 'Won\'t Let Up', durationSeconds: 198 }
+  ],
+
+  // F.E.A.R. (2015)
+  'a1b2c3d4-0005-0005-0005-000000000007': [
+    { trackNumber: 1, title: 'Face Everything and Rise', durationSeconds: 188 },
+    { trackNumber: 2, title: 'Warriors', durationSeconds: 201 },
+    { trackNumber: 3, title: 'Skeletons', durationSeconds: 194 },
+    { trackNumber: 4, title: 'Love, Hate, Tragedy', durationSeconds: 216 },
+    { trackNumber: 5, title: 'Throne of Glass', durationSeconds: 187 },
+    { trackNumber: 6, title: 'Never Have to Say Goodbye', durationSeconds: 209 },
+    { trackNumber: 7, title: 'Gravity', durationSeconds: 198 },
+    { trackNumber: 8, title: 'Hope for the Hopeless', durationSeconds: 205 },
+    { trackNumber: 9, title: 'Not the Only One', durationSeconds: 191 },
+    { trackNumber: 10, title: 'Devil', durationSeconds: 213 },
+    { trackNumber: 11, title: 'American Dreams', durationSeconds: 197 },
+    { trackNumber: 12, title: 'forever fall apart', durationSeconds: 222 }
+  ],
+
+  // Crooked Teeth (2017)
+  'a1b2c3d4-0005-0005-0005-000000000008': [
+    { trackNumber: 1, title: 'Crooked Teeth', durationSeconds: 192 },
+    { trackNumber: 2, title: 'None of the Above', durationSeconds: 205 },
+    { trackNumber: 3, title: 'Traumatic', durationSeconds: 186 },
+    { trackNumber: 4, title: 'Born for Greatness', durationSeconds: 214 },
+    { trackNumber: 5, title: 'Clumsy', durationSeconds: 197 },
+    { trackNumber: 6, title: 'Periscope (feat. Skylar Grey)', durationSeconds: 209 },
+    { trackNumber: 7, title: 'American Zero', durationSeconds: 188 },
+    { trackNumber: 8, title: 'Help', durationSeconds: 201 },
+    { trackNumber: 9, title: 'Sunrise Trailer Park', durationSeconds: 193 },
+    { trackNumber: 10, title: 'Love Me Till It Hurts', durationSeconds: 216 },
+    { trackNumber: 11, title: 'Maniac', durationSeconds: 198 },
+    { trackNumber: 12, title: 'Crooked Teeth (Acoustic)', durationSeconds: 204 }
+  ],
+
+  // Who Do You Trust? (2019)
+  'a1b2c3d4-0005-0005-0005-000000000009': [
+    { trackNumber: 1, title: 'The Ending', durationSeconds: 189 },
+    { trackNumber: 2, title: 'Elevate', durationSeconds: 202 },
+    { trackNumber: 3, title: 'Feel Like Home', durationSeconds: 194 },
+    { trackNumber: 4, title: 'Who Do You Trust?', durationSeconds: 217 },
+    { trackNumber: 5, title: 'Renegade Music', durationSeconds: 186 },
+    { trackNumber: 6, title: 'I Suffer Well', durationSeconds: 209 },
+    { trackNumber: 7, title: 'Come Around', durationSeconds: 198 },
+    { trackNumber: 8, title: 'Not Good Enough', durationSeconds: 205 },
+    { trackNumber: 9, title: 'Crooked Teeth', durationSeconds: 192 },
+    { trackNumber: 10, title: 'Problems', durationSeconds: 191 },
+    { trackNumber: 11, title: 'Maniac', durationSeconds: 213 },
+    { trackNumber: 12, title: 'Better Than I Deserve', durationSeconds: 222 }
+  ],
+
+  // Ego Trip (2022)
+  'a1b2c3d4-0005-0005-0005-000000000010': [
+    { trackNumber: 1, title: 'The Ending (No Way Out)', durationSeconds: 191 },
+    { trackNumber: 2, title: 'Kill the Noise', durationSeconds: 203 },
+    { trackNumber: 3, title: 'Swerve (feat. FEVER 333 & Sueco)', durationSeconds: 185 },
+    { trackNumber: 4, title: 'Ego Trip', durationSeconds: 215 },
+    { trackNumber: 5, title: 'Stand Up', durationSeconds: 197 },
+    { trackNumber: 6, title: 'Dying to Believe', durationSeconds: 208 },
+    { trackNumber: 7, title: 'Bloodline', durationSeconds: 188 },
+    { trackNumber: 8, title: 'Voodoo Dead or Alive', durationSeconds: 201 },
+    { trackNumber: 9, title: 'No Apologies', durationSeconds: 194 },
+    { trackNumber: 10, title: 'Cut the Line', durationSeconds: 216 },
+    { trackNumber: 11, title: 'Tonehead', durationSeconds: 186 },
+    { trackNumber: 12, title: 'Feel Like Home', durationSeconds: 209 },
+    { trackNumber: 13, title: 'Come Around', durationSeconds: 198 },
+    { trackNumber: 14, title: 'One Track Mind', durationSeconds: 212 }
+  ],
+
+  // --- Quim Barreiros ---
+
+  // CD d'Ouro (1991)
+  'a1b2c3d4-0006-0006-0006-000000000010': [
+    { trackNumber: 1, title: 'Ao Fresco', durationSeconds: 192 },
+    { trackNumber: 2, title: 'A Menina dos Olhos Pretos', durationSeconds: 205 },
+    { trackNumber: 3, title: 'Maluca, Maluca', durationSeconds: 188 },
+    { trackNumber: 4, title: 'O Caldo da Panela', durationSeconds: 197 },
+    { trackNumber: 5, title: 'Bacalhau à Portuguesa', durationSeconds: 210 },
+    { trackNumber: 6, title: 'Barco Negro', durationSeconds: 183 },
+    { trackNumber: 7, title: 'A Pastora e o Soldado', durationSeconds: 201 },
+    { trackNumber: 8, title: 'Ó Malhão Malhão', durationSeconds: 195 },
+    { trackNumber: 9, title: 'Ai Morrinha', durationSeconds: 214 },
+    { trackNumber: 10, title: 'Meu Amor do Campo', durationSeconds: 199 }
+  ],
+
+  // Original (O Franguito da Maria) (1992)
+  'a1b2c3d4-0006-0006-0006-000000000011': [
+    { trackNumber: 1, title: 'O Franguito da Maria', durationSeconds: 198 },
+    { trackNumber: 2, title: 'A Viúva do Senhor Albano', durationSeconds: 210 },
+    { trackNumber: 3, title: 'Sou Quim Barreiros', durationSeconds: 187 },
+    { trackNumber: 4, title: 'Xô Tordilha', durationSeconds: 202 },
+    { trackNumber: 5, title: 'Ai Margarida', durationSeconds: 195 },
+    { trackNumber: 6, title: 'A Garagem da Vizinha', durationSeconds: 215 },
+    { trackNumber: 7, title: 'Mete a Mão no Bolso', durationSeconds: 189 },
+    { trackNumber: 8, title: 'Brinca Comigo', durationSeconds: 207 },
+    { trackNumber: 9, title: 'Vira da Ribeira', durationSeconds: 193 },
+    { trackNumber: 10, title: 'Ai Lisboa', durationSeconds: 201 }
+  ],
+
+  // Deixa Botar Só a Cabeça (Acredita em Mim) (1993)
+  'a1b2c3d4-0006-0006-0006-000000000012': [
+    { trackNumber: 1, title: 'Acredita em Mim', durationSeconds: 205 },
+    { trackNumber: 2, title: 'Deixa Botar Só a Cabeça', durationSeconds: 198 },
+    { trackNumber: 3, title: 'Sempre a Gozar', durationSeconds: 190 },
+    { trackNumber: 4, title: 'A Minha Avó', durationSeconds: 212 },
+    { trackNumber: 5, title: 'Adeus Amor', durationSeconds: 188 },
+    { trackNumber: 6, title: 'Dona Ilda', durationSeconds: 203 },
+    { trackNumber: 7, title: 'Ai Que Boa Vida', durationSeconds: 196 },
+    { trackNumber: 8, title: 'Peta', durationSeconds: 215 },
+    { trackNumber: 9, title: 'Na Escola', durationSeconds: 187 },
+    { trackNumber: 10, title: 'Olha a Janela', durationSeconds: 200 }
+  ],
+
+  // Insónia (1993)
+  'a1b2c3d4-0006-0006-0006-000000000013': [
+    { trackNumber: 1, title: 'Insónia', durationSeconds: 208 },
+    { trackNumber: 2, title: 'A Minha Madrinha', durationSeconds: 195 },
+    { trackNumber: 3, title: 'Toca a Gemer', durationSeconds: 187 },
+    { trackNumber: 4, title: 'Gosto de Ti', durationSeconds: 213 },
+    { trackNumber: 5, title: 'O Meu Quartinho', durationSeconds: 198 },
+    { trackNumber: 6, title: 'Vira Folha', durationSeconds: 190 },
+    { trackNumber: 7, title: 'Olhos Verdes', durationSeconds: 205 },
+    { trackNumber: 8, title: 'Que Vida Triste', durationSeconds: 192 },
+    { trackNumber: 9, title: 'A Feia', durationSeconds: 215 },
+    { trackNumber: 10, title: 'Bom Apetite', durationSeconds: 200 }
+  ],
+
+  // Mestre da Culinária (1994)
+  'a1b2c3d4-0006-0006-0006-000000000014': [
+    { trackNumber: 1, title: 'Mestre da Culinária', durationSeconds: 202 },
+    { trackNumber: 2, title: 'Arroz e Feijão', durationSeconds: 195 },
+    { trackNumber: 3, title: 'A Costureira', durationSeconds: 188 },
+    { trackNumber: 4, title: 'Tudo Passa', durationSeconds: 210 },
+    { trackNumber: 5, title: 'Pimba!', durationSeconds: 183 },
+    { trackNumber: 6, title: 'Ai Que Amor', durationSeconds: 205 },
+    { trackNumber: 7, title: 'A Vizinha do Lado', durationSeconds: 197 },
+    { trackNumber: 8, title: 'Olha o Galo', durationSeconds: 215 },
+    { trackNumber: 9, title: 'Sou Assim', durationSeconds: 191 },
+    { trackNumber: 10, title: 'Ai Jesus', durationSeconds: 208 }
+  ],
+
+  // Nunca Gastes Tudo (1995)
+  'a1b2c3d4-0006-0006-0006-000000000015': [
+    { trackNumber: 1, title: 'Nunca Gastes Tudo', durationSeconds: 198 },
+    { trackNumber: 2, title: 'A Rolinha', durationSeconds: 190 },
+    { trackNumber: 3, title: 'Peixeira', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Coração Malandro', durationSeconds: 212 },
+    { trackNumber: 5, title: 'Serrano', durationSeconds: 185 },
+    { trackNumber: 6, title: 'Tira o Casaco', durationSeconds: 201 },
+    { trackNumber: 7, title: 'Vira do Minho', durationSeconds: 193 },
+    { trackNumber: 8, title: 'Ó Rapariga', durationSeconds: 210 },
+    { trackNumber: 9, title: 'A Palhoça', durationSeconds: 188 },
+    { trackNumber: 10, title: 'Borboleta', durationSeconds: 215 }
+  ],
+
+  // Minha Vaca Louca (1996)
+  'a1b2c3d4-0006-0006-0006-000000000016': [
+    { trackNumber: 1, title: 'Minha Vaca Louca', durationSeconds: 203 },
+    { trackNumber: 2, title: 'O Galo Cantor', durationSeconds: 195 },
+    { trackNumber: 3, title: 'Ai Que Fome', durationSeconds: 188 },
+    { trackNumber: 4, title: 'Menina do Salto Alto', durationSeconds: 210 },
+    { trackNumber: 5, title: 'O Bacalhau da Minha Avó', durationSeconds: 197 },
+    { trackNumber: 6, title: 'Quem Não Arrisca', durationSeconds: 205 },
+    { trackNumber: 7, title: 'Sol Nascente', durationSeconds: 192 },
+    { trackNumber: 8, title: 'Mala Sorte', durationSeconds: 215 },
+    { trackNumber: 9, title: 'Ai Que Pena', durationSeconds: 186 },
+    { trackNumber: 10, title: 'Boa Noite', durationSeconds: 201 }
+  ],
+
+  // 15 Grandes Sucessos (1997)
+  'a1b2c3d4-0006-0006-0006-000000000017': [
+    { trackNumber: 1, title: 'Bacalhau à Portuguesa', durationSeconds: 198 },
+    { trackNumber: 2, title: 'O Franguito da Maria', durationSeconds: 202 },
+    { trackNumber: 3, title: 'Insónia', durationSeconds: 208 },
+    { trackNumber: 4, title: 'Acredita em Mim', durationSeconds: 205 },
+    { trackNumber: 5, title: 'Minha Vaca Louca', durationSeconds: 203 },
+    { trackNumber: 6, title: 'A Garagem da Vizinha', durationSeconds: 215 },
+    { trackNumber: 7, title: 'Nunca Gastes Tudo', durationSeconds: 198 },
+    { trackNumber: 8, title: 'Mestre da Culinária', durationSeconds: 202 },
+    { trackNumber: 9, title: 'Deixa Botar Só a Cabeça', durationSeconds: 198 },
+    { trackNumber: 10, title: 'CD d\'Ouro', durationSeconds: 192 },
+    { trackNumber: 11, title: 'Ao Fresco', durationSeconds: 192 },
+    { trackNumber: 12, title: 'Ai Que Fome', durationSeconds: 188 },
+    { trackNumber: 13, title: 'O Galo Cantor', durationSeconds: 195 },
+    { trackNumber: 14, title: 'A Minha Avó', durationSeconds: 212 },
+    { trackNumber: 15, title: 'Maluca, Maluca', durationSeconds: 188 }
+  ],
+
+  // Marcha do 3º Milénio (1999)
+  'a1b2c3d4-0006-0006-0006-000000000018': [
+    { trackNumber: 1, title: 'Marcha do 3º Milénio', durationSeconds: 205 },
+    { trackNumber: 2, title: 'A Minha Filha', durationSeconds: 195 },
+    { trackNumber: 3, title: 'Olha o Caracol', durationSeconds: 188 },
+    { trackNumber: 4, title: 'À Beira do Rio', durationSeconds: 210 },
+    { trackNumber: 5, title: 'Fandango da Saudade', durationSeconds: 197 },
+    { trackNumber: 6, title: 'Ai Linda Lisboa', durationSeconds: 205 },
+    { trackNumber: 7, title: 'O Pescador', durationSeconds: 192 },
+    { trackNumber: 8, title: 'Saudades do Alentejo', durationSeconds: 215 },
+    { trackNumber: 9, title: 'Menina Bonita', durationSeconds: 186 },
+    { trackNumber: 10, title: 'Roda o Mundo', durationSeconds: 201 }
+  ],
+
+  // A Garagem da Vizinha (2000)
+  'a1b2c3d4-0006-0006-0006-000000000019': [
+    { trackNumber: 1, title: 'A Garagem da Vizinha', durationSeconds: 215 },
+    { trackNumber: 2, title: 'O Quinto Mandamento', durationSeconds: 200 },
+    { trackNumber: 3, title: 'Olha o Cão', durationSeconds: 188 },
+    { trackNumber: 4, title: 'Passa Por Mim', durationSeconds: 205 },
+    { trackNumber: 5, title: 'Amor a Crédito', durationSeconds: 195 },
+    { trackNumber: 6, title: 'Ai Menina', durationSeconds: 210 },
+    { trackNumber: 7, title: 'Uma Noite Só', durationSeconds: 192 },
+    { trackNumber: 8, title: 'É Tudo uma Questão de Perspectiva', durationSeconds: 218 },
+    { trackNumber: 9, title: 'Saudade que Tenho', durationSeconds: 201 },
+    { trackNumber: 10, title: 'Olá Vizinha', durationSeconds: 185 }
+  ],
+
+  // Comer, Comer (2001)
+  'a1b2c3d4-0006-0006-0006-000000000020': [
+    { trackNumber: 1, title: 'Comer, Comer', durationSeconds: 202 },
+    { trackNumber: 2, title: 'Ai a Fome', durationSeconds: 195 },
+    { trackNumber: 3, title: 'O Tempero', durationSeconds: 188 },
+    { trackNumber: 4, title: 'Boa Mesa', durationSeconds: 210 },
+    { trackNumber: 5, title: 'Petiscos', durationSeconds: 197 },
+    { trackNumber: 6, title: 'Rancho', durationSeconds: 205 },
+    { trackNumber: 7, title: 'Tasca', durationSeconds: 192 },
+    { trackNumber: 8, title: 'Vinho Tinto', durationSeconds: 215 },
+    { trackNumber: 9, title: 'Sangria', durationSeconds: 186 },
+    { trackNumber: 10, title: 'Sobremesa', durationSeconds: 201 }
+  ],
+
+  // Cantares ao Desafio (2002)
+  'a1b2c3d4-0006-0006-0006-000000000021': [
+    { trackNumber: 1, title: 'Cantares ao Desafio (Abertura)', durationSeconds: 185 },
+    { trackNumber: 2, title: 'Ai que Saudade', durationSeconds: 220 },
+    { trackNumber: 3, title: 'A Moda do Campino', durationSeconds: 215 },
+    { trackNumber: 4, title: 'Vira da Serra', durationSeconds: 208 },
+    { trackNumber: 5, title: 'Ao Despique', durationSeconds: 230 },
+    { trackNumber: 6, title: 'Que Bela Terra', durationSeconds: 198 },
+    { trackNumber: 7, title: 'O Lavrador', durationSeconds: 212 },
+    { trackNumber: 8, title: 'Chula do Douro', durationSeconds: 205 },
+    { trackNumber: 9, title: 'Cantares ao Desafio (Final)', durationSeconds: 190 }
+  ],
+
+  // Na Tua Casa Tá Entrando Outro Macho (2003)
+  'a1b2c3d4-0006-0006-0006-000000000022': [
+    { trackNumber: 1, title: 'Na Tua Casa Tá Entrando Outro Macho', durationSeconds: 208 },
+    { trackNumber: 2, title: 'Que Se Lixe', durationSeconds: 195 },
+    { trackNumber: 3, title: 'Ai Coitadinho', durationSeconds: 188 },
+    { trackNumber: 4, title: 'Já Não Amas o Teu Macho', durationSeconds: 212 },
+    { trackNumber: 5, title: 'A Vizinha Faz Bem', durationSeconds: 200 },
+    { trackNumber: 6, title: 'Toca a Trabalhar', durationSeconds: 195 },
+    { trackNumber: 7, title: 'Ai Traidora', durationSeconds: 205 },
+    { trackNumber: 8, title: 'Ele Ficou', durationSeconds: 192 },
+    { trackNumber: 9, title: 'Perdido de Amor', durationSeconds: 215 },
+    { trackNumber: 10, title: 'Vira do Abandono', durationSeconds: 188 }
+  ],
+
+  // A Cabritinha (2004)
+  'a1b2c3d4-0006-0006-0006-000000000023': [
+    { trackNumber: 1, title: 'A Cabritinha', durationSeconds: 205 },
+    { trackNumber: 2, title: 'Coração de Mel', durationSeconds: 198 },
+    { trackNumber: 3, title: 'Ai que Cansaço', durationSeconds: 190 },
+    { trackNumber: 4, title: 'Ai Que Raiva', durationSeconds: 212 },
+    { trackNumber: 5, title: 'Ó Cabrito Novo', durationSeconds: 195 },
+    { trackNumber: 6, title: 'Serra da Cabrinha', durationSeconds: 205 },
+    { trackNumber: 7, title: 'Oh Lindinha', durationSeconds: 188 },
+    { trackNumber: 8, title: 'Sobe a Serrana', durationSeconds: 215 },
+    { trackNumber: 9, title: 'Pinhal Verde', durationSeconds: 201 },
+    { trackNumber: 10, title: 'Cabrinha Mansa', durationSeconds: 192 }
+  ],
+
+  // --- Amália Rodrigues ---
+
+  // Amália no Olympia (1957)
+  'a1b2c3d4-0007-0007-0007-000000000010': [
+    { trackNumber: 1, title: 'Estranha Forma de Vida', durationSeconds: 198 },
+    { trackNumber: 2, title: 'Solidão', durationSeconds: 215 },
+    { trackNumber: 3, title: 'Barco Negro', durationSeconds: 220 },
+    { trackNumber: 4, title: 'Coimbra (April in Portugal)', durationSeconds: 205 },
+    { trackNumber: 5, title: 'Ai Mouraria', durationSeconds: 192 },
+    { trackNumber: 6, title: 'La Vie en Rose', durationSeconds: 188 },
+    { trackNumber: 7, title: 'Uma Casa Portuguesa', durationSeconds: 210 },
+    { trackNumber: 8, title: 'Lisboa Antiga', durationSeconds: 197 },
+    { trackNumber: 9, title: 'Rosa Cor-de-Rosa', durationSeconds: 185 },
+    { trackNumber: 10, title: 'Vou Dar de Beber à Dor', durationSeconds: 222 }
+  ],
+
+  // Busto (1962)
+  'a1b2c3d4-0007-0007-0007-000000000011': [
+    { trackNumber: 1, title: 'Meu Amor, Meu Amor', durationSeconds: 205 },
+    { trackNumber: 2, title: 'Nem às Paredes Confesso', durationSeconds: 212 },
+    { trackNumber: 3, title: 'Povo que Lavas no Rio', durationSeconds: 218 },
+    { trackNumber: 4, title: 'Barca do Inferno', durationSeconds: 195 },
+    { trackNumber: 5, title: 'Gaivota', durationSeconds: 220 },
+    { trackNumber: 6, title: 'Perseguição', durationSeconds: 188 },
+    { trackNumber: 7, title: 'Maria Lisboa', durationSeconds: 201 },
+    { trackNumber: 8, title: 'Maldição', durationSeconds: 215 },
+    { trackNumber: 9, title: 'Formiga é Animal', durationSeconds: 192 },
+    { trackNumber: 10, title: 'Que Deus Me Perdoe', durationSeconds: 208 }
+  ],
+
+  // Fado Português (1965)
+  'a1b2c3d4-0007-0007-0007-000000000012': [
+    { trackNumber: 1, title: 'Fado Português', durationSeconds: 215 },
+    { trackNumber: 2, title: 'Abandono', durationSeconds: 205 },
+    { trackNumber: 3, title: 'Tudo Isso É Fado', durationSeconds: 195 },
+    { trackNumber: 4, title: 'Canção do Mar', durationSeconds: 220 },
+    { trackNumber: 5, title: 'Sabe-se Lá', durationSeconds: 188 },
+    { trackNumber: 6, title: 'Cheira a Lisboa', durationSeconds: 210 },
+    { trackNumber: 7, title: 'O Gente da Minha Terra', durationSeconds: 198 },
+    { trackNumber: 8, title: 'Lisboa que Tu Não Tens', durationSeconds: 212 },
+    { trackNumber: 9, title: 'Com que Voz', durationSeconds: 225 },
+    { trackNumber: 10, title: 'O Pastor', durationSeconds: 192 }
+  ],
+
+  // Fados 67 (1967)
+  'a1b2c3d4-0007-0007-0007-000000000013': [
+    { trackNumber: 1, title: 'Primer Amor', durationSeconds: 198 },
+    { trackNumber: 2, title: 'La Luna Que Se Mira', durationSeconds: 210 },
+    { trackNumber: 3, title: 'Fado das Horas', durationSeconds: 215 },
+    { trackNumber: 4, title: 'Água e Vento', durationSeconds: 205 },
+    { trackNumber: 5, title: 'Fado do Ciúme', durationSeconds: 190 },
+    { trackNumber: 6, title: 'Solidão', durationSeconds: 220 },
+    { trackNumber: 7, title: 'Naufrágio', durationSeconds: 198 },
+    { trackNumber: 8, title: 'Fado da Saudade', durationSeconds: 212 },
+    { trackNumber: 9, title: 'Marina', durationSeconds: 185 },
+    { trackNumber: 10, title: 'Fado de Peniche', durationSeconds: 208 }
+  ],
+
+  // Amália/Vinicius (1970)
+  'a1b2c3d4-0007-0007-0007-000000000014': [
+    { trackNumber: 1, title: 'Manhã de Carnaval', durationSeconds: 210 },
+    { trackNumber: 2, title: 'Tonada de Luna Llena', durationSeconds: 195 },
+    { trackNumber: 3, title: 'La Barca', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Arrastão', durationSeconds: 218 },
+    { trackNumber: 5, title: 'Modinha', durationSeconds: 188 },
+    { trackNumber: 6, title: 'A Valsa', durationSeconds: 201 },
+    { trackNumber: 7, title: 'Maria', durationSeconds: 215 },
+    { trackNumber: 8, title: 'Canção para Moço', durationSeconds: 192 },
+    { trackNumber: 9, title: 'Rosa de Hiroshima', durationSeconds: 220 },
+    { trackNumber: 10, title: 'Regresso', durationSeconds: 198 }
+  ],
+
+  // Cantigas de Amigos (1971)
+  'a1b2c3d4-0007-0007-0007-000000000015': [
+    { trackNumber: 1, title: 'Cantigas de Amigos', durationSeconds: 205 },
+    { trackNumber: 2, title: 'Fui Bailar', durationSeconds: 192 },
+    { trackNumber: 3, title: 'Cantiga da Serra', durationSeconds: 215 },
+    { trackNumber: 4, title: 'Amigo Formoso', durationSeconds: 200 },
+    { trackNumber: 5, title: 'Ai Eu Bailava', durationSeconds: 188 },
+    { trackNumber: 6, title: 'Bailemos Nós', durationSeconds: 210 },
+    { trackNumber: 7, title: 'Ondas do Mar', durationSeconds: 198 },
+    { trackNumber: 8, title: 'Sedia-m\'el Rei', durationSeconds: 212 },
+    { trackNumber: 9, title: 'Se Soubesses', durationSeconds: 195 },
+    { trackNumber: 10, title: 'Falsa Amiga', durationSeconds: 220 }
+  ],
+
+  // Trova do Vento que Passa (1974)
+  'a1b2c3d4-0007-0007-0007-000000000016': [
+    { trackNumber: 1, title: 'Trova do Vento que Passa', durationSeconds: 218 },
+    { trackNumber: 2, title: 'Lágrima', durationSeconds: 205 },
+    { trackNumber: 3, title: 'O Infante', durationSeconds: 215 },
+    { trackNumber: 4, title: 'Estranha Forma de Vida', durationSeconds: 225 },
+    { trackNumber: 5, title: 'Navegante', durationSeconds: 198 },
+    { trackNumber: 6, title: 'Fado do Campo', durationSeconds: 210 },
+    { trackNumber: 7, title: 'Velho Amor', durationSeconds: 192 },
+    { trackNumber: 8, title: 'Pedaços de Mim', durationSeconds: 215 },
+    { trackNumber: 9, title: 'O Naufrágio', durationSeconds: 202 }
+  ],
+
+  // Amália & Don Byas (1973)
+  'a1b2c3d4-0007-0007-0007-000000000017': [
+    { trackNumber: 1, title: 'Solidão', durationSeconds: 248 },
+    { trackNumber: 2, title: 'Barco Negro', durationSeconds: 235 },
+    { trackNumber: 3, title: 'Povo que Lavas no Rio', durationSeconds: 260 },
+    { trackNumber: 4, title: 'Estranha Forma de Vida', durationSeconds: 252 },
+    { trackNumber: 5, title: 'Amor', durationSeconds: 228 },
+    { trackNumber: 6, title: 'Perseguição', durationSeconds: 242 },
+    { trackNumber: 7, title: 'Canção do Mar', durationSeconds: 255 }
+  ],
+
+  // --- Xutos & Pontapés ---
+
+  // 78/82 (1982)
+  'a1b2c3d4-0008-0008-0008-000000000010': [
+    { trackNumber: 1, title: 'Só Sei Dançar Pogo', durationSeconds: 142 },
+    { trackNumber: 2, title: 'Suicídio', durationSeconds: 135 },
+    { trackNumber: 3, title: 'Punk a Lisboa', durationSeconds: 148 },
+    { trackNumber: 4, title: 'Jornaleiro', durationSeconds: 156 },
+    { trackNumber: 5, title: 'Marginal', durationSeconds: 140 },
+    { trackNumber: 6, title: 'Nada Valho', durationSeconds: 162 },
+    { trackNumber: 7, title: 'Taxa de Juro', durationSeconds: 138 },
+    { trackNumber: 8, title: 'Viúvas por Todo o País', durationSeconds: 145 },
+    { trackNumber: 9, title: 'Um Dia Qualquer', durationSeconds: 151 },
+    { trackNumber: 10, title: 'Crise', durationSeconds: 158 }
+  ],
+
+  // Cerco (1985)
+  'a1b2c3d4-0008-0008-0008-000000000011': [
+    { trackNumber: 1, title: 'Minha Droga', durationSeconds: 218 },
+    { trackNumber: 2, title: 'TV', durationSeconds: 195 },
+    { trackNumber: 3, title: 'Cerco', durationSeconds: 235 },
+    { trackNumber: 4, title: 'Exilado', durationSeconds: 205 },
+    { trackNumber: 5, title: 'Amo-te Tanto', durationSeconds: 215 },
+    { trackNumber: 6, title: 'Polícia', durationSeconds: 190 },
+    { trackNumber: 7, title: 'Lua', durationSeconds: 228 },
+    { trackNumber: 8, title: 'Camiões', durationSeconds: 212 },
+    { trackNumber: 9, title: 'A Vida que Eu Levo', durationSeconds: 198 },
+    { trackNumber: 10, title: 'Mar Revolto', durationSeconds: 222 }
+  ],
+
+  // 88 (1988)
+  'a1b2c3d4-0008-0008-0008-000000000012': [
+    { trackNumber: 1, title: 'Hey Hey My My', durationSeconds: 210 },
+    { trackNumber: 2, title: 'Crenças e Esperanças', durationSeconds: 225 },
+    { trackNumber: 3, title: 'Homem do Leme', durationSeconds: 215 },
+    { trackNumber: 4, title: 'Além das Palavras', durationSeconds: 198 },
+    { trackNumber: 5, title: 'Nossa Senhora do Mar', durationSeconds: 235 },
+    { trackNumber: 6, title: 'Ângela', durationSeconds: 205 },
+    { trackNumber: 7, title: 'É Só Rock', durationSeconds: 192 },
+    { trackNumber: 8, title: 'Vida', durationSeconds: 218 },
+    { trackNumber: 9, title: 'Adeus Tristeza', durationSeconds: 212 }
+  ],
+
+  // Gritos Mudos (1990)
+  'a1b2c3d4-0008-0008-0008-000000000013': [
+    { trackNumber: 1, title: 'Não Volto Atrás', durationSeconds: 215 },
+    { trackNumber: 2, title: 'Tanto Amor', durationSeconds: 228 },
+    { trackNumber: 3, title: 'Sara', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Gritos Mudos', durationSeconds: 238 },
+    { trackNumber: 5, title: 'Um Passo à Frente', durationSeconds: 198 },
+    { trackNumber: 6, title: 'Corações com Fome', durationSeconds: 222 },
+    { trackNumber: 7, title: 'Aqui Estou Eu', durationSeconds: 210 },
+    { trackNumber: 8, title: 'Anjo Guardião', durationSeconds: 195 },
+    { trackNumber: 9, title: 'Vem Comigo', durationSeconds: 232 },
+    { trackNumber: 10, title: 'Já Passou', durationSeconds: 215 }
+  ],
+
+  // Dizer Não de Vez (1992)
+  'a1b2c3d4-0008-0008-0008-000000000014': [
+    { trackNumber: 1, title: 'Dizer Não de Vez', durationSeconds: 225 },
+    { trackNumber: 2, title: 'Alguém Como Tu', durationSeconds: 212 },
+    { trackNumber: 3, title: 'Ar', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Uma Mulher de Armas', durationSeconds: 218 },
+    { trackNumber: 5, title: 'Olho por Olho', durationSeconds: 198 },
+    { trackNumber: 6, title: 'Ela Disse', durationSeconds: 235 },
+    { trackNumber: 7, title: 'Mais Uma Vez', durationSeconds: 210 },
+    { trackNumber: 8, title: 'Onde Está Ela', durationSeconds: 222 },
+    { trackNumber: 9, title: 'Quando o Amor', durationSeconds: 215 },
+    { trackNumber: 10, title: 'A Noite Passada', durationSeconds: 228 }
+  ],
+
+  // Direito ao Deserto (1993)
+  'a1b2c3d4-0008-0008-0008-000000000015': [
+    { trackNumber: 1, title: 'Direito ao Deserto', durationSeconds: 218 },
+    { trackNumber: 2, title: 'Voo Cego', durationSeconds: 205 },
+    { trackNumber: 3, title: 'Sinal de Cruz', durationSeconds: 225 },
+    { trackNumber: 4, title: 'Fora do Ar', durationSeconds: 198 },
+    { trackNumber: 5, title: 'Anjos', durationSeconds: 235 },
+    { trackNumber: 6, title: 'Nunca Serei', durationSeconds: 212 },
+    { trackNumber: 7, title: 'Luz da Meia-Noite', durationSeconds: 228 },
+    { trackNumber: 8, title: 'Solidariedade', durationSeconds: 200 },
+    { trackNumber: 9, title: 'O Teu Amor', durationSeconds: 215 },
+    { trackNumber: 10, title: 'Que Mundo', durationSeconds: 222 }
+  ],
+
+  // Dados Viciados (1997)
+  'a1b2c3d4-0008-0008-0008-000000000016': [
+    { trackNumber: 1, title: 'Dados Viciados', durationSeconds: 228 },
+    { trackNumber: 2, title: 'Voar', durationSeconds: 215 },
+    { trackNumber: 3, title: 'Bem-Vindo ao Rock', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Toca a Andar', durationSeconds: 198 },
+    { trackNumber: 5, title: 'Nada de Nada', durationSeconds: 222 },
+    { trackNumber: 6, title: 'Como Estás?', durationSeconds: 210 },
+    { trackNumber: 7, title: 'Sê Real', durationSeconds: 235 },
+    { trackNumber: 8, title: 'Não Há Mal', durationSeconds: 200 },
+    { trackNumber: 9, title: 'A Mesma Loucura', durationSeconds: 215 },
+    { trackNumber: 10, title: 'Ao Teu Lado', durationSeconds: 225 }
+  ],
+
+  // Xutos & Pontapés (2009)
+  'a1b2c3d4-0008-0008-0008-000000000017': [
+    { trackNumber: 1, title: 'Aqui', durationSeconds: 222 },
+    { trackNumber: 2, title: 'Toca a Andar', durationSeconds: 208 },
+    { trackNumber: 3, title: 'Faz de Conta', durationSeconds: 215 },
+    { trackNumber: 4, title: 'Sabe Tão Bem', durationSeconds: 198 },
+    { trackNumber: 5, title: 'Silêncio', durationSeconds: 232 },
+    { trackNumber: 6, title: 'Horizonte', durationSeconds: 210 },
+    { trackNumber: 7, title: 'Coragem', durationSeconds: 225 },
+    { trackNumber: 8, title: 'Dias de Sol', durationSeconds: 205 },
+    { trackNumber: 9, title: 'Novas Histórias', durationSeconds: 218 },
+    { trackNumber: 10, title: 'Fim da Linha', durationSeconds: 235 }
+  ],
+
+  // Puro (2014)
+  'a1b2c3d4-0008-0008-0008-000000000018': [
+    { trackNumber: 1, title: 'Puro', durationSeconds: 228 },
+    { trackNumber: 2, title: 'A Esperança', durationSeconds: 215 },
+    { trackNumber: 3, title: 'Vencedor', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Força', durationSeconds: 222 },
+    { trackNumber: 5, title: 'O Amor é Tão Simples', durationSeconds: 198 },
+    { trackNumber: 6, title: 'Irmão', durationSeconds: 235 },
+    { trackNumber: 7, title: 'Caminho', durationSeconds: 210 },
+    { trackNumber: 8, title: 'Terra Nova', durationSeconds: 225 },
+    { trackNumber: 9, title: 'Vem Comigo', durationSeconds: 208 },
+    { trackNumber: 10, title: 'Até ao Fim', durationSeconds: 230 }
+  ],
+
+  // Duro (2019)
+  'a1b2c3d4-0008-0008-0008-000000000019': [
+    { trackNumber: 1, title: 'Duro', durationSeconds: 215 },
+    { trackNumber: 2, title: 'Aqui Estamos', durationSeconds: 228 },
+    { trackNumber: 3, title: 'Tão Longe', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Não Desisto', durationSeconds: 218 },
+    { trackNumber: 5, title: 'Voo de Pedra', durationSeconds: 232 },
+    { trackNumber: 6, title: 'O Amanhã', durationSeconds: 210 },
+    { trackNumber: 7, title: 'Estradas', durationSeconds: 222 },
+    { trackNumber: 8, title: 'Resistir', durationSeconds: 198 },
+    { trackNumber: 9, title: 'Juntos', durationSeconds: 235 },
+    { trackNumber: 10, title: 'Sempre', durationSeconds: 215 }
+  ],
+
+  // Ao Vivo (1988) — Xutos & Pontapés
+  'a1b2c3d4-0008-0008-0008-000000000020': [
+    { trackNumber: 1, title: 'Minha Droga (Ao Vivo)', durationSeconds: 235 },
+    { trackNumber: 2, title: 'Cerco (Ao Vivo)', durationSeconds: 248 },
+    { trackNumber: 3, title: 'Só Sei Dançar Pogo (Ao Vivo)', durationSeconds: 158 },
+    { trackNumber: 4, title: 'Nossa Senhora do Mar (Ao Vivo)', durationSeconds: 252 },
+    { trackNumber: 5, title: 'Homem do Leme (Ao Vivo)', durationSeconds: 228 },
+    { trackNumber: 6, title: 'TV (Ao Vivo)', durationSeconds: 210 },
+    { trackNumber: 7, title: 'Hey Hey My My (Ao Vivo)', durationSeconds: 225 },
+    { trackNumber: 8, title: 'Lua (Ao Vivo)', durationSeconds: 242 },
+    { trackNumber: 9, title: 'Vida (Ao Vivo)', durationSeconds: 232 },
+    { trackNumber: 10, title: 'Exilado (Ao Vivo)', durationSeconds: 218 }
+  ],
+
+  // --- GNR ---
+
+  // Independança (1982)
+  'a1b2c3d4-0009-0009-0009-000000000010': [
+    { trackNumber: 1, title: 'Independança', durationSeconds: 185 },
+    { trackNumber: 2, title: 'Atiraram o Gato ao Ar', durationSeconds: 172 },
+    { trackNumber: 3, title: 'Nova Vaga', durationSeconds: 162 },
+    { trackNumber: 4, title: 'Frenética', durationSeconds: 195 },
+    { trackNumber: 5, title: 'Amanhã', durationSeconds: 178 },
+    { trackNumber: 6, title: 'GNR', durationSeconds: 168 },
+    { trackNumber: 7, title: 'Rock Poder', durationSeconds: 190 },
+    { trackNumber: 8, title: 'Dança Pagã', durationSeconds: 175 }
+  ],
+
+  // Defeitos Especiais (1984)
+  'a1b2c3d4-0009-0009-0009-000000000011': [
+    { trackNumber: 1, title: 'Chico Fininho', durationSeconds: 198 },
+    { trackNumber: 2, title: 'Vícios à Beira do Mar', durationSeconds: 212 },
+    { trackNumber: 3, title: 'Não Tenho Calma', durationSeconds: 185 },
+    { trackNumber: 4, title: 'Defeitos Especiais', durationSeconds: 225 },
+    { trackNumber: 5, title: 'Rosa das Rosas', durationSeconds: 205 },
+    { trackNumber: 6, title: 'Nós', durationSeconds: 195 },
+    { trackNumber: 7, title: 'Amor Livre', durationSeconds: 218 },
+    { trackNumber: 8, title: 'Espelho', durationSeconds: 188 },
+    { trackNumber: 9, title: 'Mais um Dia', durationSeconds: 210 }
+  ],
+
+  // Os Homens Não Se Querem Bonitos (1985)
+  'a1b2c3d4-0009-0009-0009-000000000012': [
+    { trackNumber: 1, title: 'Os Homens Não Se Querem Bonitos', durationSeconds: 215 },
+    { trackNumber: 2, title: 'Amor Impossível', durationSeconds: 205 },
+    { trackNumber: 3, title: 'Olha o Gato', durationSeconds: 192 },
+    { trackNumber: 4, title: 'A Pimenta dos Andes', durationSeconds: 225 },
+    { trackNumber: 5, title: 'Rock d\'Aqui', durationSeconds: 198 },
+    { trackNumber: 6, title: 'Faz Sentido', durationSeconds: 212 },
+    { trackNumber: 7, title: 'Primavera', durationSeconds: 188 },
+    { trackNumber: 8, title: 'Namorar', durationSeconds: 218 },
+    { trackNumber: 9, title: 'Só no Escuro', durationSeconds: 205 }
+  ],
+
+  // Valsa dos Detectives (1989)
+  'a1b2c3d4-0009-0009-0009-000000000013': [
+    { trackNumber: 1, title: 'Valsa dos Detectives', durationSeconds: 225 },
+    { trackNumber: 2, title: 'Pimba no Escuro', durationSeconds: 210 },
+    { trackNumber: 3, title: 'Alta Fidelidade', durationSeconds: 198 },
+    { trackNumber: 4, title: 'Canção da Gravidez', durationSeconds: 215 },
+    { trackNumber: 5, title: 'Fanatismo', durationSeconds: 205 },
+    { trackNumber: 6, title: 'Dança Pagã', durationSeconds: 222 },
+    { trackNumber: 7, title: 'Loucura Solução', durationSeconds: 190 },
+    { trackNumber: 8, title: 'Irmãos Gémeos', durationSeconds: 218 },
+    { trackNumber: 9, title: 'Canção do Sádico', durationSeconds: 208 },
+    { trackNumber: 10, title: 'Luar do Sertão', durationSeconds: 195 }
+  ],
+
+  // Rock in Rio Douro (1992)
+  'a1b2c3d4-0009-0009-0009-000000000014': [
+    { trackNumber: 1, title: 'Os Homens Não Se Querem Bonitos (Ao Vivo)', durationSeconds: 228 },
+    { trackNumber: 2, title: 'Valsa dos Detectives (Ao Vivo)', durationSeconds: 240 },
+    { trackNumber: 3, title: 'Alta Fidelidade (Ao Vivo)', durationSeconds: 212 },
+    { trackNumber: 4, title: 'Chico Fininho (Ao Vivo)', durationSeconds: 215 },
+    { trackNumber: 5, title: 'Defeitos Especiais (Ao Vivo)', durationSeconds: 238 },
+    { trackNumber: 6, title: 'Independança (Ao Vivo)', durationSeconds: 198 },
+    { trackNumber: 7, title: 'Psicopátria (Ao Vivo)', durationSeconds: 252 },
+    { trackNumber: 8, title: 'Amor Impossível (Ao Vivo)', durationSeconds: 218 }
+  ],
+
+  // Sob Escuta (1994)
+  'a1b2c3d4-0009-0009-0009-000000000015': [
+    { trackNumber: 1, title: 'Sob Escuta', durationSeconds: 218 },
+    { trackNumber: 2, title: 'Eu Próprio', durationSeconds: 205 },
+    { trackNumber: 3, title: 'Ponto Final', durationSeconds: 225 },
+    { trackNumber: 4, title: 'Lourinhã Roxy', durationSeconds: 195 },
+    { trackNumber: 5, title: 'Nada Valho', durationSeconds: 215 },
+    { trackNumber: 6, title: 'Espelho do Amor', durationSeconds: 208 },
+    { trackNumber: 7, title: 'Hoje Não', durationSeconds: 198 },
+    { trackNumber: 8, title: 'Fora de Controlo', durationSeconds: 222 },
+    { trackNumber: 9, title: 'Volta a Começar', durationSeconds: 212 },
+    { trackNumber: 10, title: 'Aqui Estamos', durationSeconds: 235 }
+  ],
+
+  // Mosquito (1998)
+  'a1b2c3d4-0009-0009-0009-000000000016': [
+    { trackNumber: 1, title: 'Mosquito', durationSeconds: 215 },
+    { trackNumber: 2, title: 'Vencer', durationSeconds: 205 },
+    { trackNumber: 3, title: 'Silêncio', durationSeconds: 228 },
+    { trackNumber: 4, title: 'Não Há Nada', durationSeconds: 198 },
+    { trackNumber: 5, title: 'A Vida Não Espera', durationSeconds: 215 },
+    { trackNumber: 6, title: 'Sentidos', durationSeconds: 212 },
+    { trackNumber: 7, title: 'Tarde Demais', durationSeconds: 225 },
+    { trackNumber: 8, title: 'Manhã Azul', durationSeconds: 200 },
+    { trackNumber: 9, title: 'Corrente', durationSeconds: 218 },
+    { trackNumber: 10, title: 'O Rasto', durationSeconds: 235 }
+  ],
+
+  // Popless (2000)
+  'a1b2c3d4-0009-0009-0009-000000000017': [
+    { trackNumber: 1, title: 'Popless', durationSeconds: 208 },
+    { trackNumber: 2, title: 'Meu Amor', durationSeconds: 215 },
+    { trackNumber: 3, title: 'Não me Deixas', durationSeconds: 225 },
+    { trackNumber: 4, title: 'Super Herói', durationSeconds: 198 },
+    { trackNumber: 5, title: 'Loucura', durationSeconds: 212 },
+    { trackNumber: 6, title: 'Ela', durationSeconds: 205 },
+    { trackNumber: 7, title: 'Quem és Tu?', durationSeconds: 228 },
+    { trackNumber: 8, title: 'Dias Gloriosos', durationSeconds: 218 },
+    { trackNumber: 9, title: 'Espera', durationSeconds: 200 },
+    { trackNumber: 10, title: 'Fuga', durationSeconds: 235 }
+  ],
+
+  // Do Lado dos Cisnes (2002)
+  'a1b2c3d4-0009-0009-0009-000000000018': [
+    { trackNumber: 1, title: 'Do Lado dos Cisnes', durationSeconds: 218 },
+    { trackNumber: 2, title: 'Eterno', durationSeconds: 225 },
+    { trackNumber: 3, title: 'Dúvida', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Avenida da Liberdade', durationSeconds: 212 },
+    { trackNumber: 5, title: 'Ninguém', durationSeconds: 198 },
+    { trackNumber: 6, title: 'A Minha Vez', durationSeconds: 228 },
+    { trackNumber: 7, title: 'Sinto que Voa', durationSeconds: 215 },
+    { trackNumber: 8, title: 'Tempo Livre', durationSeconds: 200 },
+    { trackNumber: 9, title: 'Sonho', durationSeconds: 235 },
+    { trackNumber: 10, title: 'Os Cisnes', durationSeconds: 222 }
+  ],
+
+  // Retropolitana (2010)
+  'a1b2c3d4-0009-0009-0009-000000000019': [
+    { trackNumber: 1, title: 'Retropolitana', durationSeconds: 212 },
+    { trackNumber: 2, title: 'Semente', durationSeconds: 225 },
+    { trackNumber: 3, title: 'Mar de Plástico', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Calma', durationSeconds: 218 },
+    { trackNumber: 5, title: 'Perdido', durationSeconds: 198 },
+    { trackNumber: 6, title: 'Nunca Mais', durationSeconds: 232 },
+    { trackNumber: 7, title: 'Luz Própria', durationSeconds: 210 },
+    { trackNumber: 8, title: 'Cidade Real', durationSeconds: 225 },
+    { trackNumber: 9, title: 'Outro Sítio', durationSeconds: 200 },
+    { trackNumber: 10, title: 'Horizonte Livre', durationSeconds: 215 }
+  ],
+
+  // Voos Domésticos (2011)
+  'a1b2c3d4-0009-0009-0009-000000000020': [
+    { trackNumber: 1, title: 'Voos Domésticos', durationSeconds: 218 },
+    { trackNumber: 2, title: 'Imperfeito', durationSeconds: 205 },
+    { trackNumber: 3, title: 'Na Mesma Onda', durationSeconds: 225 },
+    { trackNumber: 4, title: 'Tão Perto', durationSeconds: 198 },
+    { trackNumber: 5, title: 'Ando a Voar', durationSeconds: 212 },
+    { trackNumber: 6, title: 'Destino Incerto', durationSeconds: 235 },
+    { trackNumber: 7, title: 'Pouso', durationSeconds: 210 },
+    { trackNumber: 8, title: 'Turbulência', durationSeconds: 222 },
+    { trackNumber: 9, title: 'Altitude', durationSeconds: 200 },
+    { trackNumber: 10, title: 'Chegada', durationSeconds: 228 }
+  ],
+
+  // --- Rui Veloso ---
+
+  // Fora de Moda (1982)
+  'a1b2c3d4-0010-0010-0010-000000000010': [
+    { trackNumber: 1, title: 'Chico Fininho', durationSeconds: 195 },
+    { trackNumber: 2, title: 'Não Sei Nadar', durationSeconds: 210 },
+    { trackNumber: 3, title: 'Fora de Moda', durationSeconds: 225 },
+    { trackNumber: 4, title: 'Cigana', durationSeconds: 198 },
+    { trackNumber: 5, title: 'Blues de Verão', durationSeconds: 235 },
+    { trackNumber: 6, title: 'Portugal Não É País Pequeno', durationSeconds: 205 },
+    { trackNumber: 7, title: 'Asa Delta', durationSeconds: 215 },
+    { trackNumber: 8, title: 'Só Tu', durationSeconds: 192 },
+    { trackNumber: 9, title: 'Desemprego', durationSeconds: 218 },
+    { trackNumber: 10, title: 'A Cidade', durationSeconds: 228 }
+  ],
+
+  // Guardador de Margens (1983)
+  'a1b2c3d4-0010-0010-0010-000000000011': [
+    { trackNumber: 1, title: 'Não Penses em Mim', durationSeconds: 212 },
+    { trackNumber: 2, title: 'Guardador de Margens', durationSeconds: 228 },
+    { trackNumber: 3, title: 'Noctâmbulo', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Dança dos Medos', durationSeconds: 218 },
+    { trackNumber: 5, title: 'Porto Sentido', durationSeconds: 240 },
+    { trackNumber: 6, title: 'Mulher da Cidade', durationSeconds: 198 },
+    { trackNumber: 7, title: 'O Emigrante', durationSeconds: 225 },
+    { trackNumber: 8, title: 'Noite Suja', durationSeconds: 210 },
+    { trackNumber: 9, title: 'Saúde', durationSeconds: 192 }
+  ],
+
+  // Rui Veloso (1986)
+  'a1b2c3d4-0010-0010-0010-000000000012': [
+    { trackNumber: 1, title: 'Aqui, Ali', durationSeconds: 215 },
+    { trackNumber: 2, title: 'Navalha', durationSeconds: 225 },
+    { trackNumber: 3, title: 'A Guitarra e o Jazz', durationSeconds: 238 },
+    { trackNumber: 4, title: 'Olhos d\'Água', durationSeconds: 205 },
+    { trackNumber: 5, title: 'Acordar a Tempo', durationSeconds: 218 },
+    { trackNumber: 6, title: 'Andança', durationSeconds: 198 },
+    { trackNumber: 7, title: 'Última Dança', durationSeconds: 228 },
+    { trackNumber: 8, title: 'Ao Abrigo da Lei', durationSeconds: 212 },
+    { trackNumber: 9, title: 'Sinal de Vida', durationSeconds: 235 }
+  ],
+
+  // Ao Vivo (1988) — Rui Veloso
+  'a1b2c3d4-0010-0010-0010-000000000013': [
+    { trackNumber: 1, title: 'Chico Fininho (Ao Vivo)', durationSeconds: 210 },
+    { trackNumber: 2, title: 'Porto Sentido (Ao Vivo)', durationSeconds: 255 },
+    { trackNumber: 3, title: 'Não Sei Nadar (Ao Vivo)', durationSeconds: 225 },
+    { trackNumber: 4, title: 'Fora de Moda (Ao Vivo)', durationSeconds: 238 },
+    { trackNumber: 5, title: 'Guardador de Margens (Ao Vivo)', durationSeconds: 245 },
+    { trackNumber: 6, title: 'Navalha (Ao Vivo)', durationSeconds: 240 },
+    { trackNumber: 7, title: 'Blues de Verão (Ao Vivo)', durationSeconds: 252 },
+    { trackNumber: 8, title: 'Portugal Não É País Pequeno (Ao Vivo)', durationSeconds: 218 }
+  ],
+
+  // Mingos & Os Samurais (1990)
+  'a1b2c3d4-0010-0010-0010-000000000014': [
+    { trackNumber: 1, title: 'Feiticeira', durationSeconds: 215 },
+    { trackNumber: 2, title: 'O Rio', durationSeconds: 228 },
+    { trackNumber: 3, title: 'Mais do Que Tudo', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Saia Curta', durationSeconds: 218 },
+    { trackNumber: 5, title: 'Viagem', durationSeconds: 235 },
+    { trackNumber: 6, title: 'Solidão do Rock', durationSeconds: 198 },
+    { trackNumber: 7, title: 'Desconhecida', durationSeconds: 222 },
+    { trackNumber: 8, title: 'Suave', durationSeconds: 210 },
+    { trackNumber: 9, title: 'A Sombra', durationSeconds: 232 },
+    { trackNumber: 10, title: 'Mundo Meu', durationSeconds: 215 }
+  ],
+
+  // Auto da Pimenta (1991)
+  'a1b2c3d4-0010-0010-0010-000000000015': [
+    { trackNumber: 1, title: 'Auto da Pimenta', durationSeconds: 218 },
+    { trackNumber: 2, title: 'Menina da Rua', durationSeconds: 205 },
+    { trackNumber: 3, title: 'Lua Cheia', durationSeconds: 228 },
+    { trackNumber: 4, title: 'Pele Morena', durationSeconds: 198 },
+    { trackNumber: 5, title: 'Boa Sorte', durationSeconds: 215 },
+    { trackNumber: 6, title: 'Bela Madrugada', durationSeconds: 235 },
+    { trackNumber: 7, title: 'Palavra de Homem', durationSeconds: 210 },
+    { trackNumber: 8, title: 'O Nosso Amor', durationSeconds: 222 },
+    { trackNumber: 9, title: 'Onde Vai', durationSeconds: 200 },
+    { trackNumber: 10, title: 'Felicidade', durationSeconds: 212 }
+  ],
+
+  // Lado Lunar (1995)
+  'a1b2c3d4-0010-0010-0010-000000000016': [
+    { trackNumber: 1, title: 'Lado Lunar', durationSeconds: 225 },
+    { trackNumber: 2, title: 'Horizonte', durationSeconds: 215 },
+    { trackNumber: 3, title: 'A Maré', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Infinito', durationSeconds: 235 },
+    { trackNumber: 5, title: 'Noturno', durationSeconds: 198 },
+    { trackNumber: 6, title: 'Madrugada', durationSeconds: 218 },
+    { trackNumber: 7, title: 'Lua de Lisboa', durationSeconds: 248 },
+    { trackNumber: 8, title: 'Saudade Certa', durationSeconds: 210 },
+    { trackNumber: 9, title: 'Viagem Sem Fim', durationSeconds: 228 },
+    { trackNumber: 10, title: 'O Fado do Luar', durationSeconds: 242 }
+  ],
+
+  // Avenidas (1998)
+  'a1b2c3d4-0010-0010-0010-000000000017': [
+    { trackNumber: 1, title: 'Avenidas', durationSeconds: 218 },
+    { trackNumber: 2, title: 'O Blues do Desemprego', durationSeconds: 235 },
+    { trackNumber: 3, title: 'Menina', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Quatro Estações', durationSeconds: 222 },
+    { trackNumber: 5, title: 'A Bela Porteira', durationSeconds: 198 },
+    { trackNumber: 6, title: 'Rua do Carmo', durationSeconds: 215 },
+    { trackNumber: 7, title: 'Largo do Intendente', durationSeconds: 228 },
+    { trackNumber: 8, title: 'Noite Brava', durationSeconds: 210 },
+    { trackNumber: 9, title: 'Canção da Despedida', durationSeconds: 235 },
+    { trackNumber: 10, title: 'Inverno', durationSeconds: 225 }
+  ],
+
+  // A Espuma das Canções (2005)
+  'a1b2c3d4-0010-0010-0010-000000000018': [
+    { trackNumber: 1, title: 'A Espuma das Canções', durationSeconds: 215 },
+    { trackNumber: 2, title: 'Saudade', durationSeconds: 228 },
+    { trackNumber: 3, title: 'Ela Não Volta', durationSeconds: 205 },
+    { trackNumber: 4, title: 'Maresia', durationSeconds: 218 },
+    { trackNumber: 5, title: 'O Comboio', durationSeconds: 235 },
+    { trackNumber: 6, title: 'Setembro', durationSeconds: 198 },
+    { trackNumber: 7, title: 'Longe de Ti', durationSeconds: 222 },
+    { trackNumber: 8, title: 'Branco e Preto', durationSeconds: 210 },
+    { trackNumber: 9, title: 'A Canção do Emigrante', durationSeconds: 238 },
+    { trackNumber: 10, title: 'Poema', durationSeconds: 225 }
+  ],
+
+  // Rui Veloso e Amigos (2012)
+  'a1b2c3d4-0010-0010-0010-000000000019': [
+    { trackNumber: 1, title: 'Chico Fininho (com Clã)', durationSeconds: 215 },
+    { trackNumber: 2, title: 'Porto Sentido (com Aurea)', durationSeconds: 252 },
+    { trackNumber: 3, title: 'Não Sei Nadar (com Camané)', durationSeconds: 228 },
+    { trackNumber: 4, title: 'Guardador de Margens (com Pedro Abrunhosa)', durationSeconds: 240 },
+    { trackNumber: 5, title: 'Blues de Verão (com António Zambujo)', durationSeconds: 248 },
+    { trackNumber: 6, title: 'Fora de Moda (com Mariza)', durationSeconds: 232 },
+    { trackNumber: 7, title: 'Navalha (com Bonga)', durationSeconds: 238 },
+    { trackNumber: 8, title: 'Lua de Lisboa (com Sara Tavares)', durationSeconds: 255 },
+    { trackNumber: 9, title: 'Portugal Não É País Pequeno (com David Fonseca)', durationSeconds: 218 },
+    { trackNumber: 10, title: 'A Guitarra e o Jazz (Instrumental)', durationSeconds: 245 }
+  ],
+
+  // --- Madredeus ---
+
+  // Existir (1990)
+  'a1b2c3d4-0011-0011-0011-000000000010': [
+    { trackNumber: 1, title: 'Existir', durationSeconds: 258 },
+    { trackNumber: 2, title: 'Guitarra', durationSeconds: 235 },
+    { trackNumber: 3, title: 'A Andorinha da Primavera', durationSeconds: 248 },
+    { trackNumber: 4, title: 'Alfama', durationSeconds: 225 },
+    { trackNumber: 5, title: 'Catavento e Girassol', durationSeconds: 265 },
+    { trackNumber: 6, title: 'Mar d\'Outubro', durationSeconds: 242 },
+    { trackNumber: 7, title: 'O Paraíso', durationSeconds: 252 },
+    { trackNumber: 8, title: 'Pátio das Cantigas', durationSeconds: 218 },
+    { trackNumber: 9, title: 'Haja o que Houver', durationSeconds: 238 }
+  ],
+
+  // O Espírito da Paz (1994)
+  'a1b2c3d4-0011-0011-0011-000000000011': [
+    { trackNumber: 1, title: 'O Espírito da Paz', durationSeconds: 268 },
+    { trackNumber: 2, title: 'A Voz do Vento', durationSeconds: 245 },
+    { trackNumber: 3, title: 'Apenas Amor', durationSeconds: 255 },
+    { trackNumber: 4, title: 'Torre de Belém', durationSeconds: 238 },
+    { trackNumber: 5, title: 'Rapariga', durationSeconds: 225 },
+    { trackNumber: 6, title: 'O Planeta', durationSeconds: 258 },
+    { trackNumber: 7, title: 'Canção da Paz', durationSeconds: 248 },
+    { trackNumber: 8, title: 'Fado de Amor', durationSeconds: 262 },
+    { trackNumber: 9, title: 'Lisboa', durationSeconds: 235 },
+    { trackNumber: 10, title: 'Amor Eterno', durationSeconds: 272 }
+  ],
+
+  // Ainda (1995) — banda sonora de Wim Wenders
+  'a1b2c3d4-0011-0011-0011-000000000012': [
+    { trackNumber: 1, title: 'Ainda', durationSeconds: 278 },
+    { trackNumber: 2, title: 'O Tejo', durationSeconds: 255 },
+    { trackNumber: 3, title: 'Guitarra', durationSeconds: 242 },
+    { trackNumber: 4, title: 'Haja o que Houver', durationSeconds: 248 },
+    { trackNumber: 5, title: 'A Andorinha da Primavera', durationSeconds: 265 },
+    { trackNumber: 6, title: 'Mar d\'Outubro', durationSeconds: 252 },
+    { trackNumber: 7, title: 'O Paraíso', durationSeconds: 270 },
+    { trackNumber: 8, title: 'Catavento e Girassol', durationSeconds: 258 },
+    { trackNumber: 9, title: 'Os Dias da Madredeus', durationSeconds: 285 },
+    { trackNumber: 10, title: 'O Pastor', durationSeconds: 245 }
+  ],
+
+  // O Paraíso (1997)
+  'a1b2c3d4-0011-0011-0011-000000000013': [
+    { trackNumber: 1, title: 'O Paraíso', durationSeconds: 272 },
+    { trackNumber: 2, title: 'Velha Chica', durationSeconds: 258 },
+    { trackNumber: 3, title: 'O Naufrágio', durationSeconds: 265 },
+    { trackNumber: 4, title: 'Primavera', durationSeconds: 248 },
+    { trackNumber: 5, title: 'Estranha Viagem', durationSeconds: 278 },
+    { trackNumber: 6, title: 'Não Sei', durationSeconds: 242 },
+    { trackNumber: 7, title: 'O Sol', durationSeconds: 255 },
+    { trackNumber: 8, title: 'A Falua', durationSeconds: 268 },
+    { trackNumber: 9, title: 'Chuva', durationSeconds: 235 },
+    { trackNumber: 10, title: 'Véspera de Natal', durationSeconds: 252 }
+  ],
+
+  // Movimento (2001)
+  'a1b2c3d4-0011-0011-0011-000000000014': [
+    { trackNumber: 1, title: 'Movimento', durationSeconds: 258 },
+    { trackNumber: 2, title: 'Que Deus Me Perdoe', durationSeconds: 245 },
+    { trackNumber: 3, title: 'A Paz', durationSeconds: 268 },
+    { trackNumber: 4, title: 'O Silêncio', durationSeconds: 252 },
+    { trackNumber: 5, title: 'Canção do Mar', durationSeconds: 238 },
+    { trackNumber: 6, title: 'Pátio das Cantigas', durationSeconds: 262 },
+    { trackNumber: 7, title: 'Coração Independente', durationSeconds: 248 },
+    { trackNumber: 8, title: 'Lisboa', durationSeconds: 275 },
+    { trackNumber: 9, title: 'Tempo', durationSeconds: 235 },
+    { trackNumber: 10, title: 'Adeus', durationSeconds: 255 }
+  ],
+
+  // Um Amor Infinito (2004)
+  'a1b2c3d4-0011-0011-0011-000000000015': [
+    { trackNumber: 1, title: 'Um Amor Infinito', durationSeconds: 268 },
+    { trackNumber: 2, title: 'A Flor', durationSeconds: 252 },
+    { trackNumber: 3, title: 'A Esperança', durationSeconds: 248 },
+    { trackNumber: 4, title: 'O Mundo', durationSeconds: 262 },
+    { trackNumber: 5, title: 'Abril', durationSeconds: 238 },
+    { trackNumber: 6, title: 'Alegria', durationSeconds: 255 },
+    { trackNumber: 7, title: 'Rua do Carmo', durationSeconds: 245 },
+    { trackNumber: 8, title: 'Solidão', durationSeconds: 278 },
+    { trackNumber: 9, title: 'O Beijo', durationSeconds: 242 },
+    { trackNumber: 10, title: 'Amor Sem Fim', durationSeconds: 265 }
+  ],
+
+  // Faluas do Tejo (2005)
+  'a1b2c3d4-0011-0011-0011-000000000016': [
+    { trackNumber: 1, title: 'Faluas do Tejo', durationSeconds: 275 },
+    { trackNumber: 2, title: 'Navegante', durationSeconds: 258 },
+    { trackNumber: 3, title: 'Beira do Rio', durationSeconds: 248 },
+    { trackNumber: 4, title: 'Madrugada', durationSeconds: 262 },
+    { trackNumber: 5, title: 'O Rio Tejo', durationSeconds: 252 },
+    { trackNumber: 6, title: 'Pescador', durationSeconds: 238 },
+    { trackNumber: 7, title: 'A Vela', durationSeconds: 268 },
+    { trackNumber: 8, title: 'Mar Calmo', durationSeconds: 245 },
+    { trackNumber: 9, title: 'Porto de Abrigo', durationSeconds: 255 },
+    { trackNumber: 10, title: 'Regresso ao Tejo', durationSeconds: 278 }
+  ],
   'ddacdf34-2e2d-4d7a-af37-56e632d4b998': [
     { trackNumber: 1, title: 'Airbag', durationSeconds: 276 },
     { trackNumber: 2, title: 'Paranoid Android', durationSeconds: 386 },
@@ -845,71 +2247,42 @@ const TRACKS_BY_MBID = {
 
 const COVERS_BY_MBID = {
   // Radiohead
-  // OK Computer (MusicBrainz release: ddacdf34-2e2d-4d7a-af37-56e632d4b998)
   'ddacdf34-2e2d-4d7a-af37-56e632d4b998': 'https://upload.wikimedia.org/wikipedia/en/b/ba/Radioheadokcomputer.png',
-  // Kid A (MusicBrainz release: c2eaf764-ca57-4180-b2f5-b6d8f1e5fb06)
   'c2eaf764-ca57-4180-b2f5-b6d8f1e5fb06': 'https://upload.wikimedia.org/wikipedia/en/0/02/Radioheadkida.png',
-  // In Rainbows (MusicBrainz release group: 1f1f55f9-2c8b-4e86-bd25-e4c22f3f0c9f)
   'a1b2c3d4-0001-0001-0001-000000000005': 'https://upload.wikimedia.org/wikipedia/en/1/14/Inrainbowscover.png',
-  // Pablo Honey (MusicBrainz release group: 85444b8a-2d2b-44c8-b7c8-2a14569fa51f)
   'a1b2c3d4-0001-0001-0001-000000000001': 'https://upload.wikimedia.org/wikipedia/en/0/0f/Radiohead.pablohoney.albumart.jpg',
-  // The Bends (MusicBrainz release group: 65b4a8c3-0476-4741-b54d-8bf5df92e74c)
   'a1b2c3d4-0001-0001-0001-000000000002': 'https://upload.wikimedia.org/wikipedia/en/5/55/Radioheadthebends.png',
-  // Amnesiac (MusicBrainz release group: 0d5d5ead-c7a5-48d1-ab73-0a5db79f1db0)
   'a1b2c3d4-0001-0001-0001-000000000003': 'https://upload.wikimedia.org/wikipedia/en/8/8c/Radiohead_-_Amnesiac_cover.png',
-  // Hail to the Thief (MusicBrainz release group: 1f0d6c0e-c9f1-4572-aef9-4b4c2c0bca2d)
   'a1b2c3d4-0001-0001-0001-000000000004': 'https://upload.wikimedia.org/wikipedia/en/6/61/Radioheadhailtothethief.png',
-  // The King of Limbs (MusicBrainz release group: 3b9c65e3-6d6c-465f-a4dc-fcd65a74bb9f)
   'a1b2c3d4-0001-0001-0001-000000000006': 'https://upload.wikimedia.org/wikipedia/en/a/a2/Radioheadthekingoflimbs.png',
-  // A Moon Shaped Pool (MusicBrainz release group: 10b23f57-e1df-4e23-9ca8-31ebe65cd7d5)
   'a1b2c3d4-0001-0001-0001-000000000007': 'https://upload.wikimedia.org/wikipedia/en/6/6a/Amoonshapedpool.png',
 
   // The Beatles
-  // Please Please Me (MusicBrainz release: d22d25f7-fdfa-4fc8-9fce-e0c65df5af9c)
   'd22d25f7-fdfa-4fc8-9fce-e0c65df5af9c': 'https://upload.wikimedia.org/wikipedia/en/2/2e/Please_Please_Me.png',
-  // With The Beatles (MusicBrainz release group: b6b52918-c49e-4e4d-baa5-3be2f5f71c38)
   'a1b2c3d4-0002-0002-0002-000000000001': 'https://upload.wikimedia.org/wikipedia/en/5/52/With_the_Beatles.png',
-  // A Hard Day's Night (MusicBrainz release group: 1f5ac9cd-b1c1-406c-9572-b9e882453ad5)
   'a1b2c3d4-0002-0002-0002-000000000002': 'https://upload.wikimedia.org/wikipedia/en/e/e6/HardDayUK.jpg',
-  // Beatles For Sale (MusicBrainz release group: dc9acd52-aa81-4285-8b61-4eb7f1f60dcc)
   'a1b2c3d4-0002-0002-0002-000000000003': 'https://upload.wikimedia.org/wikipedia/en/4/40/Beatlesforsale.jpg',
-  // Help! (MusicBrainz release group: f17d1e2e-c7a9-4b39-a6f7-1da6bcca92e2)
   'a1b2c3d4-0002-0002-0002-000000000004': 'https://upload.wikimedia.org/wikipedia/en/d/d7/The_Beatles_-_Help%21.png',
-  // Rubber Soul (MusicBrainz release group: 29a9d7e2-1b0e-4f1d-a7c7-3db85f81db7e)
   'a1b2c3d4-0002-0002-0002-000000000005': 'https://upload.wikimedia.org/wikipedia/en/5/5b/Rubber_Soul.png',
-  // Revolver (MusicBrainz release group: e338b6f2-83e9-4f0b-a64a-e7e0c6b7e9e3)
   'a1b2c3d4-0002-0002-0002-000000000006': 'https://upload.wikimedia.org/wikipedia/en/e/ec/Revolver_%28album_cover%29.jpg',
-  // Sgt. Pepper's (MusicBrainz release group: f3e5f8f1-4e4a-4b3e-9e1b-7c5e5a8b7e2f)
   'a1b2c3d4-0002-0002-0002-000000000007': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Sgt._Pepper%27s_Lonely_Hearts_Club_Band_album_art.jpg/960px-Sgt._Pepper%27s_Lonely_Hearts_Club_Band_album_art.jpg',
-  // Magical Mystery Tour (MusicBrainz release group: dde8a855-0e0a-4b0d-b2a7-c56e8a1f1d97)
   'a1b2c3d4-0002-0002-0002-000000000008': 'https://upload.wikimedia.org/wikipedia/en/e/e8/MagicalMysteryTourDoubleEPcover.jpg',
-  // The Beatles (White Album) (MusicBrainz release group: fbd4e05f-8e1b-4e6b-ad07-4c3c22e47a6a)
   'a1b2c3d4-0002-0002-0002-000000000009': 'https://upload.wikimedia.org/wikipedia/commons/2/20/TheBeatles68LP.jpg',
-  // Yellow Submarine (MusicBrainz release group: 2cb4e847-6e3b-4e7d-b6d9-3f2b2e2a5c9e)
   'a1b2c3d4-0002-0002-0002-000000000010': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1WEY9IK7T52A4rxHrAKWowpYxvIMyzFg_Qg&s',
-  // Abbey Road (MusicBrainz release group: d72c9d60-b44e-4d3d-b79e-88d4db515e3c)
   'a1b2c3d4-0002-0002-0002-000000000011': 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/The_Beatles_Abbey_Road_album_cover.jpg/960px-The_Beatles_Abbey_Road_album_cover.jpg',
-  // Let It Be (MusicBrainz release: 64e32095-d24b-4ec5-bc16-6701509930f9)
   '64e32095-d24b-4ec5-bc16-6701509930f9': 'https://upload.wikimedia.org/wikipedia/en/5/51/TheBeatles-LetItBe%282011VinylReissue%29.png',
 
   // Ornatos Violeta
-  // Cão! (MusicBrainz release group: 4b1e5e8f-93a7-4f5a-9a88-1c7e5b2b1e3f)
   'a1b2c3d4-e5f6-7890-1234-56789abcdef1': 'https://upload.wikimedia.org/wikipedia/en/d/d1/C%C3%A3o.gif',
-  // O Monstro Precisa de Amigos (MusicBrainz release group: 5e2a6d3c-84b1-4e2a-a7c5-2d3f5a8b9e1f)
   'a1b2c3d4-0003-0003-0003-000000000001': 'https://upload.wikimedia.org/wikipedia/pt/7/77/Capamonstro.gif',
 
   // António Variações
-  // Dar & Receber (MusicBrainz release group: 3f6a9b2c-1d4e-4f7a-8b5c-2e3d6f9a1b4c)
   'a1b2c3d4-e5f6-7890-1234-56789abcdef2': 'https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/39/48/d6/3948d625-35ca-3a2b-7b79-d24462d30135/724382373353.jpg/600x600bf-60.jpg',
-  // Anjo da Guarda (MusicBrainz release group: 2a5b8c1d-3e6f-4a9b-7c2d-5e8f1a4b7c2d)
   'a1b2c3d4-0004-0004-0004-000000000001': 'https://upload.wikimedia.org/wikipedia/pt/8/8f/Ant%C3%B3nio_Varia%C3%A7%C3%B5es_-_Anjo_da_Guarda.jpg',
-  // O Melhor de António Variações (MusicBrainz release group: 9c3d6e1f-2a5b-4c8d-7e3f-1b4c7d2e5f8a)
   'a1b2c3d4-0004-0004-0004-000000000002': 'https://static.fnac-static.com/multimedia/PT/images_produits/PT/ZoomPE/1/2/4/0724385666421/tsp20110307202047/O-Melhor-De.jpg',
-  // A História de António Variações (MusicBrainz release group: 6d2e9f4a-8b3c-4d7e-1f5a-9c2b6e3d8f1a)
   'a1b2c3d4-0004-0004-0004-000000000003': 'https://static.fnac-static.com/multimedia/PT/images_produits/PT/ZoomPE/6/2/9/0094636306926/tsp20110121135520/A-Historia-de-Antonio-Variacoes-De-Braga-a-Nova-Iorque-2CD.jpg',
 
   // Papa Roach
-  // Infest (MusicBrainz release: 2bb5e8fc-f5b2-4d14-8742-1e9bf478635d)
   '2bb5e8fc-f5b2-4d14-8742-1e9bf478635d': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2dXrcW2DuKfAAGjjm_a-GdUvUZ7Ss4DnWw&s',
   'a1b2c3d4-0005-0005-0005-000000000001': 'https://upload.wikimedia.org/wikipedia/en/c/c5/Papa_Roach_-_lovehatetragedy.jpg',
   'a1b2c3d4-0005-0005-0005-000000000002': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdPnlv1uE2lCVlQTqipBy2VGX7YeaubiM1SQ&s', // Getting Away with Murder (2004)
@@ -992,7 +2365,6 @@ const COVERS_BY_MBID = {
   'a1b2c3d4-0010-0010-0010-000000000019': 'https://static.fnac-static.com/multimedia/PT/images_produits/PT/ZoomPE/4/2/9/5099972303924/tsp20121026200557/Rui-Veloso-Amigos.JPG', // Rui Veloso e Amigos (2012)
 
   // Madredeus
-  // Os Dias da MadreDeus (MusicBrainz release: b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0601)
   'b09f0b4c-8e4c-4e4f-8d5a-4a935a1b0601': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB-SVRwNzqjN2FGcKB5VfLrC7SgXm0Vyit3g&s',
   'a1b2c3d4-0011-0011-0011-000000000010': 'https://upload.wikimedia.org/wikipedia/en/6/6f/Madredeus_existir.jpeg', // Existir (1990)
   'a1b2c3d4-0011-0011-0011-000000000011': 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e6/Madredeus_o_espirito_da_paz.jpeg/250px-Madredeus_o_espirito_da_paz.jpeg', // O Espírito da Paz (1994)

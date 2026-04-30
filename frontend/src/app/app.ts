@@ -26,7 +26,6 @@ export class App implements OnInit {
   
   toggleSidebar() {
     this.isSidebarExpanded = !this.isSidebarExpanded;
-    localStorage.setItem('spotify_sidebar_expanded', this.isSidebarExpanded ? 'true' : 'false');
   }
 
 
@@ -41,12 +40,6 @@ export class App implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Load sidebar state
-    const savedSidebarState = localStorage.getItem('spotify_sidebar_expanded');
-    if (savedSidebarState !== null) {
-      this.isSidebarExpanded = savedSidebarState === 'true';
-    }
-
     // Optionally close dropdown on navigation and auto-switch search type
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

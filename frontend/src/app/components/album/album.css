@@ -17,10 +17,84 @@
 
 .header {
   display: flex;
-  gap: 18px;
+  gap: 24px;
   align-items: flex-start;
-  padding-bottom: 12px;
+  padding-bottom: 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.meta {
+  flex: 1;
+}
+
+.versions-header {
+  min-width: 280px;
+  max-width: 350px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.versions-title {
+  margin: 0 0 12px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 8px;
+}
+
+.versions-header h4 {
+  margin: 12px 0 2px 0;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #78ffd6; /* Use a color to distinguish */
+  opacity: 0.8;
+}
+
+.versions-header ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.versions-header .version-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.versions-header .version-item:last-child {
+  border-bottom: none;
+}
+
+.versions-header .version-info {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  flex: 1;
+}
+
+.versions-header .version-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.versions-header .btn-add {
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.versions-header .badge-collected {
+  padding: 4px 10px;
+  font-size: 0.75rem;
 }
 
 .cover {
@@ -56,9 +130,7 @@
 .tracks th { color: rgba(255,255,255,0.65); font-weight: 700; font-size: 0.95rem; }
 .tracks td { color: rgba(255,255,255,0.9); }
 
-.versions { margin-top: 18px; }
-.versions ul { list-style: none; padding-left: 0; margin: 8px 0 0 0; }
-.versions li { padding: 6px 0; }
+
 
 /* Version item layout */
 .version-item {
