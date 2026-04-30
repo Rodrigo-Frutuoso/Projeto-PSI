@@ -43,9 +43,9 @@ mongoose.connect(MONGODB_URI)
       try {
         const seedResult = await seedTestData();
         if (seedResult.alreadySeeded) {
-          console.log('ℹ Seed automático ignorado: dados de teste já existem.');
+          console.log('ℹ Seed automático: dados de teste sincronizados (nenhuma alteração necessária).');
         } else {
-          console.log(`🌱 Seed automático concluído: +${seedResult.insertedArtists} artistas, +${seedResult.insertedAlbums} álbuns.`);
+          console.log(`🌱 Seed automático concluído: +${seedResult.insertedArtists} novos / ${seedResult.updatedArtists} atualizados (Artistas) | +${seedResult.insertedAlbums} novos / ${seedResult.updatedAlbums} atualizados (Álbuns).`);
         }
       } catch (seedError) {
         console.error('❌ Erro no seed automático:', seedError.message);
