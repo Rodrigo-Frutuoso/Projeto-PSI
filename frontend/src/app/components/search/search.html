@@ -93,7 +93,7 @@
           <!-- Album results -->
           @if (searchType === 'albums') {
             @for (album of albumResults; track album._id) {
-              <div class="result-item result-item--album">
+              <a [routerLink]="['/album', album._id]" class="result-item result-item--album" aria-label="Ver página do álbum {{ album.title }}">
                 <div class="result-info">
                   <span class="result-icon album-icon"><img src="https://www.gstatic.com/images/icons/material/system/2x/album_white_24dp.png" alt="" class="result-image-icon"></span>
                   <div class="result-text">
@@ -109,7 +109,8 @@
                     </span>
                   </div>
                 </div>
-              </div>
+                <span class="result-arrow">→</span>
+              </a>
             }
           }
 

@@ -10,6 +10,7 @@ import { SearchComponent } from './components/search/search';
 import { ArtistComponent } from './components/artist/artist';
 import { ArtistAlbumsComponent } from './components/artist-albums/artist-albums';
 import { CollectionComponent } from './components/collection/collection';
+import { AlbumComponent } from './components/album/album';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [guestGuard] },
@@ -22,5 +23,6 @@ export const routes: Routes = [
   { path: 'search', component: SearchComponent, canActivate: [authGuard] },
   { path: 'artist/:id', component: ArtistComponent, canActivate: [authGuard] },
   { path: 'artist/:id/albums', component: ArtistAlbumsComponent, canActivate: [authGuard] },
+  { path: 'album/:id', component: AlbumComponent, canActivate: [authGuard] },
   { path: '**', redirectTo: '/login' },
 ];

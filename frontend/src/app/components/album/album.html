@@ -1,0 +1,63 @@
+<div class="album-page">
+  <div *ngIf="isLoading" class="loading">A carregar álbum...</div>
+  <div *ngIf="loadError" class="error">{{ loadError }}</div>
+
+  <div *ngIf="album">
+    <div class="header">
+      <img *ngIf="album.coverImage; else noCover" [src]="album.coverImage" alt="Capa" class="cover" />
+      <ng-template #noCover>
+        <div class="cover placeholder">Sem imagem</div>
+      </ng-template>
+      <div class="meta">
+        <h2>{{ album.title }}</h2>
+        <p><strong>MBID:</strong> {{ album.mbid }}</p>
+        <p><strong>Ano:</strong> {{ album.releaseYear }}</p>
+        <p><strong>Tipo:</strong> {{ album.albumType }}</p>
+        <p *ngIf="album.artista"><strong>Artista:</strong> {{ album.artista.name }}</p>
+      </div>
+    </div>
+
+    <section class="tracks">
+      <h3>Faixas</h3>
+      <table *ngIf="album.tracks?.length; else noTracks">
+        <thead>
+          <tr><th>#</th><th>Canção (ISRC)</th><th>Duração</th><th>Artistas</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of album.tracks">
+            <td>{{ t.trackNumber }}</td>
+            <td>
+              <div *ngIf="t.song">
+                <strong>{{ t.song.title }}</strong>
+                <div class="meta-small" *ngIf="t.song.isrc">ISRC: {{ t.song.isrc }}</div>
+              </div>
+            </td>
+            <td>{{ formatDuration(t.song?.durationSeconds) }}</td>
+            <td>{{ formatArtists(t.song?.artists) }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noTracks>
+        <p>Sem informação sobre as faixas.</p>
+      </ng-template>
+    </section>
+
+    <section class="versions">
+      <h3>Versões</h3>
+      <div *ngIf="album.versions?.length; else noVersions">
+        <div *ngFor="let group of Object.keys(groupedVersions())">
+          <h4>{{ group }}</h4>
+          <ul>
+            <li *ngFor="let v of groupedVersions()[group]">
+              <strong>EAN-13:</strong> {{ v.ean13 }}
+              <span *ngIf="(groupedVersions()[group].length > 1) && v.designation"> - {{ v.designation }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <ng-template #noVersions>
+        <p>Sem versões registadas.</p>
+      </ng-template>
+    </section>
+  </div>
+</div>

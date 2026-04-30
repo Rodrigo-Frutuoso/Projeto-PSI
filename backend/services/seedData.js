@@ -1,5 +1,6 @@
 const Artist = require('../models/Artist');
 const Album = require('../models/Album');
+const Song = require('../models/Song');
 
 const TEST_ARTISTS = [
   { name: 'Radiohead', startYear: 1985, isni: '0000000115264296', artistType: 'group', members: [] },
@@ -254,6 +255,47 @@ const VERSIONS_BY_MBID = {
   ]
 };
 
+// Faixas por MBID (exemplo resumido)
+const TRACKS_BY_MBID = {
+  'ddacdf34-2e2d-4d7a-af37-56e632d4b998': [
+    { trackNumber: 1, title: 'Airbag', durationSeconds: 276 },
+    { trackNumber: 2, title: 'Paranoid Android', durationSeconds: 386 },
+    { trackNumber: 3, title: 'Subterranean Homesick Alien', durationSeconds: 269 }
+  ],
+  'c2eaf764-ca57-4180-b2f5-b6d8f1e5fb06': [
+    { trackNumber: 1, title: 'Everything In Its Right Place', durationSeconds: 247 },
+    { trackNumber: 2, title: 'Kid A', durationSeconds: 276 }
+  ],
+  'a1b2c3d4-0001-0001-0001-000000000005': [
+    { trackNumber: 1, title: '15 Step', durationSeconds: 235 },
+    { trackNumber: 2, title: 'Bodysnatchers', durationSeconds: 255 },
+    { trackNumber: 3, title: 'Nude', durationSeconds: 256 }
+  ],
+  'a1b2c3d4-0002-0002-0002-000000000011': [
+    { trackNumber: 1, title: 'Come Together', durationSeconds: 259 },
+    { trackNumber: 2, title: 'Something', durationSeconds: 182 },
+    { trackNumber: 3, title: "Maxwell's Silver Hammer", durationSeconds: 207 }
+  ],
+  '64e32095-d24b-4ec5-bc16-6701509930f9': [
+    { trackNumber: 1, title: 'Two Of Us', durationSeconds: 223 },
+    { trackNumber: 2, title: 'Dig A Pony', durationSeconds: 234 }
+  ],
+  'a1b2c3d4-e5f6-7890-1234-56789abcdef1': [
+    { trackNumber: 1, title: 'Lutar', durationSeconds: 240 },
+    { trackNumber: 2, title: 'Dia Mau', durationSeconds: 200 }
+  ]
+};
+
+// Capas de exemplo (URLs públicas). Podem ser substituídas por uploads locais.
+const COVERS_BY_MBID = {
+  'ddacdf34-2e2d-4d7a-af37-56e632d4b998': 'https://via.placeholder.com/400x400.png?text=OK+Computer',
+  'c2eaf764-ca57-4180-b2f5-b6d8f1e5fb06': 'https://via.placeholder.com/400x400.png?text=Kid+A',
+  'a1b2c3d4-0001-0001-0001-000000000005': 'https://via.placeholder.com/400x400.png?text=In+Rainbows',
+  'a1b2c3d4-0002-0002-0002-000000000011': 'https://via.placeholder.com/400x400.png?text=Abbey+Road',
+  '64e32095-d24b-4ec5-bc16-6701509930f9': 'https://via.placeholder.com/400x400.png?text=Let+It+Be',
+  'a1b2c3d4-e5f6-7890-1234-56789abcdef1': 'https://via.placeholder.com/400x400.png?text=Cão!'
+};
+
 async function buildTestAlbums() {
   const artistNames = [...new Set(TEST_ALBUMS.filter((album) => album.artistName).map((album) => album.artistName))];
   const artists = await Artist.find({ name: { $in: artistNames } }).select('_id name').lean();
@@ -275,10 +317,21 @@ async function seedVersions() {
 
   for (const mbid of mbids) {
     const album = await Album.findOne({ mbid });
-    if (album && (!album.versions || album.versions.length === 0)) {
-      album.versions = VERSIONS_BY_MBID[mbid];
-      await album.save();
-      updatedCount++;
+    if (album) {
+      let changed = false;
+      if ((!album.versions || album.versions.length === 0) && VERSIONS_BY_MBID[mbid]) {
+        album.versions = VERSIONS_BY_MBID[mbid];
+        changed = true;
+      }
+      // Faixas serão criadas como documentos `Song` e ligadas posteriormente
+      if ((!album.coverImage || album.coverImage === null) && COVERS_BY_MBID[mbid]) {
+        album.coverImage = COVERS_BY_MBID[mbid];
+        changed = true;
+      }
+      if (changed) {
+        await album.save();
+        updatedCount++;
+      }
     }
   }
 
@@ -303,10 +356,11 @@ async function seedTestData() {
   }
 
   const testAlbums = await buildTestAlbums();
-  // Adicionar versões aos álbuns novos antes de inserir
+  // Adicionar versões e capa aos álbuns novos antes de inserir (faixas serão ligadas a Song posteriormente)
   const testAlbumsWithVersions = testAlbums.map((album) => ({
     ...album,
-    versions: VERSIONS_BY_MBID[album.mbid] || []
+    versions: VERSIONS_BY_MBID[album.mbid] || [],
+    coverImage: COVERS_BY_MBID[album.mbid] || null
   }));
 
   const seedMbids = testAlbumsWithVersions.map((album) => album.mbid);
@@ -321,6 +375,36 @@ async function seedTestData() {
 
   // Atualizar álbuns existentes que ainda não têm versões
   const updatedVersions = await seedVersions();
+
+  // Criar Song documentos e ligar faixas aos álbuns
+  async function seedSongsAndLink() {
+    let linkedCount = 0;
+    for (const [mbid, tracks] of Object.entries(TRACKS_BY_MBID)) {
+      const album = await Album.findOne({ mbid });
+      if (!album) continue;
+
+      // Se já existirem tracks referenciando songs, ignorar
+      if (album.tracks && album.tracks.length > 0 && album.tracks[0].song) continue;
+
+      const songIds = [];
+      for (const t of tracks) {
+        // Tentar encontrar canção existente por título e duração
+        let song = await Song.findOne({ title: t.title, durationSeconds: t.durationSeconds }).exec();
+        if (!song) {
+          const artistIds = album.artista ? [album.artista] : [];
+          song = await Song.create({ isrc: null, title: t.title, durationSeconds: t.durationSeconds, artists: artistIds });
+        }
+        songIds.push(song._id);
+      }
+
+      album.tracks = tracks.map((t, idx) => ({ trackNumber: t.trackNumber, song: songIds[idx] }));
+      await album.save();
+      linkedCount++;
+    }
+    return linkedCount;
+  }
+
+  const linkedSongs = await seedSongsAndLink();
 
   return {
     artistsCountBefore,

@@ -1,0 +1,9 @@
+.album-page { padding: 12px; }
+.header { display: flex; gap: 12px; align-items: center; }
+.cover { width: 160px; height: 160px; object-fit: cover; border-radius: 4px; }
+.cover.placeholder { width: 160px; height: 160px; display:flex; align-items:center; justify-content:center; background:#eee; color:#777; }
+.meta h2 { margin: 0 0 8px 0; }
+.tracks table { width:100%; border-collapse: collapse; }
+.tracks th, .tracks td { text-align:left; padding:6px 8px; border-bottom:1px solid #eee; }
+.versions ul { list-style:none; padding-left:0; }
+.versions li { padding:4px 0; }

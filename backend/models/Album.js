@@ -26,6 +26,19 @@ const versionSchema = new mongoose.Schema({
     }
 }, { _id: true });
 
+const trackSchema = new mongoose.Schema({
+    trackNumber: {
+        type: Number,
+        required: [true, 'O número da faixa é obrigatório.'],
+        min: [1, 'O número da faixa deve ser >= 1']
+    },
+    song: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Song',
+        required: [true, 'A referência para a canção é obrigatória.']
+    }
+}, { _id: true });
+
 const albumSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -63,6 +76,15 @@ const albumSchema = new mongoose.Schema({
         ref: 'Artist',
         required: false
     },
+
+    coverImage: {
+        type: String,
+        required: false,
+        trim: true,
+        default: null
+    },
+
+    tracks: [trackSchema],
 
     versions: [versionSchema]
 

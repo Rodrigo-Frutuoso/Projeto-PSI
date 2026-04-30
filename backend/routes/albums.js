@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Album = require('../models/Album');
 const Artist = require('../models/Artist');
+const Song = require('../models/Song');
 const authMiddleware = require('../middleware/auth');
 
 // Utilitários de pesquisa (igual ao artists.js)
@@ -47,7 +48,12 @@ router.get('/', authMiddleware, async (req, res) => {
 // GET /api/albums/:id — detalhes de um álbum
 router.get('/:id', authMiddleware, async (req, res) => {
     try {
-        const album = await Album.findById(req.params.id).populate('artista', 'name');
+        const album = await Album.findById(req.params.id)
+            .populate('artista', 'name')
+            .populate({
+                path: 'tracks.song',
+                populate: { path: 'artists', select: 'name isni' }
+            });
         if (!album) return res.status(404).json({ message: 'Álbum não encontrado.' });
         res.status(200).json(album);
     } catch (error) {

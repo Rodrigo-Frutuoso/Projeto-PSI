@@ -14,6 +14,31 @@ export interface AlbumSummary {
   } | null;
 }
 
+export interface AlbumTrack {
+  _id?: string;
+  trackNumber: number;
+  song?: {
+    _id?: string;
+    isrc?: string | null;
+    title: string;
+    durationSeconds?: number;
+    artists?: { _id: string; name: string }[];
+  };
+}
+
+export interface AlbumVersion {
+  _id?: string;
+  ean13: string;
+  physicalSupport: 'CD' | 'vinil' | 'cassete';
+  designation?: string | null;
+}
+
+export interface AlbumDetail extends AlbumSummary {
+  coverImage?: string | null;
+  tracks?: AlbumTrack[];
+  versions?: AlbumVersion[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,5 +59,11 @@ export class AlbumService {
       `${this.apiUrl}?search=${encodeURIComponent(search)}`,
       { headers: this.getAuthHeaders() }
     );
+  }
+
+  getAlbum(id: string): Observable<AlbumDetail> {
+    return this.http.get<AlbumDetail>(`${this.apiUrl}/${encodeURIComponent(id)}`, {
+      headers: this.getAuthHeaders()
+    });
   }
 }
