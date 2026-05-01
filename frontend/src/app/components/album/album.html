@@ -18,7 +18,10 @@
       </div>
 
       <section class="versions-header">
-        <h3 class="versions-title">Versões</h3>
+        <div class="versions-title-row">
+          <h3 class="versions-title">Versões</h3>
+          <button type="button" class="btn-plus" (click)="openRequestModal()" title="Pedir nova versão">+</button>
+        </div>
         <div *ngIf="album.versions?.length; else noVersions">
           <div *ngFor="let group of Object.keys(groupedVersions())">
             <h4>{{ group }}</h4>
@@ -64,46 +67,38 @@
         </ng-template>
       </section>
 
-      <section class="request-section">
-        <h3>Pedido de nova versão</h3>
-        <p class="request-description">
-          Se esta versão ainda não existir, podes submeter um pedido para que fique em análise.
-        </p>
+      <!-- Modal overlay para pedido de nova versão -->
+      <div *ngIf="showRequestModal" class="modal-overlay" (click)="closeRequestModal()">
+        <div class="modal" (click)="$event.stopPropagation()">
+          <button type="button" class="modal-close" (click)="closeRequestModal()">×</button>
+          <h3>Pedido de nova versão</h3>
+          <p class="request-description">Se esta versão ainda não existir, podes submeter um pedido para que fique em análise.</p>
 
-        @if (requestMessage) {
-        <div class="request-alert request-success">
-          {{ requestMessage }}
-        </div>
-        }
+          <div *ngIf="requestMessage" class="request-alert request-success">{{ requestMessage }}</div>
+          <div *ngIf="requestError" class="request-alert request-error">{{ requestError }}</div>
 
-        @if (requestError) {
-        <div class="request-alert request-error">
-          {{ requestError }}
-        </div>
-        }
+          <form class="request-form" (ngSubmit)="submitVersionRequest()">
+            <label>
+              <span>EAN-13 da nova versão</span>
+              <input
+                type="text"
+                name="versionEan13"
+                [(ngModel)]="requestEan13"
+                maxlength="13"
+                placeholder="13 dígitos"
+                inputmode="numeric"
+                autocomplete="off"
+                required>
+            </label>
 
-        <form class="request-form" (ngSubmit)="submitVersionRequest()">
-          <label>
-            <span>EAN-13 da nova versão</span>
-            <input
-              type="text"
-              name="versionEan13"
-              [(ngModel)]="requestEan13"
-              maxlength="13"
-              placeholder="13 dígitos"
-              inputmode="numeric"
-              autocomplete="off"
-              required>
-          </label>
-
-          <label>
-            <span>Suporte físico</span>
-            <select name="physicalSupport" [(ngModel)]="requestPhysicalSupport" required>
-              <option value="CD">CD</option>
-              <option value="vinil">Vinil</option>
-              <option value="cassete">Cassete</option>
-            </select>
-          </label>
+            <label>
+              <span>Suporte físico</span>
+              <select name="physicalSupport" [(ngModel)]="requestPhysicalSupport" required>
+                <option value="CD">CD</option>
+                <option value="vinil">Vinil</option>
+                <option value="cassete">Cassete</option>
+              </select>
+            </label>
 
           <label>
             <span>Designação da versão</span>
@@ -114,15 +109,12 @@
               placeholder="Opcional">
           </label>
 
-          <button type="submit" class="btn-request" [disabled]="isSubmittingRequest">
-            @if (isSubmittingRequest) {
-            A submeter...
-            } @else {
-            Submeter pedido
-            }
-          </button>
-        </form>
-      </section>
+            <button type="submit" class="btn-request" [disabled]="isSubmittingRequest">
+              {{ isSubmittingRequest ? 'A submeter...' : 'Submeter pedido' }}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
 
     <section class="tracks">

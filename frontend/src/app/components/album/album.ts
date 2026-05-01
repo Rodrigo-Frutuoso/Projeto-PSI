@@ -30,6 +30,7 @@ export class AlbumComponent implements OnInit {
   requestMessage = '';
   requestError = '';
   isSubmittingRequest = false;
+  showRequestModal = false;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -104,6 +105,8 @@ export class AlbumComponent implements OnInit {
         this.requestEan13 = '';
         this.requestPhysicalSupport = 'CD';
         this.requestDesignation = '';
+        // fechar modal ao submeter com sucesso
+        this.showRequestModal = false;
         this.cdr.detectChanges();
       },
       error: (err) => {
@@ -113,6 +116,18 @@ export class AlbumComponent implements OnInit {
         this.cdr.detectChanges();
       }
     });
+  }
+
+  openRequestModal(): void {
+    this.requestMessage = '';
+    this.requestError = '';
+    this.showRequestModal = true;
+    this.cdr.detectChanges();
+  }
+
+  closeRequestModal(): void {
+    this.showRequestModal = false;
+    this.cdr.detectChanges();
   }
 
   /** Add a specific version to the user's collection */
