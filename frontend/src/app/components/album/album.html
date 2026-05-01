@@ -63,6 +63,66 @@
           <p>Sem versões registadas.</p>
         </ng-template>
       </section>
+
+      <section class="request-section">
+        <h3>Pedido de nova versão</h3>
+        <p class="request-description">
+          Se esta versão ainda não existir, podes submeter um pedido para que fique em análise.
+        </p>
+
+        @if (requestMessage) {
+        <div class="request-alert request-success">
+          {{ requestMessage }}
+        </div>
+        }
+
+        @if (requestError) {
+        <div class="request-alert request-error">
+          {{ requestError }}
+        </div>
+        }
+
+        <form class="request-form" (ngSubmit)="submitVersionRequest()">
+          <label>
+            <span>EAN-13 da nova versão</span>
+            <input
+              type="text"
+              name="versionEan13"
+              [(ngModel)]="requestEan13"
+              maxlength="13"
+              placeholder="13 dígitos"
+              inputmode="numeric"
+              autocomplete="off"
+              required>
+          </label>
+
+          <label>
+            <span>Suporte físico</span>
+            <select name="physicalSupport" [(ngModel)]="requestPhysicalSupport" required>
+              <option value="CD">CD</option>
+              <option value="vinil">Vinil</option>
+              <option value="cassete">Cassete</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Designação da versão</span>
+            <input
+              type="text"
+              name="designation"
+              [(ngModel)]="requestDesignation"
+              placeholder="Opcional">
+          </label>
+
+          <button type="submit" class="btn-request" [disabled]="isSubmittingRequest">
+            @if (isSubmittingRequest) {
+            A submeter...
+            } @else {
+            Submeter pedido
+            }
+          </button>
+        </form>
+      </section>
     </div>
 
     <section class="tracks">

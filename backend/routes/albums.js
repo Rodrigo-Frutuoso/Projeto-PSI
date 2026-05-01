@@ -3,6 +3,7 @@ const router = express.Router();
 const Album = require('../models/Album');
 const Artist = require('../models/Artist');
 const Song = require('../models/Song');
+const VersionRequest = require('../models/VersionRequest');
 const authMiddleware = require('../middleware/auth');
 
 // Utilitários de pesquisa (igual ao artists.js)
@@ -78,6 +79,79 @@ router.get('/:id', authMiddleware, async (req, res) => {
     } catch (error) {
         console.error('Erro ao obter álbum:', error);
         res.status(500).json({ message: 'Erro a obter dados do álbum.' });
+    }
+});
+
+// POST /api/albums/:id/version-requests - Submeter pedido de nova versão
+router.post('/:id/version-requests', authMiddleware, async (req, res) => {
+    try {
+        const { id: albumId } = req.params;
+        const { versionEan13, physicalSupport, designation } = req.body;
+
+        if (!versionEan13 || !physicalSupport) {
+            return res.status(400).json({ message: 'O EAN-13 e o suporte físico são obrigatórios.' });
+        }
+
+        if (!/^[0-9]{13}$/.test(String(versionEan13))) {
+            return res.status(400).json({ message: 'O EAN-13 deve ter exatamente 13 dígitos.' });
+        }
+
+        if (!['CD', 'vinil', 'cassete'].includes(physicalSupport)) {
+            return res.status(400).json({ message: 'O suporte físico deve ser CD, vinil, ou cassete.' });
+        }
+
+        const album = await Album.findById(albumId).select('title versions');
+        if (!album) {
+            return res.status(404).json({ message: 'Álbum não encontrado.' });
+        }
+
+        const versionAlreadyExists = album.versions?.some((version) => version.ean13 === versionEan13);
+        if (versionAlreadyExists) {
+            return res.status(409).json({ message: 'Essa versão já existe neste álbum.' });
+        }
+
+        const alreadyRequested = await VersionRequest.findOne({
+            user: req.userId,
+            album: albumId,
+            versionEan13: String(versionEan13)
+        });
+
+        if (alreadyRequested) {
+            return res.status(409).json({ message: 'Já submeteste um pedido para esta versão.' });
+        }
+
+        const request = new VersionRequest({
+            user: req.userId,
+            album: albumId,
+            versionEan13: String(versionEan13),
+            physicalSupport,
+            designation: designation?.trim() || null,
+            status: 'em análise'
+        });
+
+        await request.save();
+
+        return res.status(201).json({
+            message: 'Pedido submetido com sucesso. O estado ficou em análise.',
+            request: {
+                id: request._id,
+                albumId: album._id,
+                albumTitle: album.title,
+                versionEan13: request.versionEan13,
+                physicalSupport: request.physicalSupport,
+                designation: request.designation,
+                status: request.status,
+                requestedAt: request.createdAt
+            }
+        });
+    } catch (error) {
+        console.error('Erro ao submeter pedido de nova versão:', error);
+
+        if (error.code === 11000) {
+            return res.status(409).json({ message: 'Já existe um pedido para esta versão.' });
+        }
+
+        return res.status(500).json({ message: 'Erro ao submeter o pedido.' });
     }
 });
 

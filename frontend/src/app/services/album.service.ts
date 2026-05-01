@@ -39,6 +39,26 @@ export interface AlbumDetail extends AlbumSummary {
   versions?: AlbumVersion[];
 }
 
+export interface VersionRequestPayload {
+  versionEan13: string;
+  physicalSupport: 'CD' | 'vinil' | 'cassete';
+  designation?: string | null;
+}
+
+export interface VersionRequestResponse {
+  message: string;
+  request?: {
+    id: string;
+    albumId: string;
+    albumTitle: string;
+    versionEan13: string;
+    physicalSupport: 'CD' | 'vinil' | 'cassete';
+    designation: string | null;
+    status: 'em análise' | 'aceite' | 'recusado';
+    requestedAt: string;
+  };
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -65,5 +85,13 @@ export class AlbumService {
     return this.http.get<AlbumDetail>(`${this.apiUrl}/${encodeURIComponent(id)}`, {
       headers: this.getAuthHeaders()
     });
+  }
+
+  submitVersionRequest(albumId: string, payload: VersionRequestPayload): Observable<VersionRequestResponse> {
+    return this.http.post<VersionRequestResponse>(
+      `${this.apiUrl}/${encodeURIComponent(albumId)}/version-requests`,
+      payload,
+      { headers: this.getAuthHeaders() }
+    );
   }
 }

@@ -97,6 +97,98 @@
   font-size: 0.75rem;
 }
 
+.request-section {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.request-section h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.request-description {
+  margin: 0 0 14px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.92rem;
+}
+
+.request-form {
+  display: grid;
+  gap: 12px;
+}
+
+.request-form label {
+  display: grid;
+  gap: 6px;
+}
+
+.request-form span {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.request-form input,
+.request-form select {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(8, 12, 30, 0.7);
+  color: #fff;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.request-form input:focus,
+.request-form select:focus {
+  border-color: rgba(120, 255, 214, 0.6);
+  box-shadow: 0 0 0 3px rgba(120, 255, 214, 0.12);
+}
+
+.btn-request {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 800;
+  cursor: pointer;
+  color: #071226;
+  background: linear-gradient(135deg, #f59e0b 0%, #fde68a 100%);
+}
+
+.btn-request:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.request-alert {
+  margin-bottom: 12px;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.request-success {
+  background: rgba(74, 222, 128, 0.08);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.12);
+}
+
+.request-error {
+  background: rgba(248, 113, 113, 0.06);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.1);
+}
+
 .cover {
   width: 180px;
   height: 180px;
@@ -177,6 +269,7 @@
   .meta { width: 100%; }
   .version-actions { justify-content: center; width: 100%; }
   .btn-add { width: auto; }
+  .btn-request { width: 100%; }
 }
 
 @keyframes fadeInMsg { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }

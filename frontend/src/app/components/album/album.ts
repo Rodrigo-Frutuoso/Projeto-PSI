@@ -1,13 +1,14 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
-import { AlbumService, AlbumDetail, AlbumTrack, AlbumVersion } from '../../services/album.service';
+import { FormsModule } from '@angular/forms';
+import { AlbumService, AlbumDetail, AlbumTrack, AlbumVersion, VersionRequestPayload } from '../../services/album.service';
 import { CollectionService } from '../../services/collection.service';
 
 @Component({
   selector: 'app-album',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './album.html',
   styleUrls: ['./album.css']
 })
@@ -23,6 +24,12 @@ export class AlbumComponent implements OnInit {
   addingEans = new Set<string>();
   /** Feedback messages per EAN-13 */
   versionMessages: Record<string, { text: string; type: 'success' | 'error' }> = {};
+  requestEan13 = '';
+  requestPhysicalSupport: VersionRequestPayload['physicalSupport'] = 'CD';
+  requestDesignation = '';
+  requestMessage = '';
+  requestError = '';
+  isSubmittingRequest = false;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -63,6 +70,47 @@ export class AlbumComponent implements OnInit {
       },
       error: () => {
         // Non-critical: buttons will just not be pre-disabled
+      }
+    });
+  }
+
+  submitVersionRequest(): void {
+    if (!this.album?._id) {
+      return;
+    }
+
+    const normalizedEan13 = this.requestEan13.trim();
+    if (!/^\d{13}$/.test(normalizedEan13)) {
+      this.requestError = 'O EAN-13 deve ter exatamente 13 dígitos.';
+      this.requestMessage = '';
+      this.cdr.detectChanges();
+      return;
+    }
+
+    this.isSubmittingRequest = true;
+    this.requestError = '';
+    this.requestMessage = '';
+    this.cdr.detectChanges();
+
+    this.albumService.submitVersionRequest(this.album._id, {
+      versionEan13: normalizedEan13,
+      physicalSupport: this.requestPhysicalSupport,
+      designation: this.requestDesignation.trim() || null
+    }).subscribe({
+      next: (response) => {
+        this.isSubmittingRequest = false;
+        this.requestMessage = response.message || 'Pedido submetido com sucesso. O estado ficou em análise.';
+        this.requestError = '';
+        this.requestEan13 = '';
+        this.requestPhysicalSupport = 'CD';
+        this.requestDesignation = '';
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.isSubmittingRequest = false;
+        this.requestMessage = '';
+        this.requestError = err.error?.message || 'Erro ao submeter o pedido da nova versão.';
+        this.cdr.detectChanges();
       }
     });
   }
