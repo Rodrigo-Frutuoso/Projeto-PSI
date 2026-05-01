@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AlbumService, AlbumDetail, AlbumTrack, AlbumVersion, VersionRequestPayload } from '../../services/album.service';
+import { AlbumService, AlbumDetail, AlbumVersion, VersionRequestPayload } from '../../services/album.service';
 import { CollectionService } from '../../services/collection.service';
 
 @Component({
@@ -31,6 +31,12 @@ export class AlbumComponent implements OnInit {
   requestError = '';
   isSubmittingRequest = false;
   showRequestModal = false;
+  successToastMessage = '';
+  showSuccessToast = false;
+  requestSuccessToastMessage = '';
+  showRequestSuccessToast = false;
+  private successToastTimer: ReturnType<typeof setTimeout> | null = null;
+  private requestSuccessToastTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -100,11 +106,12 @@ export class AlbumComponent implements OnInit {
     }).subscribe({
       next: (response) => {
         this.isSubmittingRequest = false;
-        this.requestMessage = response.message || 'Pedido submetido com sucesso. O estado ficou em análise.';
+        this.requestMessage = '';
         this.requestError = '';
         this.requestEan13 = '';
         this.requestPhysicalSupport = 'CD';
         this.requestDesignation = '';
+        this.showRequestSubmittedToast(response.message || 'Pedido realizado com sucesso!');
         // fechar modal ao submeter com sucesso
         this.showRequestModal = false;
         this.cdr.detectChanges();
@@ -130,6 +137,38 @@ export class AlbumComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
+  private showAddSuccessToast(): void {
+    this.successToastMessage = 'Versão adicionada à coleção com sucesso!';
+    this.showSuccessToast = true;
+
+    if (this.successToastTimer) {
+      clearTimeout(this.successToastTimer);
+    }
+
+    this.successToastTimer = setTimeout(() => {
+      this.showSuccessToast = false;
+      this.cdr.detectChanges();
+    }, 3500);
+
+    this.cdr.detectChanges();
+  }
+
+  private showRequestSubmittedToast(message: string): void {
+    this.requestSuccessToastMessage = message;
+    this.showRequestSuccessToast = true;
+
+    if (this.requestSuccessToastTimer) {
+      clearTimeout(this.requestSuccessToastTimer);
+    }
+
+    this.requestSuccessToastTimer = setTimeout(() => {
+      this.showRequestSuccessToast = false;
+      this.cdr.detectChanges();
+    }, 3500);
+
+    this.cdr.detectChanges();
+  }
+
   /** Add a specific version to the user's collection */
   addToCollection(version: AlbumVersion): void {
     if (!this.album?._id || !version.ean13) return;
@@ -140,20 +179,11 @@ export class AlbumComponent implements OnInit {
     this.cdr.detectChanges();
 
     this.collectionService.addToCollection(this.album._id, version.ean13).subscribe({
-      next: (response) => {
+      next: () => {
         this.addingEans.delete(version.ean13);
         this.collectedEans.add(version.ean13);
-        this.versionMessages[version.ean13] = {
-          text: response.message || 'Versão adicionada à coleção com sucesso!',
-          type: 'success'
-        };
+        this.showAddSuccessToast();
         this.cdr.detectChanges();
-
-        // Auto-hide success message after 5s
-        setTimeout(() => {
-          delete this.versionMessages[version.ean13];
-          this.cdr.detectChanges();
-        }, 5000);
       },
       error: (err) => {
         this.addingEans.delete(version.ean13);

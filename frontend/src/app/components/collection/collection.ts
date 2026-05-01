@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CollectionService, CollectionItem } from '../../services/collection.service';
@@ -12,11 +12,17 @@ type SortField = 'title' | 'releaseYear' | 'artistName' | 'ean13' | 'physicalSup
   templateUrl: './collection.html',
   styleUrl: './collection.css'
 })
-export class CollectionComponent implements OnInit {
+export class CollectionComponent implements OnInit, OnDestroy {
   collection: CollectionItem[] = [];
   isLoading = true;
   loadError = '';
   successMessage = '';
+  showRemoveConfirmToast = false;
+  pendingRemoveItem: CollectionItem | null = null;
+  showActionToast = false;
+  actionToastMessage = '';
+  actionToastType: 'success' | 'error' = 'success';
+  private actionToastTimer: ReturnType<typeof setTimeout> | null = null;
   sortField: SortField = 'addedAt';
   sortDirection: 'asc' | 'desc' = 'desc';
 
@@ -28,6 +34,12 @@ export class CollectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCollection();
+  }
+
+  ngOnDestroy(): void {
+    if (this.actionToastTimer) {
+      clearTimeout(this.actionToastTimer);
+    }
   }
 
   loadCollection(): void {
@@ -71,8 +83,8 @@ export class CollectionComponent implements OnInit {
       let valB: any = b[this.sortField];
 
       // Tratar nulls
-      if (valA == null) valA = '';
-      if (valB == null) valB = '';
+      valA ??= '';
+      valB ??= '';
 
       // Datas
       if (this.sortField === 'addedAt') {
@@ -94,28 +106,52 @@ export class CollectionComponent implements OnInit {
     return this.sortDirection === 'asc' ? '↑' : '↓';
   }
 
-  removeItem(item: CollectionItem): void {
-    if (!confirm(`Remover "${item.title}" (${item.ean13}) da coleção?`)) return;
+  requestRemoveItem(item: CollectionItem): void {
+    this.pendingRemoveItem = item;
+    this.showRemoveConfirmToast = true;
+    this.cdr.detectChanges();
+  }
 
+  cancelRemove(): void {
+    this.pendingRemoveItem = null;
+    this.showRemoveConfirmToast = false;
+    this.cdr.detectChanges();
+  }
+
+  confirmRemove(): void {
+    if (!this.pendingRemoveItem) return;
+
+    const item = this.pendingRemoveItem;
+    this.pendingRemoveItem = null;
+    this.showRemoveConfirmToast = false;
     this.successMessage = '';
 
     this.collectionService.removeFromCollection(item.id).subscribe({
       next: (response) => {
         this.collection = this.collection.filter(i => i.id !== item.id);
-        this.successMessage = response.message;
-        this.cdr.detectChanges();
-
-        // Limpar mensagem após 4s
-        setTimeout(() => {
-          this.successMessage = '';
-          this.cdr.detectChanges();
-        }, 4000);
+        this.showFeedbackToast(response.message || 'Item removido da coleção com sucesso.', 'success');
       },
       error: () => {
-        this.loadError = 'Erro ao remover o item da coleção.';
-        this.cdr.detectChanges();
+        this.showFeedbackToast('Erro ao remover o item da coleção.', 'error');
       }
     });
+  }
+
+  private showFeedbackToast(message: string, type: 'success' | 'error'): void {
+    this.actionToastMessage = message;
+    this.actionToastType = type;
+    this.showActionToast = true;
+
+    if (this.actionToastTimer) {
+      clearTimeout(this.actionToastTimer);
+    }
+
+    this.actionToastTimer = setTimeout(() => {
+      this.showActionToast = false;
+      this.cdr.detectChanges();
+    }, 3500);
+
+    this.cdr.detectChanges();
   }
 
   formatDate(dateStr: string): string {

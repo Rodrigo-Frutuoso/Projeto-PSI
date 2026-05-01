@@ -9,14 +9,6 @@
       <h1 class="page-title">A minha coleção</h1>
     </div>
 
-    <!-- Success -->
-    @if (successMessage) {
-    <div class="alert alert-success" id="collection-success-msg">
-      <span class="alert-icon">✓</span>
-      <strong>{{ successMessage }}</strong>
-    </div>
-    }
-
     <!-- Error -->
     @if (loadError) {
     <div class="alert alert-error">
@@ -107,7 +99,7 @@
             </td>
             <td class="cell-date">{{ formatDate(item.addedAt) }}</td>
             <td class="cell-actions">
-              <button class="btn-remove" (click)="removeItem(item)" title="Remover da coleção" id="remove-{{ item.id }}">
+              <button class="btn-remove" (click)="requestRemoveItem(item)" title="Remover da coleção" id="remove-{{ item.id }}">
                 🗑️
               </button>
             </td>
@@ -117,5 +109,19 @@
       </table>
     </div>
     }
+
+    @if (showRemoveConfirmToast && pendingRemoveItem) {
+    <dialog class="remove-confirm-toast" open aria-live="polite" id="collection-remove-confirm">
+      <p>Quer remover "{{ pendingRemoveItem.title }}" ({{ pendingRemoveItem.ean13 }})?</p>
+      <div class="toast-actions">
+        <button class="btn-toast btn-toast-danger" (click)="confirmRemove()">Remover</button>
+        <button class="btn-toast btn-toast-neutral" (click)="cancelRemove()">Cancelar</button>
+      </div>
+    </dialog>
+    }
+
+    <output *ngIf="showActionToast" class="collection-action-toast" [class.toast-success]="actionToastType === 'success'" [class.toast-error]="actionToastType === 'error'" aria-live="polite">
+      {{ actionToastType === 'success' ? '✓ ' : '✕ ' }}{{ actionToastMessage }}
+    </output>
   </div>
 </div>

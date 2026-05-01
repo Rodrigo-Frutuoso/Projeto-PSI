@@ -18,9 +18,11 @@ export class EditProfileComponent implements OnInit {
   isSubmitting = false;
   serverErrors: string[] = [];
   successMessage = '';
+  showSuccessToast = false;
   showCurrentPassword = false;
   showNewPassword = false;
   loadError = '';
+  private successToastTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -134,6 +136,7 @@ export class EditProfileComponent implements OnInit {
   onSubmit(): void {
     this.serverErrors = [];
     this.successMessage = '';
+    this.showSuccessToast = false;
 
     // Marcar todos os campos como touched
     Object.keys(this.editForm.controls).forEach(key => {
@@ -174,7 +177,7 @@ export class EditProfileComponent implements OnInit {
     this.authService.updateProfile(data).subscribe({
       next: (response) => {
         this.isSubmitting = false;
-        this.successMessage = response.message;
+        this.showProfileSuccessToast(response.message || 'Perfil atualizado com sucesso!');
 
         // Atualizar dados da sessão local
         if (response.user) {
@@ -210,6 +213,22 @@ export class EditProfileComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  private showProfileSuccessToast(message: string): void {
+    this.successMessage = message;
+    this.showSuccessToast = true;
+
+    if (this.successToastTimer) {
+      clearTimeout(this.successToastTimer);
+    }
+
+    this.successToastTimer = setTimeout(() => {
+      this.showSuccessToast = false;
+      this.cdr.detectChanges();
+    }, 3500);
+
+    this.cdr.detectChanges();
   }
 
   // Helpers para o template

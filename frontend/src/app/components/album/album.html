@@ -52,9 +52,8 @@
                   </button>
                 </div>
                 <!-- Feedback message -->
-                <div *ngIf="versionMessages[v.ean13]"
-                     class="version-message"
-                     [class.msg-success]="versionMessages[v.ean13].type === 'success'"
+                 <div *ngIf="versionMessages[v.ean13] && versionMessages[v.ean13].type === 'error'"
+                   class="version-message"
                      [class.msg-error]="versionMessages[v.ean13].type === 'error'">
                   {{ versionMessages[v.ean13].text }}
                 </div>
@@ -141,6 +140,14 @@
         <p>Sem informação sobre as faixas.</p>
       </ng-template>
     </section>
+
+    <output *ngIf="showSuccessToast" class="success-toast" aria-live="polite">
+      {{ successToastMessage }}
+    </output>
+
+    <output *ngIf="showRequestSuccessToast" class="request-success-toast" aria-live="polite">
+      {{ requestSuccessToastMessage }}
+    </output>
 
 
     </div>

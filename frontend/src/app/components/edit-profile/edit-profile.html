@@ -38,16 +38,6 @@
         <p class="subtitle">Atualiza as tuas informações pessoais</p>
       </div>
 
-      <!-- Success Message -->
-      @if (successMessage) {
-      <div class="alert alert-success" id="edit-profile-success">
-        <span class="alert-icon">✓</span>
-        <div>
-          <strong>{{ successMessage }}</strong>
-        </div>
-      </div>
-      }
-
       <!-- Server Errors -->
       @if (serverErrors.length > 0) {
       <div class="alert alert-error" id="edit-profile-errors">
@@ -209,5 +199,9 @@
       </form>
     </div>
     }
+
+    <output *ngIf="showSuccessToast" class="profile-success-toast" aria-live="polite" id="edit-profile-success">
+      ✓ {{ successMessage }}
+    </output>
   </div>
 </div>
