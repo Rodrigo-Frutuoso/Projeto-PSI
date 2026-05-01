@@ -73,11 +73,16 @@ Projeto-PSI/
 │   ├── models/
 │   │   ├── User.js                    # Modelo de utilizador (US1-US4, US7)
 │   │   ├── Artist.js                  # Modelo de artista (US5-US7)
-│   │   └── Album.js                   # Modelo de álbum (US6)
+│   │   ├── Album.js                   # Modelo de álbum (US6, US9)
+│   │   ├── CollectionItem.js          # Modelo de item da coleção (US10, US11)
+│   │   ├── Song.js                    # Modelo de canção (US9)
+│   │   └── VersionRequest.js          # Modelo de pedido de nova versão (US12, US13)
 │   ├── routes/
 │   │   ├── auth.js                    # Registo + login (US1, US2)
 │   │   ├── users.js                   # Gerir/Ver perfil + Favoritos (US3, US4, US7)
 │   │   ├── artists.js                 # Pesquisa + Pág. de artista (US5, US6)
+│   │   ├── albums.js                  # Álbuns e versões (US8, US9, US12)
+│   │   ├── collection.js              # Coleção de utilizador (US10, US11)
 │   │   └── init.js                    # Inicializações para testes
 │   └── services/
 │       └── seedData.js                # Seed de dados para desenvolvimento/testes
@@ -96,21 +101,27 @@ Projeto-PSI/
 │   │   │   ├── app.config.ts
 │   │   │   ├── app.routes.ts          # Navegação e associação de componentes
 │   │   │   ├── services/
-│   │   │   │   ├── auth.service.ts    # Comunicação de autenticação/perfil com a API
-│   │   │   │   └── artist.service.ts  # Pesquisa/artistas/discografia/favoritos
+│   │   │   │   ├── auth.service.ts    # Comunicação de autenticação/perfil com a API (US1, US2)
+│   │   │   │   ├── artist.service.ts  # Pesquisa/artistas/discografia/favoritos (US5, US6, US7)
+│   │   │   │   ├── album.service.ts   # Detalhes de álbum e versões (US8, US9, US12)
+│   │   │   │   ├── collection.service.ts # Coleção de utilizador (US10, US11)
+│   │   │   │   └── search-state.service.ts # Estado global de pesquisa (US5, US8)
 │   │   │   ├── guards/
 │   │   │   │   ├── auth.guard.ts      # Protege rotas autenticadas
 │   │   │   │   └── guest.guard.ts     # Bloqueia páginas de auth após login
 │   │   │   └── components/
 │   │   │       ├── register/          # Criar conta (US1)
 │   │   │       ├── login/             # Iniciar sessão (US2)
-│   │   │       ├── dashboard/         # Dashboard inicial (US2)
+│   │   │       ├── dashboard/         # Dashboard inicial (US2, US13)
 │   │   │       ├── profile/           # Perfil e favorito (US3, US7)
 │   │   │       ├── edit-profile/      # Editar perfil (US4)
-│   │   │       ├── search/            # Pesquisar artistas (US5)
+│   │   │       ├── search/            # Pesquisar artistas e álbuns (US5, US8)
 │   │   │       ├── artist/            # Informação do artista (US6)
-│   │   │       └── artist-albums/     # Albuns do artista (US6)
+│   │   │       ├── artist-albums/     # Álbuns do artista (US6)
+│   │   │       ├── album/             # Detalhes do álbum e versões (US9, US12)
+│   │   │       └── collection/        # Coleção de utilizador (US10, US11)
 │   └── public/
+│       └── icons/
 ├── diagrama_bd.png
 └── README.md
 ```
@@ -119,13 +130,20 @@ Projeto-PSI/
 
 | User Story | Descricao curta |
 | --- | --- |
-| US1 | Criar conta |
-| US2 | Iniciar sessao |
-| US3 | Visualizar perfil |
-| US4 | Gerir perfil |
-| US5 | Pesquisar artistas |
-| US6 | Pagina de artista |
-| US7 | Adicionar artista favorito |
+| US1 | 1. Criar conta |
+| US2 | 2. Iniciar sessao |
+| US3 | 3. Visualizar perfil |
+| US4 | 4. Gerir perfil |
+| US5 | 5. Pesquisar artistas |
+| US6 | 6. Pagina de artista |
+| US7 | 7. Adicionar artista favorito |
+| US8 | 8. Pesquisar álbuns |
+| US9 | 9. Visualizar página de álbum |
+| US10 | 10. Adicionar versão à coleção |
+| US11 | 11. Visualizar coleção |
+| US12 | 12. Submeter pedido de nova versão |
+| US13 | 13. Ver estado dos pedidos |
+| US14 | 14. Notificações de pedidos |
 
 ## Endpoints da API
 
@@ -144,3 +162,13 @@ Projeto-PSI/
 - `GET /search?q=` (Pesquisar artistas)
 - `GET /:id` (Detalhes do artista)
 - `GET /:id/albums` (Álbuns do artista)
+
+**Álbuns (`/api/albums`)**
+- `GET /:id` (Detalhes do álbum)
+- `GET /:id/versions` (Versões do álbum)
+- `POST /:id/versions/request` (Solicitar nova versão)
+
+**Coleção (`/api/collection`)**
+- `GET /me` (Listar itens da coleção)
+- `POST /me` (Adicionar à coleção)
+- `DELETE /me/:id` (Remover da coleção)
