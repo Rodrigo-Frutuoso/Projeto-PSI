@@ -550,6 +550,28 @@
 .sidebar-link:hover .sidebar-icon,
 .sidebar-link.active .sidebar-icon {
   opacity: 1;
+} 
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+.sidebar-material-icon {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 24px;
+  text-align: center;
+  opacity: 0.85;
+}
+
+.sidebar-link:hover .sidebar-material-icon,
+.sidebar-link.active .sidebar-material-icon {
+  opacity: 1;
 }
 
 .emoji-icon {
