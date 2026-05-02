@@ -1,49 +1,28 @@
 .collection-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-  padding: 2rem 1rem;
+  background: transparent;
+  padding: 2rem;
   position: relative;
   overflow-y: auto;
-}
-
-.collection-page::before {
-  content: '';
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background:
-    radial-gradient(ellipse at 30% 40%, rgba(120, 80, 255, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 60%, rgba(255, 100, 150, 0.1) 0%, transparent 50%);
-  animation: bgPulse 8s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes bgPulse {
-  0% { transform: scale(1) rotate(0deg); }
-  100% { transform: scale(1.05) rotate(2deg); }
 }
 
 .collection-container {
   max-width: 1100px;
   margin: 0 auto;
-  position: relative;
-  z-index: 1;
-  animation: slideUp 0.6s ease-out;
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  background: rgba(15, 12, 41, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 20px;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.35);
 }
 
 /* ── Header ── */
 .page-header {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  justify-content: space-between;
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
@@ -51,11 +30,11 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
   padding: 0.45rem 0.9rem;
-  border-radius: 10px;
+  border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
@@ -65,7 +44,7 @@
 }
 
 .btn-back:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
 }
 
@@ -77,10 +56,7 @@
 .page-title {
   font-size: 1.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #a78bfa, #f472b6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #fff;
   margin: 0;
 }
 
@@ -172,8 +148,8 @@
   text-align: center;
   padding: 4rem 2rem;
   background: rgba(255, 255, 255, 0.04);
-  border: 1px dashed rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
 }
 
 .empty-icon {
@@ -208,9 +184,9 @@
 
 .stats-badge {
   display: inline-block;
-  background: rgba(167, 139, 250, 0.2);
-  color: #ddd6fe;
-  border: 1px solid rgba(167, 139, 250, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
   padding: 0.2rem 0.75rem;
   font-size: 0.78rem;
@@ -247,7 +223,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.65);
   background: rgba(255, 255, 255, 0.06);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   user-select: none;
@@ -259,7 +235,7 @@
 }
 
 .collection-table th.sortable:hover {
-  color: #a78bfa;
+  color: #fff;
 }
 
 .sort-icon {
@@ -285,7 +261,7 @@
 
 /* ── Cells ── */
 .album-link {
-  color: #a78bfa;
+  color: #93c5fd;
   text-decoration: none;
   font-weight: 600;
   cursor: pointer;
@@ -293,7 +269,7 @@
 }
 
 .album-link:hover {
-  color: #c4b5fd;
+  color: #bfdbfe;
   text-decoration: underline;
 }
 
@@ -358,9 +334,9 @@
 
 .btn-remove {
   color: rgb(255, 255, 255);
-  background: rgba(239, 68, 68, 0.12);
-  border: 1px solid rgba(239, 68, 68, 0.25);
-  border-radius: 8px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.22);
+  border-radius: 999px;
   padding: 0.35rem 0.5rem;
   cursor: pointer;
   font-size: 0.9rem;
@@ -369,8 +345,8 @@
 }
 
 .btn-remove:hover {
-  background: rgba(239, 68, 68, 0.3);
-  border-color: rgba(239, 68, 68, 0.5);
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.4);
   transform: scale(1.1);
 }
 
