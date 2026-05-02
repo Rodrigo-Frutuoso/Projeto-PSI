@@ -100,7 +100,7 @@
             <td class="cell-date">{{ formatDate(item.addedAt) }}</td>
             <td class="cell-actions">
               <button class="btn-remove" (click)="requestRemoveItem(item)" title="Remover da coleção" id="remove-{{ item.id }}">
-                🗑️
+                <span class="material-symbols-outlined collection-remove-icon" aria-hidden="true">delete</span>
               </button>
             </td>
           </tr>

@@ -357,6 +357,7 @@
 }
 
 .btn-remove {
+  color: rgb(255, 255, 255);
   background: rgba(239, 68, 68, 0.12);
   border: 1px solid rgba(239, 68, 68, 0.25);
   border-radius: 8px;
