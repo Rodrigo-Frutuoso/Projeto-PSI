@@ -11,6 +11,7 @@ import { ArtistComponent } from './components/artist/artist';
 import { ArtistAlbumsComponent } from './components/artist-albums/artist-albums';
 import { CollectionComponent } from './components/collection/collection';
 import { AlbumComponent } from './components/album/album';
+import { VersionRequestsComponent } from './components/version-requests/version-requests';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [guestGuard] },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'profile/edit', component: EditProfileComponent, canActivate: [authGuard] },
   { path: 'collection', component: CollectionComponent, canActivate: [authGuard] },
+  { path: 'requests', component: VersionRequestsComponent, canActivate: [authGuard] },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'search', component: SearchComponent, canActivate: [authGuard] },
   { path: 'artist/:id', component: ArtistComponent, canActivate: [authGuard] },

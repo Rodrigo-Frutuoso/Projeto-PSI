@@ -17,6 +17,34 @@
   gap: 1.5rem;
 }
 
+.quick-actions-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.quick-action-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px;
+  min-width: 280px;
+}
+
+.quick-action-card p {
+  margin: 2px 0 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.88rem;
+}
+
+.quick-action-icon {
+  font-size: 1.2rem;
+}
+
 .section-header {
   display: flex;
   align-items: flex-end;

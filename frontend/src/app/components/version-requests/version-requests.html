@@ -1,0 +1,68 @@
+<div class="requests-page">
+  <div class="requests-container">
+    <div class="page-header">
+      <h1>Os meus pedidos</h1>
+      <a routerLink="/dashboard" class="btn-back">← Dashboard</a>
+    </div>
+
+    <div class="filters-row">
+      <label for="status-filter">Filtrar por estado:</label>
+      <select id="status-filter" [value]="selectedStatus" (change)="onStatusChange($event)">
+        @for (status of statuses; track status.value) {
+          <option [value]="status.value">{{ status.label }}</option>
+        }
+      </select>
+    </div>
+
+    @if (isLoading) {
+      <div class="loading-state">A carregar pedidos...</div>
+    }
+
+    @if (!isLoading && errorMessage) {
+      <div class="alert alert-error">{{ errorMessage }}</div>
+    }
+
+    @if (!isLoading && !errorMessage && requests.length === 0) {
+      <div class="empty-state">
+        Não existem pedidos para o filtro selecionado.
+      </div>
+    }
+
+    @if (!isLoading && !errorMessage && requests.length > 0) {
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Identificador</th>
+              <th>Álbum</th>
+              <th>Designação</th>
+              <th>Data do pedido</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (request of requests; track request.id) {
+              <tr>
+                <td><code>{{ request.id }}</code></td>
+                <td>
+                  @if (request.albumId) {
+                    <a [routerLink]="['/album', request.albumId]" class="album-link">{{ request.albumTitle }}</a>
+                  } @else {
+                    {{ request.albumTitle }}
+                  }
+                </td>
+                <td>{{ request.designation || '—' }}</td>
+                <td>{{ formatDate(request.requestedAt) }}</td>
+                <td>
+                  <span class="status-badge" [class]="'status-badge ' + statusClass(request.status)">
+                    {{ request.status }}
+                  </span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</div>
