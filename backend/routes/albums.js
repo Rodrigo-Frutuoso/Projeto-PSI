@@ -2,38 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Album = require('../models/Album');
 const Artist = require('../models/Artist');
-const Song = require('../models/Song');
 const VersionRequest = require('../models/VersionRequest');
 const authMiddleware = require('../middleware/auth');
-
-// Utilitários de pesquisa (igual ao artists.js)
-const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-const makeAccentIgnoredRegex = (text) => {
-    let escaped = escapeRegExp(text);
-    return escaped
-        .replace(/[aáàãâäAÁÀÃÂÄ]/g, '[aáàãâäAÁÀÃÂÄ]')
-        .replace(/[eéèêëEÉÈÊË]/g, '[eéèêëEÉÈÊË]')
-        .replace(/[iíìîïIÍÌÎÏ]/g, '[iíìîïIÍÌÎÏ]')
-        .replace(/[oóòõôöOÓÒÕÔÖ]/g, '[oóòõôöOÓÒÕÔÖ]')
-        .replace(/[uúùûüUÚÙÛÜ]/g, '[uúùûüUÚÙÛÜ]')
-        .replace(/[cçCÇ]/g, '[cçCÇ]')
-        .replace(/[nñNÑ]/g, '[nñNÑ]');
-};
-
-const normalizeSearchText = (text) => (text || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .trim();
-    
-const matchesWordPrefix = (title, searchQuery) => {
-    const normalizedQuery = normalizeSearchText(searchQuery);
-    if (!normalizedQuery) return false;
-
-    return normalizeSearchText(title)
-        .split(/\s+/)
-        .some((word) => word.startsWith(normalizedQuery));
-};
+const { escapeRegExp, makeAccentIgnoredRegex, normalizeSearchText, matchesWordPrefix } = require('../utils/searchHelpers');
 
 // GET /api/albums?search=<query>
 // Pesquisa álbuns cujo título corresponde ao termo pesquisado (início de palavra)

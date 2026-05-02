@@ -3,35 +3,7 @@ const router = express.Router();
 const Artist = require('../models/Artist');
 const Album = require('../models/Album');
 const authMiddleware = require('../middleware/auth');
-
-// Funcionalidade para converter query com/sem acentos numa regex universal
-const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-const makeAccentIgnoredRegex = (text) => {
-    let escaped = escapeRegExp(text);
-    return escaped
-        .replace(/[aáàãâäAÁÀÃÂÄ]/g, '[aáàãâäAÁÀÃÂÄ]')
-        .replace(/[eéèêëEÉÈÊË]/g, '[eéèêëEÉÈÊË]')
-        .replace(/[iíìîïIÍÌÎÏ]/g, '[iíìîïIÍÌÎÏ]')
-        .replace(/[oóòõôöOÓÒÕÔÖ]/g, '[oóòõôöOÓÒÕÔÖ]')
-        .replace(/[uúùûüUÚÙÛÜ]/g, '[uúùûüUÚÙÛÜ]')
-        .replace(/[cçCÇ]/g, '[cçCÇ]')
-        .replace(/[nñNÑ]/g, '[nñNÑ]');
-};
-
-const normalizeSearchText = (text) => (text || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .trim();
-    
-const matchesArtistWordPrefix = (artistName, searchQuery) => {
-    const normalizedQuery = normalizeSearchText(searchQuery);
-    if (!normalizedQuery) return false;
-
-    return normalizeSearchText(artistName)
-        .split(/\s+/)
-        .some((word) => word.startsWith(normalizedQuery));
-};
+const { makeAccentIgnoredRegex, matchesWordPrefix } = require('../utils/searchHelpers');
 
 router.get('/', authMiddleware, async (req, res) => {
     try {
@@ -48,7 +20,7 @@ router.get('/', authMiddleware, async (req, res) => {
             .limit(searchQuery ? 50 : 100); 
 
         const filteredArtists = searchQuery
-            ? artists.filter((artist) => matchesArtistWordPrefix(artist.name, searchQuery))
+            ? artists.filter((artist) => matchesWordPrefix(artist.name, searchQuery))
             : artists;
 
         res.status(200).json(filteredArtists);
