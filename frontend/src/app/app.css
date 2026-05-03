@@ -600,6 +600,120 @@
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
+/* Logout Confirmation Modal */
+.logout-confirmation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.logout-confirmation-modal {
+  background: rgba(15, 12, 41, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 32px 40px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logout-confirmation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.logout-confirmation-text {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.logout-confirmation-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.logout-btn-cancel,
+.logout-btn-confirm {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-transform: capitalize;
+}
+
+.logout-btn-cancel {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.logout-btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.logout-btn-cancel:active {
+  transform: scale(0.98);
+}
+
+.logout-btn-confirm {
+  background: linear-gradient(135deg, #1d4ed8 0%, #60a5fa 100%);
+  color: #fff;
+  border: 1px solid rgba(93, 165, 250, 0.3);
+}
+
+.logout-btn-confirm:hover {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  box-shadow: 0 8px 20px rgba(29, 78, 216, 0.3);
+  border-color: rgba(93, 165, 250, 0.5);
+}
+
+.logout-btn-confirm:active {
+  transform: scale(0.98);
+}
+
 .nav-auth-buttons {
   display: flex;
   gap: 1rem;

@@ -23,6 +23,7 @@ export class App implements OnInit {
   isTypeDropdownOpen = false;
   navSearchType: 'artists' | 'albums' = 'artists';
   isSidebarExpanded = true;
+  showLogoutConfirmation = false;
   
   toggleSidebar() {
     this.isSidebarExpanded = !this.isSidebarExpanded;
@@ -109,9 +110,18 @@ export class App implements OnInit {
   }
 
   logout() {
+    this.showLogoutConfirmation = true;
+  }
+
+  confirmLogout() {
     this.authService.clearSession();
     this.isDropdownOpen = false;
+    this.showLogoutConfirmation = false;
     this.router.navigate(['/login']);
+  }
+
+  cancelLogout() {
+    this.showLogoutConfirmation = false;
   }
 
   clearSearchState() {

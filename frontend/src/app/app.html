@@ -109,3 +109,18 @@
     <router-outlet />
   </main>
 </div>
+
+<!-- Logout Confirmation Modal -->
+@if (showLogoutConfirmation) {
+  <div class="logout-confirmation-overlay" (click)="cancelLogout()">
+    <div class="logout-confirmation-modal" (click)="$event.stopPropagation()">
+      <div class="logout-confirmation-content">
+        <p class="logout-confirmation-text">Quer mesmo terminar a sessão?</p>
+        <div class="logout-confirmation-actions">
+          <button type="button" class="logout-btn-cancel" (click)="cancelLogout()">Cancelar</button>
+          <button type="button" class="logout-btn-confirm" (click)="confirmLogout()">Sim</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
