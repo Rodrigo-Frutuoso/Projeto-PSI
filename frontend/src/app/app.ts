@@ -6,6 +6,7 @@ import { AuthService } from './services/auth.service';
 import { ArtistService } from './services/artist.service';
 import { AlbumService } from './services/album.service';
 import { SearchStateService } from './services/search-state.service';
+import { NotificationService } from './services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,10 @@ export class App implements OnInit {
   isSidebarExpanded = true;
   showLogoutConfirmation = false;
   
+  notifications: any[] = [];
+  unreadCount = 0;
+  isNotificationsOpen = false;
+
   toggleSidebar() {
     this.isSidebarExpanded = !this.isSidebarExpanded;
   }
@@ -35,6 +40,7 @@ export class App implements OnInit {
     private readonly artistService: ArtistService,
     private readonly albumService: AlbumService,
     private readonly searchStateService: SearchStateService,
+    private readonly notificationService: NotificationService,
     private readonly router: Router,
     private readonly cdr: ChangeDetectorRef,
     private readonly zone: NgZone
@@ -61,6 +67,15 @@ export class App implements OnInit {
         this.navSearchType = type;
       }
     });
+
+    if (this.isAuthenticated) {
+      this.notificationService.getMyNotifications().subscribe();
+      this.notificationService.notifications$.subscribe(nots => {
+        this.notifications = nots;
+        this.unreadCount = nots.filter((n: any) => !n.read).length;
+        this.cdr.detectChanges();
+      });
+    }
   }
 
   get isAuthenticated() {
@@ -88,6 +103,22 @@ export class App implements OnInit {
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
+    if (this.isDropdownOpen) {
+      this.isNotificationsOpen = false;
+    }
+  }
+
+  toggleNotifications() {
+    this.isNotificationsOpen = !this.isNotificationsOpen;
+    if (this.isNotificationsOpen) {
+      this.isDropdownOpen = false;
+    }
+  }
+
+  markNotificationAsRead(id: string) {
+    this.notificationService.markAsRead(id).subscribe(() => {
+      this.notificationService.refreshNotifications();
+    });
   }
 
   @HostListener('document:click', ['$event'])
@@ -95,6 +126,7 @@ export class App implements OnInit {
     const target = event.target;
     const clickedInsideProfile = target instanceof Element && !!target.closest('.profile-menu');
     const clickedInsideTypeSelect = target instanceof Element && !!target.closest('.custom-type-select-container');
+    const clickedInsideNotifications = target instanceof Element && !!target.closest('.notifications-menu');
 
     if (!clickedInsideTypeSelect && this.isTypeDropdownOpen) {
       this.isTypeDropdownOpen = false;
@@ -102,6 +134,10 @@ export class App implements OnInit {
 
     if (!clickedInsideProfile && this.isDropdownOpen) {
       this.isDropdownOpen = false;
+    }
+
+    if (!clickedInsideNotifications && this.isNotificationsOpen) {
+      this.isNotificationsOpen = false;
     }
 
     if (!clickedInsideProfile && document.activeElement === this.profileButton?.nativeElement) {

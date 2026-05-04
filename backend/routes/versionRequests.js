@@ -42,4 +42,55 @@ router.get('/', authMiddleware, async (req, res) => {
   }
 });
 
+// POST /api/version-requests/:id/respond
+// Responde a um pedido de versão (aceitar ou recusar)
+router.post('/:id/respond', authMiddleware, async (req, res) => {
+  try {
+    const { action } = req.body;
+    if (!['aceite', 'recusado'].includes(action)) {
+      return res.status(400).json({ message: 'Ação inválida. Deve ser "aceite" ou "recusado".' });
+    }
+
+    const versionRequest = await VersionRequest.findById(req.params.id);
+    if (!versionRequest) {
+      return res.status(404).json({ message: 'Pedido não encontrado.' });
+    }
+
+    if (versionRequest.status !== 'em análise') {
+      return res.status(400).json({ message: 'Este pedido já foi respondido.' });
+    }
+
+    versionRequest.status = action;
+    await versionRequest.save();
+
+    const Notification = require('../models/Notification');
+    const Album = require('../models/Album');
+
+    // Create a notification
+    await Notification.create({
+      user: versionRequest.user,
+      versionRequest: versionRequest._id,
+      message: action === 'aceite' ? 'O seu pedido foi aceite.' : 'O seu pedido foi recusado.',
+      read: false
+    });
+
+    if (action === 'aceite') {
+      const album = await Album.findById(versionRequest.album);
+      if (album) {
+        album.versions.push({
+          ean13: versionRequest.versionEan13,
+          physicalSupport: versionRequest.physicalSupport,
+          designation: versionRequest.designation
+        });
+        await album.save();
+      }
+    }
+
+    return res.status(200).json({ message: `Pedido ${action} com sucesso.`, status: action });
+  } catch (error) {
+    console.error('Erro ao responder ao pedido:', error);
+    return res.status(500).json({ message: 'Erro ao responder ao pedido.' });
+  }
+});
+
 module.exports = router;

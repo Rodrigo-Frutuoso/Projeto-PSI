@@ -18,6 +18,7 @@ app.use('/api/artists', require('./routes/artists'));
 app.use('/api/albums', require('./routes/albums'));
 app.use('/api/collection', require('./routes/collection'));
 app.use('/api/version-requests', require('./routes/versionRequests'));
+app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/init', require('./routes/init'));
 
 // Health check
