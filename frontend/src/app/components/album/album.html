@@ -28,27 +28,27 @@
             <ul>
               <li *ngFor="let v of groupedVersions()[group]" class="version-item">
                 <div class="version-info">
-                  <strong>EAN-13:</strong> {{ v.ean13 }}
-                  <span *ngIf="(groupedVersions()[group].length > 1) && v.designation"> - {{ v.designation }}</span>
+                  <span class="version-ean">{{ v.ean13 }}</span>
+                  <span class="version-designation" *ngIf="v.designation">{{ v.designation }}</span>
                 </div>
                 <div class="version-actions">
                   <!-- Already in collection -->
                   <span *ngIf="isCollected(v.ean13)" class="badge-collected">
-                    ✓ Na coleção
+                    Na coleção
                   </span>
                   <!-- Adding in progress -->
                   <button
                     *ngIf="!isCollected(v.ean13) && isAdding(v.ean13)"
                     class="btn-add btn-adding"
                     disabled>
-                    A adicionar…
+                    ...
                   </button>
                   <!-- Add button -->
                   <button
                     *ngIf="!isCollected(v.ean13) && !isAdding(v.ean13)"
                     class="btn-add"
                     (click)="addToCollection(v)">
-                    + Adicionar à coleção
+                    Adicionar
                   </button>
                 </div>
                 <!-- Feedback message -->

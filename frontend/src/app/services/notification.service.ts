@@ -119,4 +119,15 @@ export class NotificationService {
   refreshNotifications(): void {
     this.getMyNotifications().subscribe();
   }
+
+  clearAllNotifications(): Observable<any> {
+    return this.http.delete('/api/notifications', {
+      headers: this.getAuthHeaders()
+    }).pipe(
+      map(response => {
+        this.notificationsSubject.next([]);
+        return response;
+      })
+    );
+  }
 }

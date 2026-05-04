@@ -49,8 +49,8 @@
     <div class="nav-right">
       <!-- Notifications Menu -->
       <div class="notifications-menu" style="position: relative; margin-right: 1.5rem;">
-        <button type="button" class="notifications-btn" (click)="toggleNotifications()" style="background: none; border: none; cursor: pointer; position: relative; color: white;">
-          <span class="material-symbols-outlined" style="font-size: 28px;">notifications</span>
+        <button type="button" class="notifications-btn" (click)="toggleNotifications()" style="background: none; border: none; cursor: pointer; position: relative; color: white; display: flex; align-items: center; justify-content: center; padding: 0;">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/appointment-reminders.png" alt="Notifications" style="width: 28px; height: 28px;">
           @if (unreadCount > 0) {
             <span class="notification-badge" style="position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid #0f0c29;">{{ unreadCount }}</span>
           }
@@ -58,8 +58,9 @@
 
         @if (isNotificationsOpen) {
           <div class="notifications-dropdown" style="position: absolute; top: calc(100% + 15px); right: -10px; background: #1e1b4b; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; width: 320px; max-height: 400px; overflow-y: auto; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); z-index: 1002; display: flex; flex-direction: column;">
-            <div class="dropdown-header" style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); color: white; font-weight: bold;">
-              Notificações
+            <div class="dropdown-header" style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); color: white; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+              <span>Notificações</span>
+              <button *ngIf="notifications.length > 0" type="button" (click)="clearNotifications()" style="background: none; border: none; color: #a78bfa; font-size: 0.75rem; cursor: pointer; padding: 0; font-weight: normal;">Limpar tudo</button>
             </div>
             @if (notifications.length === 0) {
               <div style="padding: 1.5rem; text-align: center; color: rgba(255,255,255,0.6); font-size: 0.9rem;">

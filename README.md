@@ -76,13 +76,16 @@ Projeto-PSI/
 │   │   ├── Album.js                   # Modelo de álbum (US6, US9)
 │   │   ├── CollectionItem.js          # Modelo de item da coleção (US10, US11)
 │   │   ├── Song.js                    # Modelo de canção (US9)
-│   │   └── VersionRequest.js          # Modelo de pedido de nova versão (US12, US13)
+│   │   ├── VersionRequest.js          # Modelo de pedido de nova versão (US12, US13, US14)
+│   │   └── Notification.js            # Modelo de notificações (US14)
 │   ├── routes/
 │   │   ├── auth.js                    # Registo + login (US1, US2)
 │   │   ├── users.js                   # Gerir/Ver perfil + Favoritos (US3, US4, US7)
 │   │   ├── artists.js                 # Pesquisa + Pág. de artista (US5, US6)
 │   │   ├── albums.js                  # Álbuns e versões (US8, US9, US12)
 │   │   ├── collection.js              # Coleção de utilizador (US10, US11)
+│   │   ├── notifications.js           # Notificações e limpeza (US14)
+│   │   ├── versionRequests.js         # Gestão de pedidos e simulação (US13, US14)
 │   │   └── init.js                    # Inicializações para testes
 │   └── services/
 │       └── seedData.js                # Seed de dados para desenvolvimento/testes
@@ -105,7 +108,8 @@ Projeto-PSI/
 │   │   │   │   ├── artist.service.ts  # Pesquisa/artistas/discografia/favoritos (US5, US6, US7)
 │   │   │   │   ├── album.service.ts   # Detalhes de álbum e versões (US8, US9, US12)
 │   │   │   │   ├── collection.service.ts # Coleção de utilizador (US10, US11)
-│   │   │   │   └── search-state.service.ts # Estado global de pesquisa (US5, US8)
+│   │   │   │   ├── search-state.service.ts # Estado global de pesquisa (US5, US8)
+│   │   │   │   └── notification.service.ts # Sistema de notificações e polling (US14)
 │   │   │   ├── guards/
 │   │   │   │   ├── auth.guard.ts      # Protege rotas autenticadas
 │   │   │   │   └── guest.guard.ts     # Bloqueia páginas de auth após login
@@ -143,7 +147,7 @@ Projeto-PSI/
 | US11 | 11. Visualizar coleção |
 | US12 | 12. Submeter pedido de nova versão |
 | US13 | 13. Ver estado dos pedidos |
-| US14 | 14. Notificações de pedidos |
+| US14 | 14. Notificações e gestão de pedidos |
 
 ## Endpoints da API
 
@@ -172,3 +176,15 @@ Projeto-PSI/
 - `GET /me` (Listar itens da coleção)
 - `POST /me` (Adicionar à coleção)
 - `DELETE /me/:id` (Remover da coleção)
+
+**Notificações (`/api/notifications`)**
+- `GET /` (Listar notificações)
+- `PATCH /:id/read` (Marcar como lida)
+- `DELETE /` (Limpar todas as notificações)
+
+**Pedidos de Versão (`/api/version-requests`)**
+- `GET /` (Listar os meus pedidos)
+- `POST /:id/respond` (Simular aceitação/recusa - **Rota de Teste**)
+
+---
+*Nota: A rota `/api/version-requests/:id/respond` permite simular a ação de um administrador (aceitar ou recusar um pedido) sem necessidade de token, facilitando os testes da US14 conforme o enunciado.*

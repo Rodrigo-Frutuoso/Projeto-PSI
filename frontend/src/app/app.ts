@@ -121,6 +121,12 @@ export class App implements OnInit {
     });
   }
 
+  clearNotifications() {
+    this.notificationService.clearAllNotifications().subscribe(() => {
+      this.notificationService.refreshNotifications();
+    });
+  }
+
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
     const target = event.target;

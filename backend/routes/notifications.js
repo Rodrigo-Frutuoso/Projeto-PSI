@@ -46,4 +46,16 @@ router.patch('/:id/read', authMiddleware, async (req, res) => {
   }
 });
 
+// DELETE /api/notifications
+// Elimina todas as notificações do utilizador autenticado
+router.delete('/', authMiddleware, async (req, res) => {
+  try {
+    await Notification.deleteMany({ user: req.userId });
+    res.status(200).json({ message: 'Todas as notificações foram eliminadas.' });
+  } catch (error) {
+    console.error('Erro ao eliminar notificações:', error);
+    res.status(500).json({ message: 'Erro ao eliminar notificações.' });
+  }
+});
+
 module.exports = router;

@@ -28,21 +28,21 @@
 }
 
 .versions-header {
-  min-width: 280px;
-  max-width: 350px;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 12px 16px;
-  border-radius: 12px;
+  min-width: 320px;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 16px 20px;
+  border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
 }
 
 .versions-title {
-  margin: 0 0 12px 0;
-  font-size: 1rem;
+  margin: 0;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #fff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 8px;
+  letter-spacing: 0.02em;
 }
 
 .versions-title-row { display:flex; align-items:center; justify-content:space-between; gap:8px; }
@@ -97,12 +97,12 @@
 }
 
 .versions-header h4 {
-  margin: 12px 0 2px 0;
-  font-size: 0.72rem;
+  margin: 20px 0 8px 0;
+  font-size: 0.65rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #78ffd6; /* Use a color to distinguish */
-  opacity: 0.8;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
 }
 
 .versions-header ul {
@@ -278,37 +278,80 @@
 /* Version item layout */
 .version-item {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
-  padding: 10px 0;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-.version-info { flex: 1; min-width: 0; color: rgba(255,255,255,0.9); }
-.version-actions { flex-shrink: 0; display:flex; gap:8px; align-items:center; }
+.version-item:last-child {
+  border-bottom: none;
+}
 
-/* Add button (subtle neon) */
+.version-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.version-ean {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Inter', monospace;
+}
+
+.version-designation {
+  display: block;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 2px;
+}
+
+.version-actions {
+  flex-shrink: 0;
+}
+
+/* Minimalist Add button */
 .btn-add {
+  background: transparent;
+  color: #78ffd6;
+  border: 1px solid rgba(120, 255, 214, 0.3);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-add:hover {
+  background: rgba(120, 255, 214, 0.1);
+  border-color: #78ffd6;
+  transform: translateY(-1px);
+}
+
+.btn-adding {
+  opacity: 0.6;
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Collected badge - subtle version */
+.badge-collected {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
-  background: linear-gradient(135deg, #78ffd6 0%, #a8ff78 100%);
-  color: #071226;
-  box-shadow: 0 6px 20px rgba(120, 255, 214, 0.12);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
-
-.btn-add:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(120,255,214,0.14); }
-.btn-adding { opacity: 0.7; cursor: not-allowed; }
-
-/* Collected badge */
-.badge-collected { display:inline-flex; align-items:center; gap:6px; padding:6px 12px; border-radius:999px; font-weight:700; background: rgba(120,255,214,0.08); color:#78ffd6; border:1px solid rgba(120,255,214,0.12); }
 
 /* Feedback messages */
 .version-message { width:100%; padding:8px 12px; border-radius:10px; font-size:0.92rem; font-weight:600; margin-top:8px; }
