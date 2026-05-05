@@ -32,6 +32,7 @@
             name="searchQuery"
             [(ngModel)]="searchQuery" 
             (ngModelChange)="onSearchChange($event)"
+            (click)="onSearchChange(searchQuery)"
             autocomplete="off"
             [placeholder]="navSearchType === 'albums' ? 'Pesquisar álbuns...' : 'Pesquisar artistas...'" 
             class="nav-search-input"

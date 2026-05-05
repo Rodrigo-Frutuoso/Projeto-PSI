@@ -52,6 +52,11 @@ export class App implements OnInit {
       if (event instanceof NavigationEnd) {
         this.isDropdownOpen = false;
         
+        // Clear search if returning to dashboard
+        if (event.urlAfterRedirects === '/dashboard' || event.urlAfterRedirects === '/') {
+          this.clearSearchState();
+        }
+
         // Auto-switch search type based on current page context
         if (event.urlAfterRedirects.startsWith('/album')) {
           this.searchStateService.setSearchType('albums');
@@ -189,8 +194,20 @@ export class App implements OnInit {
     const trimmedQuery = query.trim();
     this.searchStateService.setSearchQuery(trimmedQuery);
     
-    if (this.router.url.startsWith('/search')) {
-      this.router.navigate(['/search'], { queryParams: { q: trimmedQuery, type: this.navSearchType }, replaceUrl: true });
+    const isAlreadyOnSearch = this.router.url.startsWith('/search');
+
+    if (trimmedQuery.length > 0) {
+      // If we are typing something, go to search page (or update if already there)
+      this.router.navigate(['/search'], { 
+        queryParams: { q: trimmedQuery, type: this.navSearchType }, 
+        replaceUrl: isAlreadyOnSearch 
+      });
+    } else if (isAlreadyOnSearch) {
+      // If we are on search page and cleared the query, show all results (empty query)
+      this.router.navigate(['/search'], { 
+        queryParams: { q: '', type: this.navSearchType }, 
+        replaceUrl: true 
+      });
     }
   }
 
@@ -203,10 +220,16 @@ export class App implements OnInit {
     this.isTypeDropdownOpen = false;
     this.searchStateService.setSearchType(type);
     
-    // Auto-update the search page if we are already on it
-    if (this.router.url.startsWith('/search')) {
-      const q = this.searchStateService.getCurrentQuery();
-      this.router.navigate(['/search'], { queryParams: { q, type } });
+    // Auto-update the search page or navigate to it if there's a query
+    const q = this.searchQuery.trim();
+    if (q.length > 0) {
+      this.router.navigate(['/search'], { 
+        queryParams: { q, type }, 
+        replaceUrl: this.router.url.startsWith('/search') 
+      });
+    } else if (this.router.url.startsWith('/search')) {
+      // If on search page with no query, just update the type parameter
+      this.router.navigate(['/search'], { queryParams: { q: '', type }, replaceUrl: true });
     }
   }
 }
