@@ -1,6 +1,6 @@
 <div class="artist-page">
   <div class="artist-container">
-    <div class="artist-header">
+    <div class="artist-header" style="display: flex; justify-content: flex-end;">
       <button type="button" class="btn-back" (click)="goBack()">← Voltar</button>
     </div>
 
@@ -27,28 +27,19 @@
         <div class="artist-badge">Página de artista</div>
 
         <div class="artist-favorite-corner">
-          <button
-            type="button"
-            class="favorite-star-button"
-            [class.active]="isFavorite"
-            [class.replace]="hasDifferentFavorite"
-            (click)="toggleFavorite()"
-            [disabled]="isSaving"
+          <button type="button" class="favorite-star-button" [class.active]="isFavorite"
+            [class.replace]="hasDifferentFavorite" (click)="toggleFavorite()" [disabled]="isSaving"
             [attr.aria-label]="isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'"
-            [title]="isFavorite ? 'Remover dos favoritos' : (hasDifferentFavorite ? 'Substituir favorito atual' : 'Adicionar aos favoritos')"
-          >
-            <img
-              [src]="isFavorite ? 'icons/star-filled.svg' : 'icons/star-outline.svg'"
-              alt=""
-              class="favorite-star-icon"
-              aria-hidden="true"
-            >
+            [title]="isFavorite ? 'Remover dos favoritos' : (hasDifferentFavorite ? 'Substituir favorito atual' : 'Adicionar aos favoritos')">
+            <img [src]="isFavorite ? 'icons/star-filled.svg' : 'icons/star-outline.svg'" alt=""
+              class="favorite-star-icon" aria-hidden="true">
           </button>
         </div>
       </div>
 
       <div class="artist-header-info" style="display: flex; align-items: center; gap: 24px; margin-bottom: 20px;">
-        <img [src]="getArtistAvatar(artist)" [alt]="artist.name" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+        <img [src]="getArtistAvatar(artist)" [alt]="artist.name"
+          style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
         <div style="display: flex; flex-direction: column;">
           <h1 style="margin: 0; font-size: 3rem; line-height: 1;">{{ artist.name }}</h1>
         </div>
@@ -69,11 +60,12 @@
 
       <div class="albums-section">
         <h3>Lançamentos Mais Recentes</h3>
-        
+
         @if (artistProfile!.recentAlbums && artistProfile!.recentAlbums.length > 0) {
         <div class="albums-list" style="margin-top: 15px;">
           @for (album of artistProfile!.recentAlbums; track album._id) {
-          <a [routerLink]="['/album', album._id]" class="album-item" style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f9f9f9; text-decoration: none; color: inherit;">
+          <a [routerLink]="['/album', album._id]" class="album-item"
+            style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f9f9f9; text-decoration: none; color: inherit;">
             <span class="album-title" style="font-weight: 500;">{{ album.title }}</span>
             <span class="album-year" style="color: #666;">{{ album.releaseYear }}</span>
           </a>
@@ -85,7 +77,8 @@
         </div>
         }
 
-        <a [routerLink]="['/artist', artist.id, 'albums']" class="btn-link" style="display: inline-block; margin-top: 15px; cursor: pointer;">
+        <a [routerLink]="['/artist', artist.id, 'albums']" class="btn-link"
+          style="display: inline-block; margin-top: 15px; cursor: pointer;">
           → Ver discografia completa
         </a>
       </div>
@@ -97,10 +90,13 @@
     @if (showConfirmPopup) {
     <div class="app-modal-backdrop">
       <dialog open class="app-modal" aria-labelledby="favorite-modal-title" (keydown.escape)="cancelReplaceFavorite()">
-        <p>Já tens <strong>{{ profile?.favoriteArtist?.name || 'outro artista' }}</strong> como artista favorito. Queres substituí-lo?</p>
+        <p>Já tens <strong>{{ profile?.favoriteArtist?.name || 'outro artista' }}</strong> como artista favorito. Queres
+          substituí-lo?</p>
         <div class="app-modal-actions">
-          <button type="button" class="modal-btn modal-btn-secondary" (click)="cancelReplaceFavorite()">Cancelar</button>
-          <button type="button" class="modal-btn modal-btn-primary" (click)="confirmReplaceFavorite()" [disabled]="isSaving">Confirmar</button>
+          <button type="button" class="modal-btn modal-btn-secondary"
+            (click)="cancelReplaceFavorite()">Cancelar</button>
+          <button type="button" class="modal-btn modal-btn-primary" (click)="confirmReplaceFavorite()"
+            [disabled]="isSaving">Confirmar</button>
         </div>
       </dialog>
     </div>

@@ -52,8 +52,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         firstValueFrom(this.albumService.searchAlbums(query))
       ]);
 
-      this.artists = artistsData.slice(0, 5);
-      this.albums = albumsData.slice(0, 5);
+      this.artists = artistsData.slice(0, 20);
+      this.albums = albumsData.slice(0, 20);
     } catch (error) {
       console.error('Error loading dashboard data:', error);
     } finally {

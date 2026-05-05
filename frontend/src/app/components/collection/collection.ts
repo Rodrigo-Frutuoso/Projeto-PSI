@@ -25,6 +25,30 @@ export class CollectionComponent implements OnInit, OnDestroy {
   private actionToastTimer: ReturnType<typeof setTimeout> | null = null;
   sortField: SortField = 'addedAt';
   sortDirection: 'asc' | 'desc' = 'desc';
+  isSortDropdownOpen = false;
+
+  readonly sortOptions: Array<{ value: SortField; label: string }> = [
+    { value: 'title', label: 'Título' },
+    { value: 'releaseYear', label: 'Ano' },
+    { value: 'artistName', label: 'Artista' },
+    { value: 'ean13', label: 'EAN-13' },
+    { value: 'physicalSupport', label: 'Suporte' },
+    { value: 'addedAt', label: 'Data de Adição' }
+  ];
+
+  toggleSortDropdown() {
+    this.isSortDropdownOpen = !this.isSortDropdownOpen;
+  }
+
+  selectSort(field: SortField) {
+    this.sortBy(field);
+    this.isSortDropdownOpen = false;
+  }
+
+  getSortLabel(): string {
+    const opt = this.sortOptions.find(o => o.value === this.sortField);
+    return opt ? opt.label : 'Ordenar por';
+  }
 
   constructor(
     private readonly collectionService: CollectionService,

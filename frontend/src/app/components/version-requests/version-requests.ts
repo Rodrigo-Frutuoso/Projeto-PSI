@@ -27,6 +27,8 @@ export class VersionRequestsComponent implements OnInit {
     { value: 'recusado', label: 'Recusado' }
   ];
 
+  isDropdownOpen = false;
+
   constructor(
     private readonly versionRequestService: VersionRequestService,
     private readonly router: Router,
@@ -35,6 +37,21 @@ export class VersionRequestsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadRequests();
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  selectStatus(status: '' | VersionRequestStatus) {
+    this.selectedStatus = status;
+    this.isDropdownOpen = false;
+    this.loadRequests();
+  }
+
+  getSelectedStatusLabel(): string {
+    const s = this.statuses.find(x => x.value === this.selectedStatus);
+    return s ? s.label : 'Todos os estados';
   }
 
   loadRequests(): void {
@@ -59,12 +76,6 @@ export class VersionRequestsComponent implements OnInit {
         this.cdr.detectChanges();
       }
     });
-  }
-
-  onStatusChange(event: Event): void {
-    const value = (event.target as HTMLSelectElement).value as '' | VersionRequestStatus;
-    this.selectedStatus = value;
-    this.loadRequests();
   }
 
   formatDate(dateRaw: string): string {

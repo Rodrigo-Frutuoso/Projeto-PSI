@@ -5,18 +5,18 @@
         <!-- Header -->
         <h1>
           @if (searchType === 'albums') {
-            {{ currentQuery.trim() ? 'Álbuns:' : 'Todos os Álbuns' }}
+          {{ currentQuery.trim() ? 'Álbuns:' : 'Todos os Álbuns' }}
           } @else {
-            {{ currentQuery.trim() ? 'Artistas:' : 'Todos os Artistas' }}
+          {{ currentQuery.trim() ? 'Artistas:' : 'Todos os Artistas' }}
           }
           @if (currentQuery.trim()) {
-            <span class="query-highlight">"{{ currentQuery }}"</span>
+          <span class="query-highlight">"{{ currentQuery }}"</span>
           }
         </h1>
       </div>
 
       <div class="top-actions">
-        <a routerLink="/dashboard" class="btn-back">← Voltar à dashboard</a>
+        <a routerLink="/dashboard" class="btn-back">← Voltar</a>
       </div>
     </div>
 
@@ -24,61 +24,62 @@
 
     <!-- Loading -->
     @if (isLoading) {
-      <div class="loading-row">
-        <span class="spinner"></span>
-        <span>A carregar resultados...</span>
-      </div>
+    <div class="loading-row">
+      <span class="spinner"></span>
+      <span>A carregar resultados...</span>
+    </div>
     } @else {
 
-      <!-- Error / no results -->
-      @if (errorMessage) {
-        <div class="alert alert-info" role="status" aria-live="polite">
-          <span class="alert-icon">ℹ</span>
-          <div>
-            <strong>Pesquisa</strong>
-            <p>{{ errorMessage }}</p>
-          </div>
+    <!-- Error / no results -->
+    @if (errorMessage) {
+    <div class="alert alert-info" role="status" aria-live="polite">
+      <span class="alert-icon">ℹ</span>
+      <div>
+        <strong>Pesquisa</strong>
+        <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+
+    } @else if (totalResults > 0) {
+    <p class="results-count">
+      Encontrámos <strong>{{ totalResults }}</strong> {{ typeLabel }} para a tua pesquisa.
+    </p>
+
+    <div class="grid-container">
+
+      <!-- Artist results -->
+      @if (searchType === 'artists') {
+      @for (artist of artistResults; track artist.id) {
+      <a [routerLink]="['/artist', artist.id]" class="spotify-card artist-card">
+        <div class="card-image-wrapper">
+          <img [src]="getArtistAvatar(artist)" [alt]="artist.name" class="card-image artist-img">
         </div>
-
-      } @else if (totalResults > 0) {
-        <p class="results-count">
-          Encontrámos <strong>{{ totalResults }}</strong> {{ typeLabel }} para a tua pesquisa.
-        </p>
-
-        <div class="grid-container">
-
-          <!-- Artist results -->
-          @if (searchType === 'artists') {
-            @for (artist of artistResults; track artist.id) {
-              <a [routerLink]="['/artist', artist.id]" class="spotify-card artist-card">
-                <div class="card-image-wrapper">
-                  <img [src]="getArtistAvatar(artist)" [alt]="artist.name" class="card-image artist-img">
-                </div>
-                <div class="card-info">
-                  <span class="card-title">{{ artist.name }}</span>
-                  <span class="card-subtitle">Artista</span>
-                </div>
-              </a>
-            }
-          }
-
-          <!-- Album results -->
-          @if (searchType === 'albums') {
-            @for (album of albumResults; track album._id) {
-              <a [routerLink]="['/album', album._id]" class="spotify-card">
-                <div class="card-image-wrapper">
-                  <img [src]="album.coverImage || 'https://via.placeholder.com/300?text=Sem+Capa'" [alt]="album.title" class="card-image">
-                </div>
-                <div class="card-info">
-                  <span class="card-title">{{ album.title }}</span>
-                  <span class="card-subtitle">{{ album.artista?.name || 'Artista Desconhecido' }}</span>
-                </div>
-              </a>
-            }
-          }
-
+        <div class="card-info">
+          <span class="card-title">{{ artist.name }}</span>
+          <span class="card-subtitle">Artista</span>
         </div>
+      </a>
       }
+      }
+
+      <!-- Album results -->
+      @if (searchType === 'albums') {
+      @for (album of albumResults; track album._id) {
+      <a [routerLink]="['/album', album._id]" class="spotify-card">
+        <div class="card-image-wrapper">
+          <img [src]="album.coverImage || 'https://via.placeholder.com/300?text=Sem+Capa'" [alt]="album.title"
+            class="card-image">
+        </div>
+        <div class="card-info">
+          <span class="card-title">{{ album.title }}</span>
+          <span class="card-subtitle">{{ album.artista?.name || 'Artista Desconhecido' }}</span>
+        </div>
+      </a>
+      }
+      }
+
+    </div>
+    }
     }
 
   </div>

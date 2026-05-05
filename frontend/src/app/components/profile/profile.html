@@ -2,9 +2,9 @@
   <div class="profile-container">
     <!-- Header -->
     <div class="profile-header">
+      <h1></h1>
       <button class="btn-back" (click)="goBack()" id="profile-back-btn">
-        <span class="back-arrow">←</span>
-        Voltar
+        ← Voltar
       </button>
     </div>
 
@@ -72,7 +72,8 @@
           <div class="info-content">
             <span class="info-label">Artista favorito</span>
             @if (profile.favoriteArtist) {
-            <a class="info-value artist-link" [routerLink]="['/artist', profile.favoriteArtist.id]" id="profile-artist-link">
+            <a class="info-value artist-link" [routerLink]="['/artist', profile.favoriteArtist.id]"
+              id="profile-artist-link">
               {{ profile.favoriteArtist.name }}
               <span class="link-arrow">→</span>
             </a>

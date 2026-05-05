@@ -23,7 +23,7 @@ export class App implements OnInit {
   isDropdownOpen = false;
   isTypeDropdownOpen = false;
   navSearchType: 'artists' | 'albums' = 'artists';
-  isSidebarExpanded = window.innerWidth > 768;
+  isSidebarExpanded = window.innerWidth > 768 && localStorage.getItem('sidebarState') !== 'collapsed';
   showLogoutConfirmation = false;
   
   notifications: any[] = [];
@@ -32,17 +32,16 @@ export class App implements OnInit {
 
   @HostListener('window:resize')
   onResize() {
+    // Apenas auto-colapsa se entrar em modo mobile e estiver aberta
     if (window.innerWidth <= 768 && this.isSidebarExpanded) {
       this.isSidebarExpanded = false;
-      this.cdr.detectChanges();
-    } else if (window.innerWidth > 768 && !this.isSidebarExpanded) {
-      this.isSidebarExpanded = true;
       this.cdr.detectChanges();
     }
   }
 
   toggleSidebar() {
     this.isSidebarExpanded = !this.isSidebarExpanded;
+    localStorage.setItem('sidebarState', this.isSidebarExpanded ? 'expanded' : 'collapsed');
   }
 
 

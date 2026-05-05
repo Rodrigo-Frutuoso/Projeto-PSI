@@ -48,11 +48,6 @@
   color: #fff;
 }
 
-.back-arrow {
-  font-size: 1.05rem;
-  line-height: 1;
-}
-
 .page-title {
   font-size: 1.5rem;
   font-weight: 700;
@@ -177,9 +172,16 @@
   margin-inline: auto;
 }
 
-/* ── Stats ── */
+/* ── Stats & Controls ── */
+.collection-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
 .collection-stats {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0;
 }
 
 .stats-badge {
@@ -191,6 +193,89 @@
   padding: 0.2rem 0.75rem;
   font-size: 0.78rem;
   font-weight: 500;
+}
+
+.mobile-sort-container {
+  display: none; /* Hidden on desktop */
+}
+
+/* Reusing Custom Dropdown Styles */
+.custom-dropdown {
+  position: relative;
+  min-width: 160px;
+}
+
+.dropdown-toggle {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.dropdown-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.custom-dropdown.active .dropdown-toggle {
+  border-color: #3b82f6;
+}
+
+.arrow {
+  font-size: 0.6rem;
+  transition: transform 0.3s ease;
+  opacity: 0.6;
+}
+
+.custom-dropdown.active .arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  min-width: 180px;
+  background: #1a1a2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 100;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.dropdown-item.active {
+  background: #3b82f6;
+  color: #fff;
 }
 
 /* ── Table ── */
@@ -456,23 +541,91 @@
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .page-header {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: 0.75rem;
+  }
+
+  .collection-controls {
+    margin-bottom: 1.5rem;
+  }
+
+  .mobile-sort-container {
+    display: block; /* Visible only on mobile */
   }
 
   .page-title {
     font-size: 1.25rem;
   }
 
-  .collection-table th,
-  .collection-table td {
-    padding: 0.6rem 0.65rem;
-    font-size: 0.8rem;
+  /* Table to Cards Transformation */
+  .table-wrapper {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
   }
 
-  .table-wrapper {
-    border-radius: 14px;
+  .collection-table, 
+  .collection-table thead, 
+  .collection-table tbody, 
+  .collection-table th, 
+  .collection-table td, 
+  .collection-table tr {
+    display: block;
+  }
+
+  .collection-table thead {
+    display: none; /* Hide headers */
+  }
+
+  .collection-row {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    margin-bottom: 1.25rem;
+    padding: 0.75rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .collection-table td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 0.8rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: right;
+    white-space: normal;
+  }
+
+  .collection-table td:last-child {
+    border-bottom: none;
+  }
+
+  .collection-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: left;
+    margin-right: 1rem;
+  }
+
+  .cell-title {
+    font-size: 1.1rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    margin-bottom: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px 10px 0 0;
+  }
+
+  .cell-actions {
+    justify-content: center !important;
+    background: rgba(239, 68, 68, 0.05);
+    border-radius: 0 0 10px 10px;
   }
 
   .remove-confirm-toast {

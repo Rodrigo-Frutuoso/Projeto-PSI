@@ -2,11 +2,10 @@
   <div class="collection-container">
     <!-- Header -->
     <div class="page-header">
-      <button class="btn-back" (click)="goToDashboard()" id="collection-back-btn">
-        <span class="back-arrow">←</span>
-        Dashboard
-      </button>
       <h1 class="page-title">A minha coleção</h1>
+      <button class="btn-back" (click)="goToDashboard()" id="collection-back-btn">
+        ← Voltar
+      </button>
     </div>
 
     <!-- Error -->
@@ -42,8 +41,29 @@
 
     <!-- Collection Table -->
     @if (!isLoading && !loadError && collection.length > 0) {
-    <div class="collection-stats">
-      <span class="stats-badge">{{ collection.length }} {{ collection.length === 1 ? 'item' : 'itens' }}</span>
+    <div class="collection-controls">
+      <div class="collection-stats">
+        <span class="stats-badge">{{ collection.length }} {{ collection.length === 1 ? 'item' : 'itens' }}</span>
+      </div>
+
+      <!-- Mobile Sort Dropdown -->
+      <div class="mobile-sort-container">
+        <div class="custom-dropdown" [class.active]="isSortDropdownOpen">
+          <button class="dropdown-toggle" (click)="toggleSortDropdown()">
+            <span>{{ getSortLabel() }} {{ sortField === 'addedAt' ? '' : (sortDirection === 'asc' ? '↑' : '↓') }}</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="dropdown-menu" *ngIf="isSortDropdownOpen">
+            @for (opt of sortOptions; track opt.value) {
+              <div class="dropdown-item" 
+                   [class.active]="sortField === opt.value"
+                   (click)="selectSort(opt.value)">
+                {{ opt.label }}
+              </div>
+            }
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="table-wrapper" id="collection-table">
@@ -77,29 +97,30 @@
         <tbody>
           @for (item of collection; track item.id) {
           <tr class="collection-row" id="collection-item-{{ item.id }}">
-            <td class="cell-title">
+            <td class="cell-title" data-label="Título">
               <a (click)="goToAlbum(item.albumId)" class="album-link" title="Ver álbum">{{ item.title }}</a>
             </td>
-            <td class="cell-year">{{ item.releaseYear }}</td>
-            <td class="cell-artist">{{ item.artistName }}</td>
-            <td class="cell-ean">
+            <td class="cell-year" data-label="Ano">{{ item.releaseYear }}</td>
+            <td class="cell-artist" data-label="Artista">{{ item.artistName }}</td>
+            <td class="cell-ean" data-label="EAN-13">
               <code class="ean-code">{{ item.ean13 }}</code>
             </td>
-            <td class="cell-support">
+            <td class="cell-support" data-label="Suporte">
               <span class="support-badge" [class]="'support-' + item.physicalSupport.toLowerCase()">
                 {{ item.physicalSupport }}
               </span>
             </td>
-            <td class="cell-designation">
+            <td class="cell-designation" data-label="Designação">
               @if (item.designation) {
               <span>{{ item.designation }}</span>
               } @else {
               <span class="empty-value">—</span>
               }
             </td>
-            <td class="cell-date">{{ formatDate(item.addedAt) }}</td>
-            <td class="cell-actions">
-              <button class="btn-remove" (click)="requestRemoveItem(item)" title="Remover da coleção" id="remove-{{ item.id }}">
+            <td class="cell-date" data-label="Adicionado">{{ formatDate(item.addedAt) }}</td>
+            <td class="cell-actions" data-label="Ações">
+              <button class="btn-remove" (click)="requestRemoveItem(item)" title="Remover da coleção"
+                id="remove-{{ item.id }}">
                 <span class="material-symbols-outlined collection-remove-icon" aria-hidden="true">delete</span>
               </button>
             </td>
@@ -114,13 +135,15 @@
     <dialog class="remove-confirm-toast" open aria-live="polite" id="collection-remove-confirm">
       <p>Quer remover "{{ pendingRemoveItem.title }}" ({{ pendingRemoveItem.ean13 }})?</p>
       <div class="toast-actions">
-        <button class="btn-toast btn-toast-danger" (click)="confirmRemove()">Remover</button>
         <button class="btn-toast btn-toast-neutral" (click)="cancelRemove()">Cancelar</button>
+        <button class="btn-toast btn-toast-danger" (click)="confirmRemove()">Remover</button>
       </div>
     </dialog>
     }
 
-    <output *ngIf="showActionToast" class="collection-action-toast" [class.toast-success]="actionToastType === 'success'" [class.toast-error]="actionToastType === 'error'" aria-live="polite">
+    <output *ngIf="showActionToast" class="collection-action-toast"
+      [class.toast-success]="actionToastType === 'success'" [class.toast-error]="actionToastType === 'error'"
+      aria-live="polite">
       {{ actionToastType === 'success' ? '✓ ' : '✕ ' }}{{ actionToastMessage }}
     </output>
   </div>
