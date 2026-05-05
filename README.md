@@ -184,7 +184,7 @@ Projeto-PSI/
 
 **Pedidos de Versão (`/api/version-requests`)**
 - `GET /` (Listar os meus pedidos)
-- `POST /:id/respond` (Simular aceitação/recusa - **Rota de Teste**)
+- `POST /:id/respond` (Simular aceitação/recusa - **Rota de Teste**) - Body: `{"status": "aceite"}` ou `"recusado"`
 
 ---
 *Nota: A rota `/api/version-requests/:id/respond` permite simular a ação de um administrador (aceitar ou recusar um pedido) sem necessidade de token, facilitando os testes da US14 conforme o enunciado.*
