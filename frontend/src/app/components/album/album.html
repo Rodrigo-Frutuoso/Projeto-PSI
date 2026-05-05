@@ -4,74 +4,28 @@
 
   <div *ngIf="album">
     <div class="card">
-    <div class="header">
-      <img *ngIf="album.coverImage; else noCover" [src]="album.coverImage" alt="Capa" class="cover" />
-      <ng-template #noCover>
-        <div class="cover placeholder">Sem imagem</div>
-      </ng-template>
-      <div class="meta">
-        <h2>{{ album.title }}</h2>
-        <p><strong>MBID:</strong> {{ album.mbid }}</p>
-        <p><strong>Ano:</strong> {{ album.releaseYear }}</p>
-        <p><strong>Tipo:</strong> {{ album.albumType }}</p>
-        <p *ngIf="album.artista"><strong>Artista:</strong> {{ album.artista.name }}</p>
-      </div>
-
-      <section class="versions-header">
-        <div class="versions-title-row">
-          <h3 class="versions-title">Versões</h3>
-          <button type="button" class="btn-plus" (click)="openRequestModal()" title="Pedir nova versão">+</button>
-        </div>
-        <div *ngIf="album.versions?.length; else noVersions">
-          <div *ngFor="let group of Object.keys(groupedVersions())">
-            <h4>{{ group }}</h4>
-            <ul>
-              <li *ngFor="let v of groupedVersions()[group]" class="version-item">
-                <div class="version-info">
-                  <span class="version-ean">{{ v.ean13 }}</span>
-                  <span class="version-designation" *ngIf="v.designation">{{ v.designation }}</span>
-                </div>
-                <div class="version-actions">
-                  <!-- Already in collection -->
-                  <span *ngIf="isCollected(v.ean13)" class="badge-collected">
-                    Na coleção
-                  </span>
-                  <!-- Adding in progress -->
-                  <button
-                    *ngIf="!isCollected(v.ean13) && isAdding(v.ean13)"
-                    class="btn-add btn-adding"
-                    disabled>
-                    ...
-                  </button>
-                  <!-- Add button -->
-                  <button
-                    *ngIf="!isCollected(v.ean13) && !isAdding(v.ean13)"
-                    class="btn-add"
-                    (click)="addToCollection(v)">
-                    Adicionar
-                  </button>
-                </div>
-                <!-- Feedback message -->
-                 <div *ngIf="versionMessages[v.ean13] && versionMessages[v.ean13].type === 'error'"
-                   class="version-message"
-                     [class.msg-error]="versionMessages[v.ean13].type === 'error'">
-                  {{ versionMessages[v.ean13].text }}
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <ng-template #noVersions>
-          <p>Sem versões registadas.</p>
+      <div class="header">
+        <img *ngIf="album.coverImage; else noCover" [src]="album.coverImage" alt="Capa" class="cover" />
+        <ng-template #noCover>
+          <div class="cover placeholder">Sem imagem</div>
         </ng-template>
-      </section>
+        <div class="meta">
+          <h2>{{ album.title }}</h2>
+          <p><strong>MBID:</strong> {{ album.mbid }}</p>
+          <p><strong>Ano:</strong> {{ album.releaseYear }}</p>
+          <p><strong>Tipo:</strong> {{ album.albumType }}</p>
+          <p *ngIf="album.artista"><strong>Artista:</strong> {{ album.artista.name }}</p>
+        </div>
+
+      </div>
 
       <!-- Modal overlay para pedido de nova versão -->
       <div *ngIf="showRequestModal" class="modal-overlay" (click)="closeRequestModal()">
         <div class="modal" (click)="$event.stopPropagation()">
           <button type="button" class="modal-close" (click)="closeRequestModal()">×</button>
           <h3>Pedido de nova versão</h3>
-          <p class="request-description">Se esta versão ainda não existir, podes submeter um pedido para que fique em análise.</p>
+          <p class="request-description">Se esta versão ainda não existir, podes submeter um pedido para que fique em
+            análise.</p>
 
           <div *ngIf="requestMessage" class="request-alert request-success">{{ requestMessage }}</div>
           <div *ngIf="requestError" class="request-alert request-error">{{ requestError }}</div>
@@ -79,15 +33,8 @@
           <form class="request-form" (ngSubmit)="submitVersionRequest()">
             <label>
               <span>EAN-13 da nova versão</span>
-              <input
-                type="text"
-                name="versionEan13"
-                [(ngModel)]="requestEan13"
-                maxlength="13"
-                placeholder="13 dígitos"
-                inputmode="numeric"
-                autocomplete="off"
-                required>
+              <input type="text" name="versionEan13" [(ngModel)]="requestEan13" maxlength="13" placeholder="13 dígitos"
+                inputmode="numeric" autocomplete="off" required>
             </label>
 
             <label>
@@ -99,14 +46,10 @@
               </select>
             </label>
 
-          <label>
-            <span>Designação da versão</span>
-            <input
-              type="text"
-              name="designation"
-              [(ngModel)]="requestDesignation"
-              placeholder="Opcional">
-          </label>
+            <label>
+              <span>Designação da versão</span>
+              <input type="text" name="designation" [(ngModel)]="requestDesignation" placeholder="Opcional">
+            </label>
 
             <button type="submit" class="btn-request" [disabled]="isSubmittingRequest">
               {{ isSubmittingRequest ? 'A submeter...' : 'Submeter pedido' }}
@@ -114,42 +57,85 @@
           </form>
         </div>
       </div>
-    </div>
 
-    <section class="tracks">
-      <h3>Faixas</h3>
-      <table *ngIf="album.tracks?.length; else noTracks">
-        <thead>
-          <tr><th>#</th><th>Canção (ISRC)</th><th>Duração</th><th>Artistas</th></tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let t of album.tracks">
-            <td>{{ t.trackNumber }}</td>
-            <td>
-              <div *ngIf="t.song">
-                <strong>{{ t.song.title }}</strong>
-                <div class="meta-small" *ngIf="t.song.isrc">ISRC: {{ t.song.isrc }}</div>
-              </div>
-            </td>
-            <td>{{ formatDuration(t.song?.durationSeconds) }}</td>
-            <td>{{ formatArtists(t.song?.artists) }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <ng-template #noTracks>
-        <p>Sem informação sobre as faixas.</p>
-      </ng-template>
-    </section>
+      <div class="album-main-content">
+        <section class="tracks">
+          <h3>Faixas</h3>
+          <table *ngIf="album.tracks?.length; else noTracks">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Canção</th>
+                <th>Duração</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let t of album.tracks">
+                <td>{{ t.trackNumber }}</td>
+                <td>
+                  <div *ngIf="t.song">
+                    <strong>{{ t.song.title }}</strong>
+                    <div class="meta-small" *ngIf="t.song.isrc">ISRC: {{ t.song.isrc }}</div>
+                  </div>
+                </td>
+                <td>{{ formatDuration(t.song?.durationSeconds) }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #noTracks>
+            <p>Sem informação sobre as faixas.</p>
+          </ng-template>
+        </section>
 
-    <output *ngIf="showSuccessToast" class="success-toast" aria-live="polite">
-      {{ successToastMessage }}
-    </output>
+        <section class="versions-sidebar">
+          <div class="versions-title-row">
+            <h3 class="versions-title">Versões</h3>
+            <button type="button" class="btn-plus" (click)="openRequestModal()" title="Pedir nova versão">Pedir Nova +</button>
+          </div>
+          <div *ngIf="album.versions?.length; else noVersions">
+            <div *ngFor="let group of Object.keys(groupedVersions())">
+              <h4>{{ group }}</h4>
+              <ul>
+                <li *ngFor="let v of groupedVersions()[group]" class="version-item">
+                  <div class="version-info">
+                    <span class="version-ean">{{ v.ean13 }}</span>
+                    <span class="version-designation" *ngIf="v.designation">{{ v.designation }}</span>
+                  </div>
+                  <div class="version-actions">
+                    <!-- Already in collection -->
+                    <span *ngIf="isCollected(v.ean13)" class="badge-collected">
+                      Na coleção
+                    </span>
+                    <!-- Adding in progress -->
+                    <button *ngIf="!isCollected(v.ean13) && isAdding(v.ean13)" class="btn-add btn-adding" disabled>
+                      ...
+                    </button>
+                    <!-- Add button -->
+                    <button *ngIf="!isCollected(v.ean13) && !isAdding(v.ean13)" class="btn-add"
+                      (click)="addToCollection(v)">Guardar na coleção</button>
+                  </div>
+                  <!-- Feedback message -->
+                  <div *ngIf="versionMessages[v.ean13] && versionMessages[v.ean13].type === 'error'"
+                    class="version-message" [class.msg-error]="versionMessages[v.ean13].type === 'error'">
+                    {{ versionMessages[v.ean13].text }}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <ng-template #noVersions>
+            <p>Sem versões registadas.</p>
+          </ng-template>
+        </section>
+      </div>
 
-    <output *ngIf="showRequestSuccessToast" class="request-success-toast" aria-live="polite">
-      {{ requestSuccessToastMessage }}
-    </output>
+      <output *ngIf="showSuccessToast" class="success-toast" aria-live="polite">
+        {{ successToastMessage }}
+      </output>
 
-
+      <output *ngIf="showRequestSuccessToast" class="request-success-toast" aria-live="polite">
+        {{ requestSuccessToastMessage }}
+      </output>
     </div>
   </div>
 </div>

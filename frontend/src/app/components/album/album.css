@@ -27,14 +27,29 @@
   flex: 1;
 }
 
-.versions-header {
-  min-width: 320px;
-  max-width: 400px;
+.album-main-content {
+  display: flex;
+  gap: 32px;
+  margin-top: 32px;
+  align-items: flex-start;
+}
+
+.tracks {
+  flex: 1;
+  min-width: 0;
+  margin-top: 0; /* Override margin from .tracks rule if needed */
+}
+
+.versions-sidebar {
+  width: 350px;
+  flex-shrink: 0;
   background: rgba(255, 255, 255, 0.02);
-  padding: 16px 20px;
+  padding: 24px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(4px);
+  position: sticky;
+  top: 20px;
 }
 
 .versions-title {
@@ -47,19 +62,20 @@
 
 .versions-title-row { display:flex; align-items:center; justify-content:space-between; gap:8px; }
 .btn-plus {
-  width:36px;
-  height:36px;
-  border-radius:50%;
+  padding: 8px 16px;
+  border-radius: 999px;
   border: none;
   background: linear-gradient(135deg, #78ffd6 0%, #a8ff78 100%);
   color: #071226;
   font-weight: 800;
-  font-size: 1.05rem;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  box-shadow: 0 8px 24px rgba(120,255,214,0.12);
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(120, 255, 214, 0.12);
+  transition: all 0.2s ease;
 }
 .btn-plus:hover { transform: translateY(-3px); }
 
@@ -96,7 +112,7 @@
   cursor: pointer;
 }
 
-.versions-header h4 {
+.versions-sidebar h4 {
   margin: 20px 0 8px 0;
   font-size: 0.65rem;
   text-transform: uppercase;
@@ -105,13 +121,13 @@
   font-weight: 600;
 }
 
-.versions-header ul {
+.versions-sidebar ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.versions-header .version-item {
+.versions-sidebar .version-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -121,29 +137,29 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.versions-header .version-item:last-child {
+.versions-sidebar .version-item:last-child {
   border-bottom: none;
 }
 
-.versions-header .version-info {
+.versions-sidebar .version-info {
   font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.8);
   flex: 1;
 }
 
-.versions-header .version-actions {
+.versions-sidebar .version-actions {
   display: flex;
   justify-content: flex-end;
   flex-shrink: 0;
 }
 
-.versions-header .btn-add {
+.versions-sidebar .btn-add {
   padding: 5px 10px;
   font-size: 0.75rem;
   white-space: nowrap;
 }
 
-.versions-header .badge-collected {
+.versions-sidebar .badge-collected {
   padding: 4px 10px;
   font-size: 0.75rem;
 }
