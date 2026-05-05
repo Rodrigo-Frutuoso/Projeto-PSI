@@ -48,8 +48,9 @@ router.get('/', authMiddleware, async (req, res) => {
 // NOTA: authMiddleware removido temporariamente para facilitar os testes de simulação (User Story 14)
 router.post('/:id/respond', async (req, res) => {
   try {
-    const { action } = req.body;
-    if (!['aceite', 'recusado'].includes(action)) {
+    const { status } = req.body;
+    console.log('Resposta recebida para o pedido:', req.params.id, 'Ação:', status);
+    if (!['aceite', 'recusado'].includes(status)) {
       return res.status(400).json({ message: 'Ação inválida. Deve ser "aceite" ou "recusado".' });
     }
 
@@ -62,7 +63,7 @@ router.post('/:id/respond', async (req, res) => {
       return res.status(400).json({ message: 'Este pedido já foi respondido.' });
     }
 
-    versionRequest.status = action;
+    versionRequest.status = status;
     await versionRequest.save();
 
     const Notification = require('../models/Notification');
@@ -72,11 +73,11 @@ router.post('/:id/respond', async (req, res) => {
     await Notification.create({
       user: versionRequest.user,
       versionRequest: versionRequest._id,
-      message: action === 'aceite' ? 'O seu pedido foi aceite.' : 'O seu pedido foi recusado.',
+      message: status === 'aceite' ? 'O seu pedido foi aceite.' : 'O seu pedido foi recusado.',
       read: false
     });
 
-    if (action === 'aceite') {
+    if (status === 'aceite') {
       const album = await Album.findById(versionRequest.album);
       if (album) {
         album.versions.push({
@@ -88,7 +89,7 @@ router.post('/:id/respond', async (req, res) => {
       }
     }
 
-    return res.status(200).json({ message: `Pedido ${action} com sucesso.`, status: action });
+    return res.status(200).json({ message: `Pedido ${status} com sucesso.`, status: status });
   } catch (error) {
     console.error('Erro ao responder ao pedido:', error);
     return res.status(500).json({ message: 'Erro ao responder ao pedido.' });
