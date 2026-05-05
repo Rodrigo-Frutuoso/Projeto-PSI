@@ -23,12 +23,23 @@ export class App implements OnInit {
   isDropdownOpen = false;
   isTypeDropdownOpen = false;
   navSearchType: 'artists' | 'albums' = 'artists';
-  isSidebarExpanded = true;
+  isSidebarExpanded = window.innerWidth > 768;
   showLogoutConfirmation = false;
   
   notifications: any[] = [];
   unreadCount = 0;
   isNotificationsOpen = false;
+
+  @HostListener('window:resize')
+  onResize() {
+    if (window.innerWidth <= 768 && this.isSidebarExpanded) {
+      this.isSidebarExpanded = false;
+      this.cdr.detectChanges();
+    } else if (window.innerWidth > 768 && !this.isSidebarExpanded) {
+      this.isSidebarExpanded = true;
+      this.cdr.detectChanges();
+    }
+  }
 
   toggleSidebar() {
     this.isSidebarExpanded = !this.isSidebarExpanded;

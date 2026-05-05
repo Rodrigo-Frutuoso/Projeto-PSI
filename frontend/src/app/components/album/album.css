@@ -409,6 +409,18 @@
 @media (max-width: 768px) {
   .header { flex-direction: column; align-items: center; text-align: center; }
   .meta { width: 100%; }
+  
+  .album-main-content {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .versions-sidebar {
+    width: 100%;
+    position: static;
+    padding: 20px;
+  }
+
   .version-actions { justify-content: center; width: 100%; }
   .btn-add { width: auto; }
   .btn-request { width: 100%; }
