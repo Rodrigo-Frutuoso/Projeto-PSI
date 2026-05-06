@@ -126,10 +126,22 @@
       <div class="sidebar-collection-container">
         <div class="sidebar-header">
           <button type="button" class="header-left toggle-btn" (click)="toggleSidebar()" aria-label="Recolher A minha biblioteca">
-            <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" class="header-icon" style="color: #b3b3b3; transition: color 0.2s;">
-              <path d="M14.5 2.134a1 1 0 0 1 1 0l6 3.464a1 1 0 0 1 .5.866V21a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V3a1 1 0 0 1 .5-.866zM16 4.732V20h4V7.041l-4-2.309zM3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zm6 0a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1z"></path>
-            </svg>
-            <span class="sidebar-text">A minha biblioteca</span>
+            @if (isSidebarExpanded) {
+              <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" class="header-icon expanded-library-icon" style="color: #b3b3b3; transition: color 0.2s;">
+                <path d="M14.5 2.134a1 1 0 0 1 1 0l6 3.464a1 1 0 0 1 .5.866V21a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V3a1 1 0 0 1 .5-.866zM16 4.732V20h4V7.041l-4-2.309zM3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zm6 0a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1z"></path>
+              </svg>
+              <span class="material-symbols-outlined sidebar-arrow-back" style="font-size: 1.5rem;">
+                arrow_back
+              </span>
+              <span class="sidebar-text">A minha biblioteca</span>
+            } @else {
+              <svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" class="header-icon collapsed-library-icon" style="color: #b3b3b3; transition: color 0.2s;">
+                <path d="M14.5 2.134a1 1 0 0 1 1 0l6 3.464a1 1 0 0 1 .5.866V21a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V3a1 1 0 0 1 .5-.866zM16 4.732V20h4V7.041l-4-2.309zM3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zm6 0a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1z"></path>
+              </svg>
+              <span class="material-symbols-outlined sidebar-arrow-forward" style="font-size: 1.5rem;">
+                arrow_forward
+              </span>
+            }
           </button>
         </div>
         

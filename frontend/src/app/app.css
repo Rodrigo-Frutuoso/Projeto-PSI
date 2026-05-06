@@ -503,7 +503,26 @@
   padding: 8px 0;
 }
 
-.app-sidebar.collapsed .sidebar-text {
+.app-sidebar.collapsed .sidebar-text,
+.app-sidebar.collapsed .sidebar-arrow {
+  display: none;
+}
+
+.sidebar-arrow-forward,
+.sidebar-arrow-back {
+  display: none;
+  color: #b3b3b3;
+  transition: color 0.2s ease;
+}
+
+.header-left.toggle-btn:hover .sidebar-arrow-forward,
+.header-left.toggle-btn:hover .sidebar-arrow-back {
+  display: inline-block;
+  color: #fff;
+}
+
+.header-left.toggle-btn:hover .collapsed-library-icon,
+.header-left.toggle-btn:hover .expanded-library-icon {
   display: none;
 }
 
