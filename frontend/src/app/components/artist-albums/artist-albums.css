@@ -95,6 +95,11 @@
   border: 1px solid rgba(255, 255, 255, 0.09);
 }
 
+.album-item:hover .album-title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .album-main {
   min-width: 0;
   display: flex;

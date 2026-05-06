@@ -83,6 +83,11 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
+.spotify-card:not(.artist-card):hover .card-title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .card-image-wrapper {
   position: relative;
   aspect-ratio: 1;

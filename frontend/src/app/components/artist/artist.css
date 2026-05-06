@@ -310,6 +310,11 @@
   color: rgba(255, 255, 255, 0.72);
 }
 
+.album-item:hover .album-title {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 640px) {
   .artist-header {
     flex-direction: column;
