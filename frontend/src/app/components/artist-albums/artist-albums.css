@@ -4,10 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
-  background:
-    radial-gradient(circle at top right, rgba(14, 165, 233, 0.2), transparent 38%),
-    radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.18), transparent 36%),
-    linear-gradient(160deg, #020617 0%, #111827 100%);
+  background: transparent;
 }
 
 .albums-container {
@@ -33,9 +30,9 @@
   cursor: pointer;
   transition: transform 0.2s ease;
   font-family: inherit;
-  background: #1f2937;
-  color: #f8fafc;
-  border: 1px solid #334155;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e5e7eb;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .btn-back:hover {
@@ -43,11 +40,12 @@
 }
 
 .albums-card {
-  background: #182236;
-  border: 1px solid #2b3b57;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
   padding: 2rem;
-  color: #f8fafc;
+  color: #fff;
+  backdrop-filter: blur(18px);
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.36);
 }
 
