@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Location } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AlbumService, AlbumDetail, AlbumVersion, VersionRequestPayload } from '../../services/album.service';
@@ -42,7 +43,8 @@ export class AlbumComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly albumService: AlbumService,
     private readonly collectionService: CollectionService,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly location: Location
   ) {}
 
   ngOnInit(): void {
@@ -242,5 +244,9 @@ export class AlbumComponent implements OnInit {
       map[key].push(v);
     }
     return map;
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

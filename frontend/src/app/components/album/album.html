@@ -1,9 +1,14 @@
 <div class="album-page">
-  <div *ngIf="isLoading" class="loading">A carregar álbum...</div>
-  <div *ngIf="loadError" class="error">{{ loadError }}</div>
+  <div class="album-content-wrapper">
+    <div class="album-header" style="display: flex; justify-content: flex-end;">
+      <button type="button" class="btn-back" (click)="goBack()" id="album-back-btn">← Voltar</button>
+    </div>
 
-  <div *ngIf="album">
-    <div class="card">
+    <div *ngIf="isLoading" class="loading">A carregar álbum...</div>
+    <div *ngIf="loadError" class="error">{{ loadError }}</div>
+
+    <div *ngIf="album">
+      <div class="card">
       <div class="header">
         <img *ngIf="album.coverImage; else noCover" [src]="album.coverImage" alt="Capa" class="cover" />
         <ng-template #noCover>
@@ -136,6 +141,7 @@
       <output *ngIf="showRequestSuccessToast" class="request-success-toast" aria-live="polite">
         {{ requestSuccessToastMessage }}
       </output>
+    </div>
     </div>
   </div>
 </div>
