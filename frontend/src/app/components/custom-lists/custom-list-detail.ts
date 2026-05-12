@@ -1,13 +1,13 @@
 import { Component, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CustomListService, CustomListDetail } from '../../services/custom-list.service';
 
 @Component({
   selector: 'app-custom-list-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './custom-list-detail.html',
   styleUrl: './custom-list-detail.css'
 })
