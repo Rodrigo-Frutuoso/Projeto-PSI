@@ -13,6 +13,7 @@ import { CollectionComponent } from './components/collection/collection';
 import { AlbumComponent } from './components/album/album';
 import { VersionRequestsComponent } from './components/version-requests/version-requests';
 import { CustomListsComponent } from './components/custom-lists/custom-lists';
+import { CustomListDetailComponent } from './components/custom-lists/custom-list-detail';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [guestGuard] },
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path: 'collection', component: CollectionComponent, canActivate: [authGuard] },
   { path: 'requests', component: VersionRequestsComponent, canActivate: [authGuard] },
   { path: 'custom-lists', component: CustomListsComponent, canActivate: [authGuard] },
+  { path: 'custom-lists/:id', component: CustomListDetailComponent, canActivate: [authGuard] },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'search', component: SearchComponent, canActivate: [authGuard] },
   { path: 'artist/:id', component: ArtistComponent, canActivate: [authGuard] },

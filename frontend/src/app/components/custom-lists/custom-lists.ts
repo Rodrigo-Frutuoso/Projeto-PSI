@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CustomListService, CustomList } from '../../services/custom-list.service';
 
 type SortField = 'name' | 'albumCount' | 'updatedAt';
@@ -9,7 +9,7 @@ type SortField = 'name' | 'albumCount' | 'updatedAt';
 @Component({
   selector: 'app-custom-lists',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './custom-lists.html',
   styleUrl: './custom-lists.css'
 })
@@ -34,6 +34,8 @@ export class CustomListsComponent implements OnInit, OnDestroy {
   sortField: SortField = 'updatedAt';
   sortDirection: 'asc' | 'desc' = 'desc';
   isSortDropdownOpen = false;
+  showDeleteConfirm = false;
+  pendingDeleteList: CustomList | null = null;
 
   readonly sortOptions: Array<{ value: SortField; label: string }> = [
     { value: 'name', label: 'Nome' },
@@ -133,6 +135,41 @@ export class CustomListsComponent implements OnInit, OnDestroy {
     this.showCreateForm = false;
     this.newListName = '';
     this.createError = '';
+  }
+
+  requestRemoveList(list: CustomList): void {
+    this.pendingDeleteList = list;
+    this.showDeleteConfirm = true;
+    this.cdr.detectChanges();
+  }
+
+  cancelRemoveList(): void {
+    this.pendingDeleteList = null;
+    this.showDeleteConfirm = false;
+    this.cdr.detectChanges();
+  }
+
+  confirmRemoveList(): void {
+    if (!this.pendingDeleteList) {
+      return;
+    }
+
+    const list = this.pendingDeleteList;
+    this.pendingDeleteList = null;
+    this.showDeleteConfirm = false;
+
+    this.customListService.deleteList(list.id).subscribe({
+      next: (response) => {
+        this.lists = this.lists.filter(item => item.id !== list.id);
+        this.applySorting();
+        this.showFeedbackToast(response.message || 'Lista removida com sucesso!', 'success');
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.showFeedbackToast(err.error?.message || 'Erro ao remover a lista.', 'error');
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   // ── Sort ──
