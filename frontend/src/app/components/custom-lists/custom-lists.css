@@ -509,114 +509,6 @@
   font-weight: 600;
 }
 
-.list-name-link {
-  color: #fff;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.list-name-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.list-actions {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.btn-list-open,
-.btn-list-remove {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 999px;
-  padding: 0.45rem 0.8rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  cursor: pointer;
-  text-decoration: none;
-  font-family: inherit;
-  transition: all 0.2s ease;
-}
-
-.btn-list-open {
-  background: rgba(255, 255, 255, 0.08);
-  color: #e5e7eb;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.btn-list-open:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-}
-
-.btn-list-remove {
-  background: rgba(239, 68, 68, 0.12);
-  color: #fecaca;
-  border: 1px solid rgba(239, 68, 68, 0.22);
-}
-
-.btn-list-remove:hover {
-  background: rgba(239, 68, 68, 0.18);
-  color: #fff;
-}
-
-.col-actions,
-.cell-actions {
-  white-space: nowrap;
-}
-
-.remove-confirm-toast {
-  position: fixed;
-  right: 20px;
-  bottom: 84px;
-  z-index: 10002;
-  max-width: min(440px, calc(100vw - 2rem));
-  padding: 1rem 1.1rem;
-  border-radius: 14px;
-  background: rgba(17, 24, 39, 0.98);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #f3f4f6;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
-}
-
-.remove-confirm-toast::backdrop {
-  background: rgba(2, 6, 23, 0.65);
-}
-
-.remove-confirm-toast p {
-  margin: 0 0 1rem;
-}
-
-.toast-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.7rem;
-}
-
-.btn-toast {
-  border: none;
-  border-radius: 10px;
-  padding: 0.55rem 0.9rem;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.btn-toast-neutral {
-  background: rgba(255, 255, 255, 0.1);
-  color: #e5e7eb;
-}
-
-.btn-toast-danger {
-  background: rgba(239, 68, 68, 0.88);
-  color: #fff;
-}
-
 .count-badge {
   display: inline-block;
   background: rgba(167, 139, 250, 0.15);
@@ -772,23 +664,6 @@
     margin-bottom: 0.5rem;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 10px 10px 0 0;
-  }
-
-  .cell-actions {
-    justify-content: flex-start !important;
-    align-items: flex-start !important;
-  }
-
-  .list-actions {
-    justify-content: flex-end;
-    width: 100%;
-  }
-
-  .remove-confirm-toast {
-    right: 12px;
-    left: 12px;
-    bottom: 12px;
-    max-width: none;
   }
 
   .action-toast {

@@ -9,25 +9,9 @@ export interface CustomList {
   updatedAt: string;
 }
 
-export interface CustomListAlbum {
-  albumId: string;
-  title: string;
-  artistName: string;
-  releaseYear: number;
-  addedAt: string;
-}
-
-export interface CustomListDetail extends CustomList {
-  albums: CustomListAlbum[];
-}
-
 export interface CreateListResponse {
   message: string;
   list?: CustomList;
-}
-
-export interface DeleteListResponse {
-  message: string;
 }
 
 @Injectable({
@@ -49,23 +33,11 @@ export class CustomListService {
     return this.http.get<CustomList[]>(this.apiUrl, { headers: this.getAuthHeaders() });
   }
 
-  getList(id: string): Observable<CustomListDetail> {
-    return this.http.get<CustomListDetail>(`${this.apiUrl}/${encodeURIComponent(id)}`, {
-      headers: this.getAuthHeaders()
-    });
-  }
-
   createList(name: string): Observable<CreateListResponse> {
     return this.http.post<CreateListResponse>(
       this.apiUrl,
       { name },
       { headers: this.getAuthHeaders() }
     );
-  }
-
-  deleteList(id: string): Observable<DeleteListResponse> {
-    return this.http.delete<DeleteListResponse>(`${this.apiUrl}/${encodeURIComponent(id)}`, {
-      headers: this.getAuthHeaders()
-    });
   }
 }

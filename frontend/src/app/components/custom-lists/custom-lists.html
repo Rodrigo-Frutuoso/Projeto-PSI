@@ -125,42 +125,23 @@
             <th (click)="sortBy('updatedAt')" class="sortable" id="sort-updated">
               Última Modificação <span class="sort-icon">{{ getSortIcon('updatedAt') }}</span>
             </th>
-            <th class="col-actions">Ações</th>
           </tr>
         </thead>
         <tbody>
           @for (list of lists; track list.id) {
           <tr class="collection-row" id="list-item-{{ list.id }}">
             <td class="cell-name" data-label="Nome">
-              <a [routerLink]="['/custom-lists', list.id]" class="list-name-link">{{ list.name }}</a>
+              <span class="list-name-text">{{ list.name }}</span>
             </td>
             <td class="cell-count" data-label="Nº de Álbuns">
               <span class="count-badge">{{ list.albumCount }}</span>
             </td>
             <td class="cell-date" data-label="Última Modificação">{{ formatDate(list.updatedAt) }}</td>
-            <td class="cell-actions" data-label="Ações">
-              <div class="list-actions">
-                <a [routerLink]="['/custom-lists', list.id]" class="btn-list-open">Abrir</a>
-                <button type="button" class="btn-list-remove" (click)="requestRemoveList(list)" [attr.aria-label]="'Remover a lista ' + list.name">
-                  Remover
-                </button>
-              </div>
-            </td>
           </tr>
           }
         </tbody>
       </table>
     </div>
-    }
-
-    @if (showDeleteConfirm && pendingDeleteList) {
-    <dialog class="remove-confirm-toast" open aria-live="polite" id="custom-list-remove-confirm">
-      <p>Quer remover a lista "{{ pendingDeleteList.name }}"?</p>
-      <div class="toast-actions">
-        <button class="btn-toast btn-toast-neutral" (click)="cancelRemoveList()">Cancelar</button>
-        <button class="btn-toast btn-toast-danger" (click)="confirmRemoveList()">Remover</button>
-      </div>
-    </dialog>
     }
 
     <output *ngIf="showActionToast" class="action-toast"
