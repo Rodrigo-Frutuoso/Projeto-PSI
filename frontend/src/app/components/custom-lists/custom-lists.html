@@ -1,0 +1,153 @@
+<div class="custom-lists-page">
+  <div class="custom-lists-container">
+    <!-- Header -->
+    <div class="page-header">
+      <h1 class="page-title">As minhas listas</h1>
+      <div class="header-actions">
+        <button class="btn-create" (click)="toggleCreateForm()" id="create-list-btn">
+          <span class="material-symbols-outlined btn-icon" aria-hidden="true">add</span>
+          Nova lista
+        </button>
+        <button class="btn-back" (click)="goToDashboard()" id="lists-back-btn">
+          ← Voltar
+        </button>
+      </div>
+    </div>
+
+    <!-- Create List Form -->
+    @if (showCreateForm) {
+    <div class="create-form-card" id="create-list-form">
+      <h2 class="form-title">Criar nova lista</h2>
+      <form (ngSubmit)="createList()" class="create-form">
+        <div class="form-group">
+          <label for="listName" class="form-label">Nome da lista</label>
+          <input
+            type="text"
+            id="listName"
+            [(ngModel)]="newListName"
+            name="listName"
+            class="form-input"
+            placeholder="Ex: Favoritos de Jazz, Rock Clássico..."
+            maxlength="100"
+            autocomplete="off"
+            [class.input-error]="createError"
+          >
+          <div class="input-meta">
+            <span class="char-count" [class.near-limit]="nameCharCount > 80" [class.at-limit]="nameCharCount >= 100">
+              {{ nameCharCount }}/100
+            </span>
+          </div>
+          @if (createError) {
+          <p class="error-msg" id="create-list-error">{{ createError }}</p>
+          }
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" (click)="cancelCreate()">Cancelar</button>
+          <button type="submit" class="btn-submit" [disabled]="isCreating || nameCharCount === 0" id="submit-list-btn">
+            @if (isCreating) {
+              <span class="btn-spinner"></span> A criar...
+            } @else {
+              Criar lista
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+    }
+
+    <!-- Error -->
+    @if (loadError) {
+    <div class="alert alert-error">
+      <span class="alert-icon">✕</span>
+      <div>
+        <strong>Erro</strong>
+        <p>{{ loadError }}</p>
+      </div>
+    </div>
+    <div class="retry-wrapper">
+      <button class="btn-retry" (click)="loadLists()" id="lists-retry-btn">Tentar novamente</button>
+    </div>
+    }
+
+    <!-- Loading -->
+    @if (isLoading) {
+    <div class="loading-state">
+      <div class="loader-ring"></div>
+      <p>A carregar listas...</p>
+    </div>
+    }
+
+    <!-- Empty state -->
+    @if (!isLoading && !loadError && lists.length === 0) {
+    <div class="empty-state" id="lists-empty">
+      <h2>Sem listas personalizadas</h2>
+      <p>Ainda não criaste nenhuma lista personalizada. Clica em "Nova lista" para começar a organizar os teus álbuns!</p>
+    </div>
+    }
+
+    <!-- Lists Table -->
+    @if (!isLoading && !loadError && lists.length > 0) {
+    <div class="collection-controls">
+      <div class="collection-stats">
+        <span class="stats-badge">{{ lists.length }} {{ lists.length === 1 ? 'lista' : 'listas' }}</span>
+      </div>
+
+      <!-- Mobile Sort Dropdown -->
+      <div class="mobile-sort-container">
+        <div class="custom-dropdown" [class.active]="isSortDropdownOpen">
+          <button class="dropdown-toggle" (click)="toggleSortDropdown()">
+            <span>{{ getSortLabel() }} {{ sortDirection === 'asc' ? '↑' : '↓' }}</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="dropdown-menu" *ngIf="isSortDropdownOpen">
+            @for (opt of sortOptions; track opt.value) {
+              <div class="dropdown-item"
+                   [class.active]="sortField === opt.value"
+                   (click)="selectSort(opt.value)">
+                {{ opt.label }}
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrapper" id="lists-table">
+      <table class="collection-table">
+        <thead>
+          <tr>
+            <th (click)="sortBy('name')" class="sortable" id="sort-name">
+              Nome <span class="sort-icon">{{ getSortIcon('name') }}</span>
+            </th>
+            <th (click)="sortBy('albumCount')" class="sortable" id="sort-album-count">
+              Nº de Álbuns <span class="sort-icon">{{ getSortIcon('albumCount') }}</span>
+            </th>
+            <th (click)="sortBy('updatedAt')" class="sortable" id="sort-updated">
+              Última Modificação <span class="sort-icon">{{ getSortIcon('updatedAt') }}</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (list of lists; track list.id) {
+          <tr class="collection-row" id="list-item-{{ list.id }}">
+            <td class="cell-name" data-label="Nome">
+              <span class="list-name-text">{{ list.name }}</span>
+            </td>
+            <td class="cell-count" data-label="Nº de Álbuns">
+              <span class="count-badge">{{ list.albumCount }}</span>
+            </td>
+            <td class="cell-date" data-label="Última Modificação">{{ formatDate(list.updatedAt) }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    }
+
+    <output *ngIf="showActionToast" class="action-toast"
+      [class.toast-success]="actionToastType === 'success'" [class.toast-error]="actionToastType === 'error'"
+      aria-live="polite">
+      {{ actionToastType === 'success' ? '✓ ' : '✕ ' }}{{ actionToastMessage }}
+    </output>
+  </div>
+</div>
