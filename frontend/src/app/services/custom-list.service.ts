@@ -30,6 +30,10 @@ export interface DeleteListResponse {
   message: string;
 }
 
+export interface AddAlbumToListResponse {
+  message: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -68,4 +72,13 @@ export class CustomListService {
       headers: this.getAuthHeaders()
     });
   }
+
+  addAlbumToList(listId: string, albumId: string): Observable<AddAlbumToListResponse> {
+    return this.http.post<AddAlbumToListResponse>(
+      `${this.apiUrl}/${encodeURIComponent(listId)}/albums`,
+      { albumId },
+      { headers: this.getAuthHeaders() }
+    );
+  }
 }
+

@@ -128,6 +128,48 @@ router.get('/:id', authMiddleware, async (req, res) => {
     }
 });
 
+// POST /api/custom-lists/:id/albums — Adicionar um álbum a uma lista personalizada
+router.post('/:id/albums', authMiddleware, async (req, res) => {
+    try {
+        const { albumId } = req.body;
+
+        if (!albumId) {
+            return res.status(400).json({ message: 'O ID do álbum é obrigatório.' });
+        }
+
+        // Verificar se o álbum existe
+        const Album = require('../models/Album');
+        const albumExists = await Album.findById(albumId);
+        if (!albumExists) {
+            return res.status(404).json({ message: 'Álbum não encontrado.' });
+        }
+
+        // Encontrar a lista do utilizador
+        const list = await CustomList.findOne({ _id: req.params.id, user: req.userId });
+        if (!list) {
+            return res.status(404).json({ message: 'Lista personalizada não encontrada.' });
+        }
+
+        // Verificar se o álbum já está na lista
+        const alreadyInList = list.albums.some(
+            entry => entry.album.toString() === albumId
+        );
+        if (alreadyInList) {
+            return res.status(409).json({ message: 'Este álbum já se encontra nesta lista.' });
+        }
+
+        // Adicionar o álbum à lista
+        list.albums.push({ album: albumId, addedAt: new Date() });
+        await list.save();
+
+        res.status(200).json({ message: 'Álbum adicionado à lista com sucesso!' });
+
+    } catch (error) {
+        console.error('Erro ao adicionar álbum à lista personalizada:', error);
+        res.status(500).json({ message: 'Erro ao adicionar o álbum à lista.' });
+    }
+});
+
 // DELETE /api/custom-lists/:id — Remover uma lista personalizada
 router.delete('/:id', authMiddleware, async (req, res) => {
     try {

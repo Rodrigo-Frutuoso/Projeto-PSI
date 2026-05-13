@@ -5,6 +5,8 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AlbumService, AlbumDetail, AlbumVersion, VersionRequestPayload } from '../../services/album.service';
 import { CollectionService } from '../../services/collection.service';
+import { CustomListService, CustomList } from '../../services/custom-list.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-album',
@@ -36,13 +38,26 @@ export class AlbumComponent implements OnInit {
   showSuccessToast = false;
   requestSuccessToastMessage = '';
   showRequestSuccessToast = false;
+
+  /** Custom lists */
+  userLists: CustomList[] = [];
+  showListDropdown = false;
+  addingToListId: string | null = null;
+  listToastMessage = '';
+  showListToast = false;
+  listToastType: 'success' | 'error' = 'success';
+  isLoggedIn = false;
+
   private successToastTimer: ReturnType<typeof setTimeout> | null = null;
   private requestSuccessToastTimer: ReturnType<typeof setTimeout> | null = null;
+  private listToastTimer: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly albumService: AlbumService,
     private readonly collectionService: CollectionService,
+    private readonly customListService: CustomListService,
+    private readonly authService: AuthService,
     private readonly cdr: ChangeDetectorRef,
     private readonly location: Location
   ) {}
@@ -81,6 +96,20 @@ export class AlbumComponent implements OnInit {
         // Non-critical: buttons will just not be pre-disabled
       }
     });
+
+    // Pre-load user's custom lists
+    this.isLoggedIn = this.authService.isAuthenticated();
+    if (this.isLoggedIn) {
+      this.customListService.getLists().subscribe({
+        next: (lists) => {
+          this.userLists = lists;
+          this.cdr.detectChanges();
+        },
+        error: () => {
+          // Non-critical
+        }
+      });
+    }
   }
 
   submitVersionRequest(): void {
@@ -248,5 +277,52 @@ export class AlbumComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  /** Toggle the custom list dropdown */
+  toggleListDropdown(): void {
+    this.showListDropdown = !this.showListDropdown;
+    this.cdr.detectChanges();
+  }
+
+  /** Add the current album to a custom list */
+  addToList(listId: string): void {
+    if (!this.album?._id || this.addingToListId) return;
+
+    this.addingToListId = listId;
+    this.cdr.detectChanges();
+
+    this.customListService.addAlbumToList(listId, this.album._id).subscribe({
+      next: (res) => {
+        this.addingToListId = null;
+        this.showListDropdown = false;
+        this.showListToastFn(res.message || 'Álbum adicionado à lista com sucesso!', 'success');
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.addingToListId = null;
+        const msg = err.error?.message || 'Erro ao adicionar o álbum à lista.';
+        const type = err.status === 409 ? 'error' : 'error';
+        this.showListToastFn(msg, type);
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  private showListToastFn(message: string, type: 'success' | 'error'): void {
+    this.listToastMessage = message;
+    this.listToastType = type;
+    this.showListToast = true;
+
+    if (this.listToastTimer) {
+      clearTimeout(this.listToastTimer);
+    }
+
+    this.listToastTimer = setTimeout(() => {
+      this.showListToast = false;
+      this.cdr.detectChanges();
+    }, 3500);
+
+    this.cdr.detectChanges();
   }
 }

@@ -20,6 +20,29 @@
           <p><strong>Ano:</strong> {{ album.releaseYear }}</p>
           <p><strong>Tipo:</strong> {{ album.albumType }}</p>
           <p *ngIf="album.artista"><strong>Artista:</strong> {{ album.artista.name }}</p>
+
+          <!-- Add to custom list -->
+          <div *ngIf="isLoggedIn" class="add-to-list-wrapper">
+            <button type="button" class="btn-add-to-list" (click)="toggleListDropdown()" id="album-add-to-list-btn">
+              📋 Adicionar a Lista
+            </button>
+            <div *ngIf="showListDropdown" class="list-dropdown">
+              <div *ngIf="userLists.length === 0" class="list-dropdown-empty">
+                Sem listas personalizadas criadas.
+              </div>
+              <button
+                *ngFor="let list of userLists"
+                type="button"
+                class="list-dropdown-item"
+                [disabled]="addingToListId === list.id"
+                (click)="addToList(list.id)"
+              >
+                <span class="list-dropdown-name">{{ list.name }}</span>
+                <span class="list-dropdown-count">{{ list.albumCount }} álbuns</span>
+                <span *ngIf="addingToListId === list.id" class="list-dropdown-loading">...</span>
+              </button>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -140,6 +163,10 @@
 
       <output *ngIf="showRequestSuccessToast" class="request-success-toast" aria-live="polite">
         {{ requestSuccessToastMessage }}
+      </output>
+
+      <output *ngIf="showListToast" class="list-toast" [class.list-toast-success]="listToastType === 'success'" [class.list-toast-error]="listToastType === 'error'" aria-live="polite">
+        {{ listToastMessage }}
       </output>
     </div>
     </div>
