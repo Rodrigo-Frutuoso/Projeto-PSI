@@ -1,11 +1,13 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import {
   VersionRequestItem,
   VersionRequestService,
   VersionRequestStatus
 } from '../../services/version-request.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-version-requests',
@@ -14,11 +16,12 @@ import {
   templateUrl: './version-requests.html',
   styleUrl: './version-requests.css'
 })
-export class VersionRequestsComponent implements OnInit {
+export class VersionRequestsComponent implements OnInit, OnDestroy {
   requests: VersionRequestItem[] = [];
   isLoading = true;
   errorMessage = '';
   selectedStatus: '' | VersionRequestStatus = '';
+  private readonly destroy$ = new Subject<void>();
 
   readonly statuses: Array<{ value: '' | VersionRequestStatus; label: string }> = [
     { value: '', label: 'Todos os estados' },
@@ -31,12 +34,24 @@ export class VersionRequestsComponent implements OnInit {
 
   constructor(
     private readonly versionRequestService: VersionRequestService,
+    private readonly notificationService: NotificationService,
     private readonly router: Router,
     private readonly cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.loadRequests();
+
+    this.notificationService.versionRequestsChanged$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.loadRequests();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   toggleDropdown() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export interface Notification {
@@ -18,14 +18,16 @@ export interface Notification {
 export class NotificationService {
   private readonly apiUrl = '/api/version-requests';
   private readonly tokenKey = 'auth_token';
-  private notificationsSubject = new BehaviorSubject<Notification[]>([]);
+  private readonly notificationsSubject = new BehaviorSubject<Notification[]>([]);
   public notifications$ = this.notificationsSubject.asObservable();
+  private readonly versionRequestsChangedSubject = new Subject<void>();
+  public versionRequestsChanged$ = this.versionRequestsChangedSubject.asObservable();
   
-  private notificationToastSubject = new BehaviorSubject<{message: string, show: boolean}>({message: '', show: false});
+  private readonly notificationToastSubject = new BehaviorSubject<{message: string, show: boolean}>({message: '', show: false});
   public notificationToast$ = this.notificationToastSubject.asObservable();
   
   private pollingInterval?: ReturnType<typeof setInterval>;
-  private previousRequestsMap: Map<string, string> = new Map();
+  private readonly previousRequestsMap: Map<string, string> = new Map();
 
   constructor(private readonly http: HttpClient) {
     console.log('✅ NotificationService INICIALIZADO');
@@ -52,6 +54,7 @@ export class NotificationService {
     }).subscribe({
       next: (requests) => {
         console.log('📦 Pedidos recebidos:', requests.length, 'pedidos');
+        let hasChanges = false;
         
         for (const request of requests) {
           const previousStatus = this.previousRequestsMap.get(request.id);
@@ -61,8 +64,14 @@ export class NotificationService {
             const statusText = request.status === 'aceite' ? 'Aceite ✅' : 'Recusado ❌';
             console.log(`  ✅✅✅ MUDANÇA DETECTADA! ${request.albumTitle} - ${statusText}`);
             this.showNotification(`Pedido "${request.albumTitle}" foi ${statusText}`);
+            hasChanges = true;
           }
           this.previousRequestsMap.set(request.id, request.status);
+        }
+
+        if (hasChanges) {
+          this.getMyNotifications().subscribe();
+          this.notifyVersionRequestsChanged();
         }
       },
       error: (err) => {
@@ -80,6 +89,10 @@ export class NotificationService {
       console.log('🔄 Escondendo notificação...');
       this.notificationToastSubject.next({message: '', show: false});
     }, 4000);
+  }
+
+  private notifyVersionRequestsChanged(): void {
+    this.versionRequestsChangedSubject.next();
   }
 
   getMyNotifications(): Observable<Notification[]> {
@@ -100,11 +113,12 @@ export class NotificationService {
   }
 
   respondToRequest(requestId: string, action: 'aceite' | 'recusado'): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${requestId}/respond`, { action }, {
+    return this.http.post(`${this.apiUrl}/${requestId}/respond`, { status: action }, {
       headers: this.getAuthHeaders()
     }).pipe(
       map(response => {
         this.getMyNotifications().subscribe();
+        this.notifyVersionRequestsChanged();
         return response;
       })
     );
