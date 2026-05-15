@@ -38,10 +38,11 @@
         <table class="detail-table">
           <thead>
             <tr>
-              <th>Álbum</th>
-              <th>Artista</th>
-              <th>Ano</th>
-              <th>Adicionado</th>
+              <th (click)="sortBy('title')" class="sortable">Álbum <span class="sort-icon">{{ getSortIcon('title') }}</span></th>
+              <th (click)="sortBy('artistName')" class="sortable">Artista <span class="sort-icon">{{ getSortIcon('artistName') }}</span></th>
+              <th (click)="sortBy('releaseYear')" class="sortable">Ano <span class="sort-icon">{{ getSortIcon('releaseYear') }}</span></th>
+              <th (click)="sortBy('addedAt')" class="sortable">Adicionado <span class="sort-icon">{{ getSortIcon('addedAt') }}</span></th>
+              <th class="col-actions">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -55,6 +56,11 @@
               <td>{{ album.artistName }}</td>
               <td>{{ album.releaseYear }}</td>
               <td>{{ formatDate(album.addedAt) }}</td>
+              <td class="cell-actions">
+                <button class="btn-remove" (click)="requestRemoveAlbum(album.albumId)" title="Remover da lista">
+                  <span class="material-symbols-outlined" aria-hidden="true">delete</span>
+                </button>
+              </td>
             </tr>
             }
           </tbody>
@@ -70,3 +76,8 @@
     }
   </div>
 </div>
+@if (showActionToast) {
+<output class="custom-list-action-toast" [class.toast-success]="actionToastType === 'success'" [class.toast-error]="actionToastType === 'error'" aria-live="polite">
+  {{ actionToastType === 'success' ? '✓ ' : '✕ ' }}{{ actionToastMessage }}
+</output>
+}

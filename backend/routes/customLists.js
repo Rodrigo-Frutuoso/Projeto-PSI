@@ -170,6 +170,32 @@ router.post('/:id/albums', authMiddleware, async (req, res) => {
     }
 });
 
+// DELETE /api/custom-lists/:id/albums/:albumId — Remover um álbum de uma lista personalizada
+router.delete('/:id/albums/:albumId', authMiddleware, async (req, res) => {
+    try {
+        const { id, albumId } = req.params;
+
+        const list = await CustomList.findOne({ _id: id, user: req.userId });
+        if (!list) {
+            return res.status(404).json({ message: 'Lista personalizada não encontrada.' });
+        }
+
+        const entryIndex = list.albums.findIndex(entry => entry.album.toString() === albumId);
+        if (entryIndex === -1) {
+            return res.status(404).json({ message: 'Álbum não encontrado nesta lista.' });
+        }
+
+        list.albums.splice(entryIndex, 1);
+        await list.save();
+
+        res.status(200).json({ message: 'Álbum removido da lista com sucesso!' });
+
+    } catch (error) {
+        console.error('Erro ao remover álbum da lista personalizada:', error);
+        res.status(500).json({ message: 'Erro ao remover o álbum da lista.' });
+    }
+});
+
 // DELETE /api/custom-lists/:id — Remover uma lista personalizada
 router.delete('/:id', authMiddleware, async (req, res) => {
     try {
