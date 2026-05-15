@@ -123,6 +123,9 @@ Projeto-PSI/
 │   │   │       ├── artist/            # Informação do artista (US6)
 │   │   │       ├── artist-albums/     # Álbuns do artista (US6)
 │   │   │       ├── album/             # Detalhes do álbum e versões (US9, US12)
+│   │   │       ├── custom-lists/      # Listas personalizadas e detalhe (US15-US18)
+│   │   │       │   ├── custom-lists.html
+│   │   │       │   ├── custom-list-detail.html
 │   │   │       └── collection/        # Coleção de utilizador (US10, US11)
 │   └── public/
 │       └── icons/
@@ -148,6 +151,11 @@ Projeto-PSI/
 | US12 | 12. Submeter pedido de nova versão |
 | US13 | 13. Ver estado dos pedidos |
 | US14 | 14. Notificações e gestão de pedidos |
+| US15 | 15. Criar lista personalizada |
+| US16 | 16. Visualizar e gerir listas personalizadas |
+| US17 | 17. Adicionar álbum a lista personalizada |
+| US18 | 18. Visualizar conteúdo da lista personalizada |
+| US19 | 19. Dashboard e navegação resumida |
 
 ## Endpoints da API
 

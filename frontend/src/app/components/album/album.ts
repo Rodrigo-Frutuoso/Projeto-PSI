@@ -1,8 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Location } from '@angular/common';
+import { Component, OnInit, ChangeDetectorRef, HostListener, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
 import { RouterModule, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { forkJoin } from 'rxjs';
 import { AlbumService, AlbumDetail, AlbumVersion, VersionRequestPayload } from '../../services/album.service';
 import { CollectionService } from '../../services/collection.service';
 import { CustomListService, CustomList } from '../../services/custom-list.service';
@@ -43,10 +43,13 @@ export class AlbumComponent implements OnInit {
   userLists: CustomList[] = [];
   showListDropdown = false;
   addingToListId: string | null = null;
+  listAlbumPresence: Record<string, boolean> = {};
   listToastMessage = '';
   showListToast = false;
   listToastType: 'success' | 'error' = 'success';
   isLoggedIn = false;
+
+  @ViewChild('addToListWrapper') addToListWrapper?: ElementRef<HTMLDivElement>;
 
   private successToastTimer: ReturnType<typeof setTimeout> | null = null;
   private requestSuccessToastTimer: ReturnType<typeof setTimeout> | null = null;
@@ -77,6 +80,9 @@ export class AlbumComponent implements OnInit {
         this.album = data;
         this.isLoading = false;
         this.loadError = '';
+        if (this.isLoggedIn && this.userLists.length > 0) {
+          this.loadListAlbumPresence();
+        }
         this.cdr.detectChanges();
       },
       error: () => {
@@ -103,6 +109,9 @@ export class AlbumComponent implements OnInit {
       this.customListService.getLists().subscribe({
         next: (lists) => {
           this.userLists = lists;
+          if (this.album?._id) {
+            this.loadListAlbumPresence();
+          }
           this.cdr.detectChanges();
         },
         error: () => {
@@ -279,10 +288,54 @@ export class AlbumComponent implements OnInit {
     this.location.back();
   }
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.showListDropdown) {
+      return;
+    }
+
+    const target = event.target as Node | null;
+    if (target && this.addToListWrapper?.nativeElement.contains(target)) {
+      return;
+    }
+
+    this.showListDropdown = false;
+    this.cdr.detectChanges();
+  }
+
   /** Toggle the custom list dropdown */
   toggleListDropdown(): void {
     this.showListDropdown = !this.showListDropdown;
+    if (this.showListDropdown) {
+      this.loadListAlbumPresence();
+    }
     this.cdr.detectChanges();
+  }
+
+  private loadListAlbumPresence(): void {
+    if (!this.album?._id || this.userLists.length === 0) {
+      return;
+    }
+
+    forkJoin(this.userLists.map((list) => this.customListService.getList(list.id))).subscribe({
+      next: (lists) => {
+        const presence: Record<string, boolean> = {};
+
+        for (const list of lists) {
+          presence[list.id] = list.albums.some(album => album.albumId === this.album?._id);
+        }
+
+        this.listAlbumPresence = presence;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        // Non-critical
+      }
+    });
+  }
+
+  isAlbumInList(listId: string): boolean {
+    return !!this.listAlbumPresence[listId];
   }
 
   /** Add the current album to a custom list */
@@ -295,6 +348,10 @@ export class AlbumComponent implements OnInit {
     this.customListService.addAlbumToList(listId, this.album._id).subscribe({
       next: (res) => {
         this.addingToListId = null;
+        this.listAlbumPresence = {
+          ...this.listAlbumPresence,
+          [listId]: true
+        };
         this.showListDropdown = false;
         this.showListToastFn(res.message || 'Álbum adicionado à lista com sucesso!', 'success');
         this.cdr.detectChanges();
@@ -302,7 +359,7 @@ export class AlbumComponent implements OnInit {
       error: (err) => {
         this.addingToListId = null;
         const msg = err.error?.message || 'Erro ao adicionar o álbum à lista.';
-        const type = err.status === 409 ? 'error' : 'error';
+        const type = 'error';
         this.showListToastFn(msg, type);
         this.cdr.detectChanges();
       }

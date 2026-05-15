@@ -1,9 +1,8 @@
 .custom-lists-page {
-  min-height: 100vh;
+  min-height: auto;
   background: transparent;
   padding: 2rem;
   position: relative;
-  overflow-y: auto;
 }
 
 .custom-lists-container {
@@ -572,8 +571,9 @@
 
 .remove-confirm-toast {
   position: fixed;
-  right: 20px;
-  bottom: 84px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 10002;
   max-width: min(440px, calc(100vw - 2rem));
   padding: 1rem 1.1rem;
@@ -590,11 +590,12 @@
 
 .remove-confirm-toast p {
   margin: 0 0 1rem;
+  text-align: center;
 }
 
 .toast-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 0.7rem;
 }
 

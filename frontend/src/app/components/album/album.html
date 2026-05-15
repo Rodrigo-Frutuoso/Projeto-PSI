@@ -1,6 +1,6 @@
 <div class="album-page">
   <div class="album-content-wrapper">
-    <div class="album-header" style="display: flex; justify-content: flex-end;">
+    <div class="album-header">
       <button type="button" class="btn-back" (click)="goBack()" id="album-back-btn">← Voltar</button>
     </div>
 
@@ -15,41 +15,47 @@
           <div class="cover placeholder">Sem imagem</div>
         </ng-template>
         <div class="meta">
-          <h2>{{ album.title }}</h2>
-          <p><strong>MBID:</strong> {{ album.mbid }}</p>
-          <p><strong>Ano:</strong> {{ album.releaseYear }}</p>
-          <p><strong>Tipo:</strong> {{ album.albumType }}</p>
-          <p *ngIf="album.artista"><strong>Artista:</strong> {{ album.artista.name }}</p>
-
-          <!-- Add to custom list -->
-          <div *ngIf="isLoggedIn" class="add-to-list-wrapper">
-            <button type="button" class="btn-add-to-list" (click)="toggleListDropdown()" id="album-add-to-list-btn">
-              📋 Adicionar a Lista
-            </button>
-            <div *ngIf="showListDropdown" class="list-dropdown">
-              <div *ngIf="userLists.length === 0" class="list-dropdown-empty">
-                Sem listas personalizadas criadas.
-              </div>
-              <button
-                *ngFor="let list of userLists"
-                type="button"
-                class="list-dropdown-item"
-                [disabled]="addingToListId === list.id"
-                (click)="addToList(list.id)"
-              >
-                <span class="list-dropdown-name">{{ list.name }}</span>
-                <span class="list-dropdown-count">{{ list.albumCount }} álbuns</span>
-                <span *ngIf="addingToListId === list.id" class="list-dropdown-loading">...</span>
+          <div class="album-title-row">
+            <h2>{{ album.title }}</h2>
+            <div *ngIf="isLoggedIn" class="add-to-list-wrapper" #addToListWrapper>
+              <button type="button" class="btn-add-to-list" (click)="toggleListDropdown()" id="album-add-to-list-btn">
+                <span class="material-symbols-outlined btn-add-to-list-icon" aria-hidden="true">save</span>
+                <span>Adicionar à Lista</span>
               </button>
+              <div *ngIf="showListDropdown" class="list-dropdown">
+                <div *ngIf="userLists.length === 0" class="list-dropdown-empty">
+                  Sem listas personalizadas criadas.
+                </div>
+                <button
+                  *ngFor="let list of userLists"
+                  type="button"
+                  class="list-dropdown-item"
+                  [disabled]="addingToListId === list.id || isAlbumInList(list.id)"
+                  (click)="addToList(list.id)"
+                >
+                  <span class="list-dropdown-main">
+                    <span class="list-dropdown-name">{{ list.name }}</span>
+                    <span class="list-dropdown-status" [class.status-in-list]="isAlbumInList(list.id)" [class.status-not-in-list]="!isAlbumInList(list.id)">
+                      {{ isAlbumInList(list.id) ? 'Já está na lista' : 'Ainda não está na lista' }}
+                    </span>
+                  </span>
+                  <span class="list-dropdown-count">{{ list.albumCount }} álbuns</span>
+                  <span *ngIf="addingToListId === list.id" class="list-dropdown-loading">...</span>
+                </button>
+              </div>
             </div>
           </div>
+          <p><strong>MBID:</strong> {{ album.mbid }}</p>
+          <p><strong>Tipo:</strong> {{ album.albumType }}</p>
+          <p><strong>Ano:</strong> {{ album.releaseYear }}</p>
+          <p *ngIf="album.artista"><strong>Artista:</strong> {{ album.artista.name }}</p>
         </div>
 
       </div>
 
       <!-- Modal overlay para pedido de nova versão -->
-      <div *ngIf="showRequestModal" class="modal-overlay" (click)="closeRequestModal()">
-        <div class="modal" (click)="$event.stopPropagation()">
+      <div *ngIf="showRequestModal" class="modal-overlay" (click)="closeRequestModal()" (keydown.escape)="closeRequestModal()">
+        <dialog class="modal" open (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
           <button type="button" class="modal-close" (click)="closeRequestModal()">×</button>
           <h3>Pedido de nova versão</h3>
           <p class="request-description">Se esta versão ainda não existir, podes submeter um pedido para que fique em
@@ -83,7 +89,7 @@
               {{ isSubmittingRequest ? 'A submeter...' : 'Submeter pedido' }}
             </button>
           </form>
-        </div>
+        </dialog>
       </div>
 
       <div class="album-main-content">
